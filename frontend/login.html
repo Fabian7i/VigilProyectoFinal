@@ -35,15 +35,19 @@
                 <h2>INICIO DE SESIÓN</h2>
                 <p class="subtitulo">Accede a tu cuenta para continuar</p>
 
-                <form action="dashboard.html">
+                <!-- 1. Añadimos un ID único al formulario y quitamos el action por defecto -->
+                <form id="form-login">
+                    
                     <div class="grupo-campo">
                         <label for="usuario">Usuario</label>
-                        <input type="text" id="usuario" placeholder="Ingresa tu usuario" required>
+                        <!-- 2. CAMBIO CRUCIAL: Agregamos name="email" para que Laravel lo reconozca -->
+                        <input type="email" id="usuario" name="email" placeholder="Ingresa tu correo electrónico" required>
                     </div>
 
                     <div class="grupo-campo">
                         <label for="pass">Contraseña</label>
-                        <input type="password" id="pass" placeholder="Ingresa tu contraseña" required>
+                        <!-- 3. CAMBIO CRUCIAL: Agregamos name="password" requerido por Laravel -->
+                        <input type="password" id="pass" name="password" placeholder="Ingresa tu contraseña" required>
                     </div>
 
                     <a href="#" class="olvido-pass">¿Olvidaste tu contraseña?</a>
@@ -101,5 +105,7 @@
         </div>
     </footer>
 
+    <!-- 4. Vinculamos el archivo JavaScript encargado de comunicarse con Laravel -->
+    <script src="js/login.js"></script>
 </body>
 </html>
