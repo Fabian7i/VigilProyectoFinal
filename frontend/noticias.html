@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias - Colegio Enrique Paillardelle</title>
+  <link rel="stylesheet" href="css/paginaweb.css">
+  <link rel="stylesheet" href="css/noticias.css">
+  <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts para mantener la tipografía Montserrat usada en tu CSS anterior -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ENCABEZADO CONSERVADO -->
+  <header>
+    <div class="logo">
+      <a href="index.html#inicio"><img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Enrique Paillardelle"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html#inicio">Inicio</a></li>
+        
+        <li class="dropdown">
+          <a href="index.html#nosotros" class="dropdown-toggle">Nosotros</a>
+          <ul class="dropdown-menu">
+            <li><a href="bienvenida.html">Bienvenida institucional</a></li>
+            <li><a href="historia.html">Reseña histórica</a></li>
+            <li><a href="#">Misión y Visión</a></li>
+            <li><a href="#">Plana directiva</a></li>
+            <li><a href="#">Comunidad Paillardelina</a></li>
+            <li><a href="himno.html">Himno del colegio</a></li>
+            <li><a href="#">Organigrama institucional</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="index.html#actividades">Actividades</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="index.html#admision">Admisión</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="login.html" class="btn">Iniciar Sesión</a>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL: PANEL DE NOTICIAS (Basado en la foto image_f84a0b.jpg) -->
+  <main class="contenedor-modulo-noticias">
+    
+    <!-- Título Principal -->
+    <section class="encabezado-noticias-titulo text-center">
+      <h2>ÚLTIMAS NOTICIAS</h2>
+      <div class="linea-decorativa-amarilla-centrada"></div>
+      <p>Mantente informado de nuestras actividades</p>
+    </section>
+
+    <!-- 1. SECCIÓN: NOTICIA DESTACADA -->
+    <section class="seccion-noticia-destacada">
+      <div class="fila-destacada">
+        
+        <!-- Imagen Izquierda -->
+        <div class="columna-imagen-destacada">
+          <img src="img/dia_del_padre.jpg" alt="ACTUACIÓN POR EL DIA DEL PADRE">
+        </div>
+        
+        <!-- Contenido Derecha -->
+        <div class="columna-info-destacada">
+          <div class="contenedor-cabecera-destacada">
+            <!-- Bloque de Fecha Azul -->
+            <div class="bloque-fecha">
+              <span class="dia">19</span>
+              <span class="mes-anio">JUN<br>2026</span>
+            </div>
+            <!-- Etiqueta amarilla -->
+            <span class="etiqueta-destacada">NOTICIA DESTACADA</span>
+          </div>
+
+          <h3>ACTUACIÓN POR EL DIA DEL PADRE</h3>
+          <p>Se llevó a cabo el "Homenaje a papá" realizado por los estudiantes de la I.E. Enrique Paillardelle del Nivel Primaria en la que presentaron diversos números artísticos en canto, danzas, recital de poemas y entrega de presentes y/o canastas a papá.</p>
+          <p>En definitiva la mañana estuvo llena de momentos emocionantes y recuerdos memorables que los papitos Paillardellinos no olvidaran.</p>
+          
+          <!-- Enlace que abre en pestaña nueva -->
+          <a href="noticias/dia-del-libro-2026.html" target="_blank" class="btn-leer-noticia-completa">Leer noticia completa →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. SECCIÓN: NOTICIAS RECIENTES -->
+    <section class="seccion-noticias-recientes">
+      <h3 class="titulo-recientes"><i class="bi bi-calendar"></i> NOTICIAS RECIENTES</h3>
+      
+      <div class="grid-noticias-recientes">
+        
+        <!-- Tarjeta 1 -->
+        <article class="tarjeta-noticia-reciente">
+          <div class="imagen-tarjeta">
+            <img src="img/matematicas.jpg" alt="Concurso Matemática">
+          </div>
+          <div class="cuerpo-tarjeta">
+            <span class="fecha-noticia">18 ABR 2026</span>
+            <h4>Concurso Interescolar de Matemática 2026</h4>
+            <p>Más de 300 estudiantes participaron en el concurso que promueve el razonamiento lógico y la resolución de problemas.</p>
+            <a href="noticias/concurso-matematica-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="tarjeta-noticia-reciente">
+          <div class="imagen-tarjeta">
+            <img src="img/ciencia.jpg" alt="Feria de Ciencia">
+          </div>
+          <div class="cuerpo-tarjeta">
+            <span class="fecha-noticia">15 ABR 2026</span>
+            <h4>Feria de Ciencia y Tecnología</h4>
+            <p>Nuestros estudiantes presentaron proyectos innovadores que promueven la investigación y el aprendizaje.</p>
+            <a href="noticias/feria-ciencia-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <article class="tarjeta-noticia-reciente">
+          <div class="imagen-tarjeta">
+            <img src="img/olimpiadas.jpg" alt="Olimpiadas Deportivas">
+          </div>
+          <div class="cuerpo-tarjeta">
+            <span class="fecha-noticia">10 ABR 2026</span>
+            <h4>Olimpiadas Deportivas Paillardelle 2026</h4>
+            <p>Se vivieron emocionantes encuentros deportivos con gran participación y espíritu de equipo.</p>
+            <a href="noticias/olimpiadas-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA CONSERVADO -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column footer-logo">
+        <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Enrique Paillardelle">
+        <div class="footer-links">
+          <a href="historia.html">Historia</a> |
+          <a href="#">Misión</a> |
+          <a href="#">Visión</a>
+        </div>
+      </div>
+
+      <div class="footer-column footer-contact">
+        <h3>Contacto</h3>
+        <p><strong>Dirección:</strong> Avenida Municipal S/N, Tacna, Perú</p>
+        <p><strong>Correo:</strong> enriquepaillardelle4228@gmail.com</p>
+        <p><strong>Teléfono:</strong> (052) 504692</p>
+      </div>
+
+      <div class="footer-column footer-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.1374526645396!2d-70.2524419!3d-18.0199927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf61099ec51d%3A0x6bda19f5068cfcb9!2sAv.%20Municipal%2C%20Tacna!5e0!3m2!1ses!2spe!4v1716490000000!5m2!1ses!2spe"
+          width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js/codigo.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
