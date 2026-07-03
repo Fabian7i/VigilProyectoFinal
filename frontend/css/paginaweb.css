@@ -483,7 +483,7 @@ section#valores .card:hover img.logo {
   margin-bottom: 30px;
   flex-grow: 1;
   transition: color 0.3s ease;
-  text-align: justify;
+  text-align: center;
 }
 
 .btn-leer-cuadro {
