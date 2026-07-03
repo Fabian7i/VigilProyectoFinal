@@ -11,10 +11,17 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array<int, string>
      */
-   protected $except = [
-    'register',
-    'http://127.0.0.1:8000/register',
-    'v1/*', // Por si usas prefijos
-    '*register*'
-];
+  protected $except = [
+        // Excepciones del Registro
+        'register',
+        'http://127.0.0.1:8000/register',
+        '*register*',
+
+        // ◄ AGREGA ESTAS LÍNEAS PARA EL LOGIN ►
+        'login',
+        'http://127.0.0.1:8000/login',
+        '*login*',
+
+        'v1/*', // Por si usas prefijos
+    ];
 }
