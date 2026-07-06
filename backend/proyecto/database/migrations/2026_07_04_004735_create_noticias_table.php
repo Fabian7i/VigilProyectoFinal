@@ -11,20 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+ public function up(): void
     {
         Schema::create('noticias', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('titulo');
+            $table->text('cuerpo');
+            $table->string('imagen'); // Guarda solo el nombre del archivo .webp (ej: abc123xyz.webp)
+            $table->boolean('es_destacada')->default(false); // Define si va al banner principal o a recientes
+            $table->timestamps(); // Genera automatically 'created_at' y 'updated_at'
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('noticias');
     }
