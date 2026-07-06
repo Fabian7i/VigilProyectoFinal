@@ -13,9 +13,10 @@ class VerifyCsrfToken extends Middleware
      */
   protected $except = [
         // Excepciones del Registro
-        'register',
+        'register', 'noticias',
         'http://127.0.0.1:8000/register',
         '*register*',
+       
 
         // ◄ AGREGA ESTAS LÍNEAS PARA EL LOGIN ►
         'login',

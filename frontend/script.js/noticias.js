@@ -1,95 +1,99 @@
-document.addEventListener("DOMContentLoaded", () => {
-    cargarNoticiasPaillardelle();
-});
+// URL base de tu backend Laravel
+const URL_BASE = 'http://127.0.0.1:8000';
+const contenedor = document.getElementById('contenedor-fotos-noticias');
+const formulario = document.getElementById('form-noticias-dashboard');
 
-async function cargarNoticiasPaillardelle() {
-    // Seleccionamos los contenedores usando las clases exactas de tu HTML
-    const contenedorDestacada = document.querySelector(".seccion-noticia-destacada");
-    const contenedorRecientes = document.querySelector(".grid-noticias-recientes");
-
-    // URL base de tu backend Laravel (Cámbiala si usas otro puerto local)
-    const URL_BASE = "http://127.0.0.1:8000"; 
-
+// ==========================================
+// 1. FUNCIÓN PARA ITERAR Y PINTAR LAS IMÁGENES
+// ==========================================
+async function cargarNoticiasEnGaleria() {
     try {
-        // Consumimos la API JSON de Laravel
-        const respuesta = await fetch(`${URL_BASE}/api/noticias`);
-        if (!respuesta.ok) throw new Error(`Error en servidor: ${respuesta.status}`);
-        
+        const respuesta = await fetch(`${URL_BASE}/noticias`, {
+            headers: { 'Accept': 'application/json' }
+        });
         const datos = await respuesta.json();
 
-        // 1. COMPONENTE: NOTICIA DESTACADA
-        if (datos.destacada && contenedorDestacada) {
-            // Desestructuramos la fecha del registro (Formato SQL: YYYY-MM-DD...)
-            const fechaObj = new Date(datos.destacada.created_at);
-            const dia = fechaObj.getDate().toString().padStart(2, '0');
-            const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"];
-            const mes = meses[fechaObj.getMonth()];
-            const anio = fechaObj.getFullYear();
+        if (respuesta.ok) {
+            // Limpiamos por completo las 4 imágenes estáticas que vienen por defecto en el HTML
+            contenedor.innerHTML = '';
 
-            // Reemplazamos el Homenaje al Día del Padre estático por la de la BD
-            contenedorDestacada.innerHTML = `
-                <div class="fila-destacada">
-                    <!-- Imagen Izquierda -->
-                    <div class="columna-imagen-destacada">
-                        <img src="${URL_BASE}/storage/imagenes/${datos.destacada.imagen}" alt="${datos.destacada.titulo}">
-                    </div>
-                    
-                    <!-- Contenido Derecha -->
-                    <div class="columna-info-destacada">
-                        <div class="contenedor-cabecera-destacada">
-                            <!-- Bloque de Fecha Azul -->
-                            <div class="bloque-fecha">
-                                <span class="dia">${dia}</span>
-                                <span class="mes-anio">${mes}<br>${anio}</span>
-                            </div>
-                            <!-- Etiqueta amarilla -->
-                            <span class="etiqueta-destacada">NOTICIA DESTACADA</span>
-                        </div>
+            // Combinamos la noticia destacada y las recientes en una sola lista para iterar
+            let todasLasNoticias = [];
+            
+            if (datos.destacada) {
+                todasLasNoticias.push(datos.destacada);
+            }
+            if (datos.recientes && datos.recientes.length > 0) {
+                todasLasNoticias = todasLasNoticias.concat(datos.recientes);
+            }
 
-                        <h3>${datos.destacada.titulo}</h3>
-                        <p>${datos.destacada.cuerpo}</p>
-                        
-                        <!-- Enlace dinámico con ID único -->
-                        <a href="noticia-detalle.html?id=${datos.destacada.id}" target="_blank" class="btn-leer-noticia-completa">Leer noticia completa →</a>
-                    </div>
-                </div>
-            `;
-        }
+            // Si la base de datos está vacía, ponemos un indicador visual limpio
+            if (todasLasNoticias.length === 0) {
+                contenedor.innerHTML = '<p class="text-muted text-center w-100">No hay noticias publicadas todavía.</p>';
+                return;
+            }
 
-        // 2. COMPONENTE: GRID DE NOTICIAS RECIENTES
-        if (datos.recientes && datos.recientes.length > 0 && contenedorRecientes) {
-            contenedorRecientes.innerHTML = ""; // Limpiamos las 3 tarjetas de prueba (Matemáticas, Ciencia, Olimpiadas)
+            // Iteramos cada noticia e inyectamos su imagen correspondiente en el contenedor
+            todasLasNoticias.forEach(noticia => {
+                // Armamos la ruta a la carpeta pública donde comprobamos que se guardan
+                const rutaImagen = noticia.imagen 
+                    ? `${URL_BASE}/storage/imagenes/${noticia.imagen}` 
+                    : 'https://via.placeholder.com/180x100?text=Sin+Imagen';
 
-            datos.recientes.forEach(noticia => {
-                const fechaObj = new Date(noticia.created_at);
-                const dia = fechaObj.getDate().toString().padStart(2, '0');
-                const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"];
-                const mes = meses[fechaObj.getMonth()];
-                const anio = fechaObj.getFullYear();
-                
-                // Recortamos el texto para que las tarjetas mantengan simetría visual en la cuadrícula
-                const resumenCuerpo = noticia.cuerpo.length > 130 
-                    ? noticia.cuerpo.substring(0, 130) + "..." 
-                    : noticia.cuerpo;
+                // Creamos el nodo div con la clase exacta de tus estilos CSS
+                const fotoItem = document.createElement('div');
+                fotoItem.classList.add('foto-item');
 
-                // Inyectamos la estructura exacta de tu <article>
-                contenedorRecientes.innerHTML += `
-                    <article class="tarjeta-noticia-reciente">
-                        <div class="imagen-tarjeta">
-                            <img src="${URL_BASE}/storage/imagenes/${noticia.imagen}" alt="${noticia.titulo}">
-                        </div>
-                        <div class="cuerpo-tarjeta">
-                            <span class="fecha-noticia">${dia} ${mes} ${anio}</span>
-                            <h4>${noticia.titulo}</h4>
-                            <p>${resumenCuerpo}</p>
-                            <a href="noticia-detalle.html?id=${noticia.id}" target="_blank" class="enlace-leer-mas">Leer más →</a>
-                        </div>
-                    </article>
+                // Inyectamos la etiqueta img respetando la estructura original
+                fotoItem.innerHTML = `
+                    <img src="${rutaImagen}" alt="${noticia.titulo || 'Noticia'}" onerror="this.src='https://via.placeholder.com/180x100?text=Error+Imagen'">
                 `;
+
+                // Lo añadimos al contenedor en caliente
+                contenedor.appendChild(fotoItem);
             });
         }
-
     } catch (error) {
-        console.error("Error al sincronizar el panel de noticias:", error);
+        console.error("Error al conectar con el backend para iterar imágenes:", error);
     }
 }
+
+// ==========================================
+// 2. ESCUCHAR EL ENVÍO DEL FORMULARIO (POST)
+// ==========================================
+formulario.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(formulario);
+
+    try {
+        const respuesta = await fetch(`${URL_BASE}/noticias`, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: formData
+        });
+
+        const datos = await respuesta.json();
+
+        if (!respuesta.ok) {
+            console.error("Error devuelto por Laravel:", datos);
+            alert(`No se pudo guardar: ${datos.message || 'Error desconocido'}`);
+            return;
+        }
+
+        alert("¡Noticia guardada con éxito!");
+        formulario.reset(); // Limpia los inputs del formulario automáticamente
+
+        // 🔥 LA CLAVE: Volvemos a llamar a la función para que refresque la galería e itere la nueva imagen sin recargar la página por completo
+        cargarNoticiasEnGaleria();
+
+    } catch (error) {
+        console.error("Error en la petición de guardado:", error);
+    }
+});
+
+// ==========================================
+// 3. CARGA INICIAL
+// ==========================================
+// Cuando la página se termine de renderizar por primera vez, ejecuta la iteración
+document.addEventListener('DOMContentLoaded', cargarNoticiasEnGaleria);
