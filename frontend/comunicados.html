@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunicados - Colegio Enrique Paillardelle</title>
+  <link rel="stylesheet" href="css/comunicados.css">
+  <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- --- ENCABEZADO ORIGINAL --- -->
+  <header>
+    <div class="logo">
+      <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Enrique Paillardelle">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="dropdown">
+          <a href="#nosotros">Nosotros</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="bienvenida.html">Bienvenida</a></li>
+            <li><a class="dropdown-item" href="historia.html">Historia</a></li>
+          </ul>
+        </li>
+        <li><a href="#actividades">Actividades</a></li>
+        <li class="dropdown">
+          <a href="noticias.html">Noticias</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="noticias.html">Últimas noticias</a></li>
+            <li><a class="dropdown-item" href="comunicados.html">Comunicados</a></li>
+          </ul>
+        </li>
+        <li><a href="#admision">Admisión</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="login.html" class="btn-login-header">Iniciar Sesión</a>
+  </header>
+
+  <!-- --- BANNER PRINCIPAL --- -->
+  <section class="banner-comunicados">
+    <div class="capa-oscura-banner"></div>
+    <div class="contenido-banner-comunicados">
+      <i class="fa-solid fa-bullhorn icono-mega"></i>
+      <h1>COMUNICADOS</h1>
+      <p>Información oficial y avisos importantes para nuestra comunidad educativa.</p>
+    </div>
+  </section>
+
+  <!-- --- CONTENEDOR DE LA LISTA --- -->
+  <main class="contenedor-principal-comunicado">
+    
+    <!-- Barra de búsqueda óptima sin categorías -->
+    <div class="barra-busqueda-comunicados">
+      <div class="input-buscar-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Buscar comunicado...">
+      </div>
+    </div>
+
+    <!-- 1. COMUNICADO DESTACADO (OPCIÓN C: El último de forma automática) -->
+    <section class="seccion-destacado-lista">
+      <div class="tarjeta-comunicado-destacado">
+        <div class="etiqueta-importante">
+          <i class="fa-solid fa-star"></i> ÚLTIMO COMUNICADO DESTACADO
+        </div>
+        <h2 class="titulo-comunicado">Suspensión de clases por mantenimiento</h2>
+        <p class="fecha-comunicado"><i class="fa-solid fa-calendar-days"></i> 15 de agosto de 2026</p>
+        <p class="extracto-comunicado">
+          Se comunica a toda la comunidad educativa que, debido al mantenimiento programado del sistema eléctrico general de nuestra institución, las clases presenciales quedarán suspendidas...
+        </p>
+        <!-- Enlace hacia la subpágina de detalle -->
+        <a href="comunicado-detalle.html" class="btn-descargar-pdf">Leer comunicado completo</a>
+      </div>
+    </section>
+
+    <section class="lista-general-comunicados">
+      <h3 class="titulo-otros-interes"><span class="barra-decorativa">|</span> Historial de anuncios oficiales</h3>
+      
+      <div class="bloques-comunicados-lineales">
+        
+        <div class="item-comunicado-lineal">
+          <div class="icono-item"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="info-item">
+            <h4>Proceso de matrícula 2027</h4>
+            <span>10 de agosto de 2026</span>
+          </div>
+          <a href="comunicado-detalle.html" class="btn-leer-item">Leer →</a>
+        </div>
+
+        <div class="item-comunicado-lineal">
+          <div class="icono-item"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="info-item">
+            <h4>Entrega de libretas de evaluación del segundo bimestre</h4>
+            <span>05 de agosto de 2026</span>
+          </div>
+          <a href="comunicado-detalle.html" class="btn-leer-item">Leer →</a>
+        </div>
+
+        <div class="item-comunicado-lineal">
+          <div class="icono-item"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="info-item">
+            <h4>Reunión extraordinaria de padres de familia</h4>
+            <span>02 de agosto de 2026</span>
+          </div>
+          <a href="comunicado-detalle.html" class="btn-leer-item">Leer →</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main> <footer>
+    <div class="footer-container">
+      
+      <div class="footer-column footer-logo-col">
+        <div class="footer-logo">
+          <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Footer">
+        </div>
+        <p class="copyright-text-sub">COLEGIO ENRIQUE PAILLARDELLE</p>
+        <a href="#" class="fb-link">
+          <strong>f</strong> Síguenos en
+        </a>
+      </div>
+
+      <div class="footer-column footer-links">
+        <h3 class="footer-title">NOSOTROS</h3>
+        <p><a href="#">Historia</a></p>
+        <p><a href="#">Mision</a></p>
+        <p><a href="#">Vision</a></p>
+      </div>
+
+      <div class="footer-column footer-contact">
+        <h3 class="footer-title">CONTACTO</h3>
+        <p class="phone-number">(052) 504692</p>
+      </div>
+
+      <div class="footer-column footer-address">
+        <h3 class="footer-title">DIRECCION</h3>
+        <p>AVENIDA MUNICIPAL S/N, Tacna, Coronel Gregorio Albarracín Lanchipa.</p>
+        <h4 class="email-title">CORREO ELECTRONICO</h4>
+        <p class="email-text">enriquepaillardelle42238@gmail.com</p>
+      </div>
+
+      <div class="footer-column footer-map">
+        <h3 class="footer-title">NUESTRA UBICACION</h3>
+        <iframe src="about:blank" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+
+    </div>
+    
+    <div class="footer-bottom-bar">
+      <p>Politica de privacidad de datos | todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
