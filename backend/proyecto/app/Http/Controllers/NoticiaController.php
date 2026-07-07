@@ -47,8 +47,8 @@ class NoticiaController extends Controller
         }
     }
 
-    // 3. ACTUALIZAR NOTICIA EXISTENTE
- // 3. ACTUALIZAR NOTICIA EXISTENTE
+ 
+// 3. ACTUALIZAR NOTICIA EXISTENTE
     public function actualizarNoticiaAPI(Request $request, $id)
     {
         $noticia = Noticia::find($id);
@@ -67,19 +67,17 @@ class NoticiaController extends Controller
             $noticia->cuerpo = $request->input('cuerpo');
 
             if ($request->hasFile('imagen')) {
-                // 🚀 CONSTRUCCIÓN DE RUTA COMPATIBLE Y SEGURA
+                // Usamos funciones nativas de PHP limpias
                 if (!empty($noticia->imagen)) {
-                    $rutaVieja = public_path('storage' . DIRECTORY_SEPARATOR . 'imagenes' . DIRECTORY_SEPARATOR . $noticia->imagen);
-                    if (File::exists($rutaVieja)) {
-                        File::delete($rutaVieja);
+                    $rutaVieja = public_path('storage/imagenes/' . $noticia->imagen);
+                    if (is_file($rutaVieja)) {
+                        @unlink($rutaVieja); // Borra el archivo viejo de forma segura
                     }
                 }
 
                 $file = $request->file('imagen');
                 $filename = time() . '_' . $file->getClientOriginalName();
-                
-                // Mover de forma segura usando el separador nativo del sistema
-                $file->move(public_path('storage' . DIRECTORY_SEPARATOR . 'imagenes'), $filename);
+                $file->move(public_path('storage/imagenes'), $filename);
                 $noticia->imagen = $filename;
             }
 
@@ -100,13 +98,11 @@ class NoticiaController extends Controller
         }
 
         try {
-            // 🚀 CONSTRUCCIÓN DE RUTA COMPATIBLE Y SEGURA
+            // Eliminación física usando PHP puro sin importar clases
             if (!empty($noticia->imagen)) {
-                $rutaImagen = public_path('storage' . DIRECTORY_SEPARATOR . 'imagenes' . DIRECTORY_SEPARATOR . $noticia->imagen);
-                
-                // Si el archivo existe físicamente, lo eliminamos limpia y directamente
-                if (File::exists($rutaImagen)) {
-                    File::delete($rutaImagen);
+                $rutaImagen = public_path('storage/imagenes/' . $noticia->imagen);
+                if (is_file($rutaImagen)) {
+                    @unlink($rutaImagen); // Elimina el archivo del disco
                 }
             }
 
