@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/noticias', [NoticiaController::class, 'obtenerNoticasAPI']);
-
+Route::post('/noticias', [NoticiaController::class, 'guardarNoticiaAPI']);
+Route::post('/noticias/{id}', [NoticiaController::class, 'actualizarNoticiaAPI']);
+Route::delete('/noticias/{id}', [NoticiaController::class, 'eliminarNoticiaAPI']);
 
 Route::post('/noticias', [NoticiaController::class, 'guardarNoticiaAPI']);
 Route::middleware('auth')->group(function () {

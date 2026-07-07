@@ -8,16 +8,13 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    // CORRECCIÓN 1: Añadimos 'noticias' por si tu backend sigue procesando la ruta en web.php
-    'paths' => ['api/*', 'noticias', 'login', 'register', 'logout', 'sanctum/csrf-cookie'],
+    // 🚀 Acepta cualquier ruta que empiece con noticias (como /noticias/2, /noticias/3, etc.)
+    'paths' => ['api/*', 'noticias/*', 'noticias', '*'],
 
     'allowed_methods' => ['*'],
 
-    // CORRECCIÓN 2: Quitamos el '*' para que no choque con supports_credentials => true
-    'allowed_origins' => [
-        'http://127.0.0.1:5500',
-        'http://localhost:5500',
-    ],
+    // 🚀 Para que acepte todo sin dar error de credenciales, usamos '*' AQUÍ SÓLO si 'supports_credentials' es false
+    'allowed_origins' => ['*'], 
 
     'allowed_origins_patterns' => [],
 
@@ -27,6 +24,7 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    // 🚀 CAMBIO CLAVE: Lo cambiamos a false para que permita el '*' global sin restricciones
+    'supports_credentials' => false,
 
 ];
