@@ -9,14 +9,11 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   color: #333;
-  background-color: #f8fafc; /* Fondo gris ultra claro para destacar las tarjetas */
+  background-color: #fff;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
-/* --- ENCABEZADO (HEADER) --- */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -39,16 +36,10 @@ header .logo img:hover {
   transform: scale(1.05);
 }
 
-nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 nav ul {
   list-style: none;
   display: flex;
-  gap: 40px;
+  gap: 30px;
   margin: 0;
   padding: 0;
 }
@@ -60,7 +51,6 @@ nav ul li a {
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
   padding: 8px 12px;
-  text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
@@ -84,19 +74,36 @@ nav ul li a:hover {
   color: #FFD23B;
 }
 
-.btn-login-header {
+header .btn,
+.hero .btn,
+.texto-carrusel .btn {
+  position: relative;
+  display: inline-block;
   background-color: #FFD23B;
   color: #003366;
-  text-decoration: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
+  border-radius: 5px;
   font-weight: 600;
-  border-radius: 6px;
-  transition: background 0.3s;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px #c9a600;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-login-header:hover {
-  background-color: #e6bd35;
+header .btn:hover,
+.hero .btn:hover,
+.texto-carrusel .btn:hover {
+  background-color: #ffcc00;
 }
+
+header .btn:active,
+.hero .btn:active,
+.texto-carrusel .btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px #c9a600;
+}
+
 
 /* --- BANNER PRINCIPAL --- */
 .banner-comunicados {
