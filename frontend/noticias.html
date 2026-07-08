@@ -46,93 +46,23 @@
     <a href="login.html" class="btn">Iniciar Sesión</a>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL: PANEL DE NOTICIAS (Basado en la foto image_f84a0b.jpg) -->
-  <main class="contenedor-modulo-noticias">
+<main class="contenedor-modulo-noticias">
     
-    <!-- Título Principal -->
     <section class="encabezado-noticias-titulo text-center">
       <h2>ÚLTIMAS NOTICIAS</h2>
       <div class="linea-decorativa-amarilla-centrada"></div>
       <p>Mantente informado de nuestras actividades</p>
     </section>
 
-    <!-- 1. SECCIÓN: NOTICIA DESTACADA -->
-    <section class="seccion-noticia-destacada">
-      <div class="fila-destacada">
-        
-        <!-- Imagen Izquierda -->
-        <div class="columna-imagen-destacada">
-          <img src="img/dia_del_padre.jpg" alt="ACTUACIÓN POR EL DIA DEL PADRE">
-        </div>
-        
-        <!-- Contenido Derecha -->
-        <div class="columna-info-destacada">
-          <div class="contenedor-cabecera-destacada">
-            <!-- Bloque de Fecha Azul -->
-            <div class="bloque-fecha">
-              <span class="dia">19</span>
-              <span class="mes-anio">JUN<br>2026</span>
-            </div>
-            <!-- Etiqueta amarilla -->
-            <span class="etiqueta-destacada">NOTICIA DESTACADA</span>
-          </div>
-
-          <h3>ACTUACIÓN POR EL DIA DEL PADRE</h3>
-          <p>Se llevó a cabo el "Homenaje a papá" realizado por los estudiantes de la I.E. Enrique Paillardelle del Nivel Primaria en la que presentaron diversos números artísticos en canto, danzas, recital de poemas y entrega de presentes y/o canastas a papá.</p>
-          <p>En definitiva la mañana estuvo llena de momentos emocionantes y recuerdos memorables que los papitos Paillardellinos no olvidaran.</p>
-          
-          <!-- Enlace que abre en pestaña nueva -->
-          <a href="noticias/dia-del-libro-2026.html" target="_blank" class="btn-leer-noticia-completa">Leer noticia completa →</a>
-        </div>
-
-      </div>
+    <section class="seccion-noticia-destacada" id="noticia-destacada-container">
+      <p class="text-center">Cargando última noticia...</p>
     </section>
 
-    <!-- 2. SECCIÓN: NOTICIAS RECIENTES -->
     <section class="seccion-noticias-recientes">
       <h3 class="titulo-recientes"><i class="bi bi-calendar"></i> NOTICIAS RECIENTES</h3>
       
-      <div class="grid-noticias-recientes">
-        
-        <!-- Tarjeta 1 -->
-        <article class="tarjeta-noticia-reciente">
-          <div class="imagen-tarjeta">
-            <img src="img/matematicas.jpg" alt="Concurso Matemática">
-          </div>
-          <div class="cuerpo-tarjeta">
-            <span class="fecha-noticia">18 ABR 2026</span>
-            <h4>Concurso Interescolar de Matemática 2026</h4>
-            <p>Más de 300 estudiantes participaron en el concurso que promueve el razonamiento lógico y la resolución de problemas.</p>
-            <a href="noticias/concurso-matematica-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
-          </div>
-        </article>
-
-        <!-- Tarjeta 2 -->
-        <article class="tarjeta-noticia-reciente">
-          <div class="imagen-tarjeta">
-            <img src="img/ciencia.jpg" alt="Feria de Ciencia">
-          </div>
-          <div class="cuerpo-tarjeta">
-            <span class="fecha-noticia">15 ABR 2026</span>
-            <h4>Feria de Ciencia y Tecnología</h4>
-            <p>Nuestros estudiantes presentaron proyectos innovadores que promueven la investigación y el aprendizaje.</p>
-            <a href="noticias/feria-ciencia-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
-          </div>
-        </article>
-
-        <!-- Tarjeta 3 -->
-        <article class="tarjeta-noticia-reciente">
-          <div class="imagen-tarjeta">
-            <img src="img/olimpiadas.jpg" alt="Olimpiadas Deportivas">
-          </div>
-          <div class="cuerpo-tarjeta">
-            <span class="fecha-noticia">10 ABR 2026</span>
-            <h4>Olimpiadas Deportivas Paillardelle 2026</h4>
-            <p>Se vivieron emocionantes encuentros deportivos con gran participación y espíritu de equipo.</p>
-            <a href="noticias/olimpiadas-2026.html" target="_blank" class="enlace-leer-mas">Leer más →</a>
-          </div>
-        </article>
-
+      <div class="grid-noticias-recientes" id="noticias-recientes-container">
+        <p>Cargando noticias recientes...</p>
       </div>
     </section>
 
@@ -165,7 +95,7 @@
     </div>
   </footer>
 
-  <script src="script.js/codigo.js"></script>
+  <script src="script.js/noticiasDA.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
