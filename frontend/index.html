@@ -21,35 +21,35 @@
       <ul>
         <li><a href="#inicio">Inicio</a></li>
         
-        <li class="dropdown">
+       <li class="dropdown">
           <a href="#nosotros">Nosotros</a>
           <ul class="dropdown-menu">
-            <li><a href="bienvenida.php">Bienvenida institucional</a></li>
-            <li><a href="historia.php">Reseña histórica</a></li>
+            <li><a href="bienvenida.html">Bienvenida institucional</a></li>
+            <li><a href="historia.html">Reseña histórica</a></li>
             <li><a href="#">Misión y Visión</a></li>
             <li><a href="#">Plana directiva</a></li>
-            <li><a href="comunidad.php">Comunidad Paillardelina</a></li>
-            <li><a href="himno.php">Himno del colegio</a></li>
-            <li><a href="organigrama.php">Organigrama institucional</a></li>
+            <li><a href="comunidad.html">Comunidad Paillardelina</a></li>
+            <li><a href="himno.html">Himno del colegio</a></li>
+            <li><a href="organigrama.html">Organigrama institucional</a></li>
           </ul>
         </li>
         
         <li><a href="#actividades">Actividades</a></li>
         
         <li class="dropdown">
-          <a href="noticias.php">Noticias</a>
+          <a href="noticias.html">Noticias</a>
           <ul class="dropdown-menu">
-            <li><a href="noticias.php">Últimas noticias</a></li>
-            <li><a href="comunicados.php">Comunicados</a></li>
+            <li><a href="noticias.html">Últimas noticias</a></li>
+            <li><a href="comunicados.html">Comunicados</a></li>
             <li><a href="#">Logros</a></li>
           </ul>
         </li>
         
         <li><a href="#admision">Admisión</a></li>
-        <li><a href="contacto.php">Contacto</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </nav>
-    <a href="login.php" class="btn">Iniciar Sesión</a>
+    <a href="login.html" class="btn">Iniciar Sesión</a>
   </header>
 
   <section id="inicio" class="carrusel">
@@ -73,7 +73,7 @@
       <div class="slide">
         <img src="img/imagen_carrusel3.png" alt="Foto 3">
         <div class="texto-carrusel">
-          <h2>Compromiso y excellence</h2>
+          <h2>Compromiso y excelencia</h2>
           <p>Formando líderes para la sociedad.</p>
           <a href="#" class="btn">Leer más</a>
         </div>
@@ -113,7 +113,7 @@
           Somos una comunidad educativa dedicada al desarrollo integral de nuestros estudiantes,
           brindando una educación de calidad basada en valores firmes, innovación constante y excelencia académica.
         </p>
-        <a href="contacto.php" class="btn-conocenos-mas">Conócenos más →</a>
+        <a href="contacto.html" class="btn-conocenos-mas">Conócenos más →</a>
       </div>
 
       <div class="nosotros-cuadros-der">
@@ -123,7 +123,7 @@
           </div>
           <h3>Historia</h3>
           <p>Desde 1990 formando generaciones de estudiantes íntegros y comprometidos con su comunidad en Tacna.</p>
-          <a href="historia.php" class="btn-leer-cuadro">Leer más →</a>
+          <a href="historia.html" class="btn-leer-cuadro">Leer más →</a>
         </div>
 
         <div class="cuadro-interactivo">
@@ -213,23 +213,65 @@
         <iframe
           src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/IE.Enrique.Paillardelle.Oficial&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
           width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0">
-          Downs</iframe>
+         Downs</iframe>
       </div>
       <div class="facebook">
         <iframe
           src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/enrique.paillardelle.1&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
           width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0">
-          downs</iframe>
+         downs</iframe>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================================================
-       INYECCIÓN DEL FOOTER GLOBAL DE MANERA DINÁMICA
-       ========================================================================== -->
-  <?php include 'footer.php'; ?>
+   <footer>
 
-  <!-- SCRIPTS FINALES -->
+     <div class="footer-container">
+        
+        <div class="footer-column footer-logo-col">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Footer">
+                </a>
+            </div>
+            <p class="copyright-text-sub">COLEGIO ENRIQUE PAILLARDELLE</p>
+            <a href="https://www.facebook.com/IE.Enrique.Paillardelle.Oficial/?locale=es_LA" target="_blank" class="fb-link">
+                <i class="fa-brands fa-facebook"></i> Síguenos en
+            </a>
+        </div>
+
+        <div class="footer-column footer-links">
+            <h3 class="footer-title">NOSOTROS</h3>
+            <p><a href="index.html#historia">Historia</a></p>
+            <p><a href="index.html#mision">Misión</a></p>
+            <p><a href="index.html#vision">Visión</a></p>
+        </div>
+
+        <div class="footer-column footer-contact-info">
+            <h3 class="footer-title">CONTÁCTANOS</h3>
+            <p><strong>Teléfono:</strong> (052) 504692</p>
+            <p><strong>Dirección:</strong> Avenida Municipal S/N, Tacna, Coronel Gregorio Albarracín Lanchipa.</p>
+            <p><strong>Correo Electrónico:</strong><br><span class="email-text">enriquepaillardelle42238@gmail.com</span></p>
+        </div>
+
+        <div class="footer-column footer-map">
+            <h3 class="footer-title">NUESTRA UBICACIÓN</h3>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15172.30514102235!2d-70.2503196!3d-18.0469279!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915ac8ad058202cf%3A0x4e14101f98952041!2sI.E.%20Enrique%20Paillardelle%2042238!5e0!3m2!1ses-419!2spe!4v1718000000000!5m2!1ses-419!2spe" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+    </div>
+    
+    <div class="footer-bottom-bar">
+      <p>Política de privacidad de datos | Todos los derechos reservados</p>
+    </div>
+  </footer>
+
   <script src="script.js/codigo.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
