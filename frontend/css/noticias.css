@@ -277,42 +277,16 @@ body {
   .columna-info-destacada {
     padding: 25px;
   }
-
-
-
-/* --- SECCIÓN RESPONSIVE PARA MÓVILES --- */
-@media (max-width: 992px) {
-  .grid-noticias-recientes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .fila-destacada {
-    flex-direction: column;
-  }
-  .grid-noticias-recientes {
-    grid-template-columns: 1fr;
-  }
-  .columna-info-destacada {
-    padding: 25px;
-  }
-} /* ◄ CLAVE: Aquí se cierra correctamente la media query móvil */
-
-
-/* --- PAGINACIÓN PREMIUM TOTALMENTE LIBERADA Y CENTRADA --- */
+  /* --- ENUMERADOR TOTALMENTE CENTRADO --- */
 .contenedor-paginacion {
-    display: flex !important;
-    justify-content: center !important; /* Centrado horizontal real */
-    align-items: center !important;
+    display: flex;
+    justify-content: center; /* Alinea los botones al centro exacto del contenedor */
+    align-items: center;
     gap: 10px;
-    margin: 50px auto 40px auto !important; /* El 'auto' equilibra los lados izquierdo y derecho */
-    width: 100% !important;
-    max-width: 1200px;
-    clear: both !important;
+    margin: 40px auto 40px auto;
+    width: 100%;
 }
 
-/* Estilos de los botones individuales */
 .btn-pagina {
     background: #ffffff;
     color: #333333;
@@ -324,16 +298,13 @@ body {
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    user-select: none;
+    transition: all 0.3s ease;
 }
 
 .btn-pagina:hover:not(:disabled) {
-    background-color: #003366; /* Azul de tu paleta */
+    background-color: #003366;
     color: #ffffff;
     border-color: #003366;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 51, 102, 0.3);
 }
 
 .btn-pagina.activo {
@@ -341,8 +312,6 @@ body {
     color: #ffffff;
     border-color: #003366;
     font-weight: 900;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.4);
 }
 
 .btn-pagina:disabled {
@@ -350,7 +319,40 @@ body {
     color: #ced4da;
     border-color: #e9ecef;
     cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
+}
+/* --- ENUMERADOR COMPLETAMENTE CENTRADO --- */
+.contenedor-paginacion {
+    display: flex !important;
+    justify-content: center !important; /* Centra los botones internamente */
+    align-items: center !important;
+    gap: 8px;
+    
+    /* 🚀 LA SOLUCIÓN DEFINITIVA: */
+    margin: 50px auto 40px auto !important; /* El 'auto' a la izquierda y derecha equilibra los espacios y lo manda al centro exacto */
+    width: max-content !important;          /* Hace que la caja mida solo lo que miden los botones, impidiendo que se estire a la izquierda */
+}
+
+/* Contenedor que obliga al elemento hijo a alinearse al centro */
+.contenedor-numerador-centro {
+    display: flex;
+    justify-content: center; /* Centrado horizontal absoluto */
+    align-items: center;
+    margin-bottom: 12px;    /* Espacio inferior antes de la fecha */
+    margin-top: 5px;
+}
+
+/* Diseño estilizado del numerador (Badge) */
+.numerador-badge {
+    background-color: #ffcc00; /* Amarillo institucional Paillardelle */
+    color: #1a1a1a;            /* Texto oscuro para alto contraste */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;          /* Negrita */
+    font-size: 0.75rem;        /* Tamaño sutil y profesional */
+    letter-spacing: 1px;       /* Espaciado de letras moderno */
+    text-transform: uppercase; /* Todo en mayúsculas */
+    padding: 6px 16px;         /* Espaciado interno para darle forma de pastilla */
+    border-radius: 20px;       /* Bordes completamente redondeados */
+    box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3); /* Destello suave alrededor */
+    display: inline-block;
 }
 }

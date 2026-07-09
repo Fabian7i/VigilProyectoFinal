@@ -9,13 +9,12 @@
   <link rel="stylesheet" href="css/noticias.css">
   <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <!-- Google Fonts para mantener la tipografía Montserrat usada en tu CSS anterior -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
 
-  <!-- ENCABEZADO CONSERVADO -->
   <header>
     <div class="logo">
       <a href="index.html#inicio"><img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Enrique Paillardelle"></a>
@@ -23,7 +22,6 @@
     <nav>
       <ul>
         <li><a href="index.html#inicio">Inicio</a></li>
-        
         <li class="dropdown">
           <a href="index.html#nosotros" class="dropdown-toggle">Nosotros</a>
           <ul class="dropdown-menu">
@@ -36,7 +34,6 @@
             <li><a href="#">Organigrama institucional</a></li>
           </ul>
         </li>
-        
         <li><a href="index.html#actividades">Actividades</a></li>
         <li><a href="index.html#noticias">Noticias</a></li>
         <li><a href="index.html#admision">Admisión</a></li>
@@ -46,7 +43,7 @@
     <a href="login.html" class="btn">Iniciar Sesión</a>
   </header>
 
-<main class="contenedor-modulo-noticias">
+  <main class="contenedor-modulo-noticias">
     
     <section class="encabezado-noticias-titulo text-center">
       <h2>ÚLTIMAS NOTICIAS</h2>
@@ -61,18 +58,15 @@
     <section class="seccion-noticias-recientes">
       <h3 class="titulo-recientes"><i class="bi bi-calendar"></i> NOTICIAS RECIENTES</h3>
       
-      <!-- El grid solo maneja las tarjetas -->
       <div class="grid-noticias-recientes" id="noticias-recientes-container">
         <p>Cargando noticias recientes...</p>
       </div>
-    </section> <!-- ◄ CERRAMOS LA SECCIÓN AQUÍ PARA LIBERAR LA PAGINACIÓN -->
+    </section> 
 
-    <!-- 🔢 CONTENEDOR DE PAGINACIÓN TOTALMENTE INDEPENDIENTE Y CENTRADO -->
     <div id="paginacion-container" class="contenedor-paginacion"></div>
 
-</main>
+  </main>
 
-  <!-- PIE DE PÁGINA CONSERVADO -->
   <footer>
     <div class="footer-container">
       <div class="footer-column footer-logo">
@@ -93,14 +87,14 @@
 
       <div class="footer-column footer-map">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.1374526645396!2d-70.2524419!3d-18.0199927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf61099ec51d%3A0x6bda19f5068cfcb9!2sAv.%20Municipal%2C%20Tacna!5e0!3m2!1ses!2spe!4v1716490000000!5m2!1ses!2spe"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3793.7479743457384!2d-70.2505556!3d-18.0294444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDAxJzQ2LjAiUyA3MMKwMTUnMDIuMCJX!5e0!3m2!1ses!2spe!4v1625000000000!5m2!1ses!2spe"
           width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
   </footer>
 
-  <script src="script.js/noticiasDA.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js/noticias.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bundle.min.js"></script>
 </body>
 
 </html>

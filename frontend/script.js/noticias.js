@@ -1,256 +1,163 @@
-const URL_BASE = 'http://127.0.0.1:8000';
-const contenedor = document.getElementById('contenedor-fotos-noticias');
-const formulario = document.getElementById('form-noticias-dashboard');
+document.addEventListener("DOMContentLoaded", () => {
+    const URL_API = "http://127.0.0.1:8000/noticias";
+    const URL_IMAGENES = "http://127.0.0.1:8000/storage/imagenes/";
 
-let idNoticiaEnEdicion = null; 
+    const destacadaContainer = document.getElementById("noticia-destacada-container");
+    const recientesContainer = document.getElementById("noticias-recientes-container");
+    const paginacionContainer = document.getElementById("paginacion-container");
 
-// ========================================================
-// 1. COMPRESIÓN DE IMÁGENES AUTOMÁTICA
-// ========================================================
-function comprimirImagen(archivo, maxAncho = 1200, calidad = 0.75) {
-    return new Promise((resolve) => {
-        const lector = new FileReader();
-        lector.readAsDataURL(archivo);
-        lector.onload = (evento) => {
-            const img = new Image();
-            img.src = evento.target.result;
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                let ancho = img.width;
-                let alto = img.height;
+    let noticiasGlobales = []; 
+    let paginaActual = 1;
+    const NOTICIAS_POR_PAGINA = 3;
 
-                if (ancho > maxAncho) {
-                    alto = Math.round((alto * maxAncho) / ancho);
-                    ancho = maxAncho;
-                }
+    function limitarPalabras(texto, maxPalabras) {
+        if (!texto) return "";
+        const palabras = texto.trim().split(/\s+/);
+        if (palabras.length <= maxPalabras) return texto;
+        return palabras.slice(0, maxPalabras).join(" ") + "...";
+    }
 
-                canvas.width = ancho;
-                canvas.height = alto;
+    function separarFecha(fechaString) {
+        if (!fechaString) return { dia: "00", mes: "AAA", anio: "0000" };
+        const fecha = new Date(fechaString);
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"];
+        const mes = meses[fecha.getMonth()];
+        const anio = fecha.getFullYear();
+        return { dia, mes, anio };
+    }
 
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, ancho, alto);
+    fetch(URL_API)
+        .then(response => {
+            if (!response.ok) throw new Error("Error en el servidor");
+            return response.json();
+        })
+        .then(data => {
+            let noticiaDestacada = data.destacada;
+            let listaRecientes = data.recientes || [];
 
-                canvas.toBlob((blob) => {
-                    const nombreBase = archivo.name.substring(0, archivo.name.lastIndexOf('.')) || archivo.name;
-                    const archivoComprimido = new File([blob], `${nombreBase}.webp`, {
-                        type: 'image/webp',
-                        lastModified: Date.now()
-                    });
-                    resolve(archivoComprimido);
-                }, 'image/webp', calidad);
-            };
-        };
-    });
-}
-
-// ========================================================
-// 2. CARGAR Y RENDERIZAR LA GALERÍA EN PANTALLA
-// ========================================================
-async function cargarNoticiasEnGaleria() {
-    try {
-        const respuesta = await fetch(`${URL_BASE}/noticias`, {
-            headers: { 'Accept': 'application/json' }
-        });
-        const datos = await respuesta.json();
-
-        if (respuesta.ok) {
-            contenedor.innerHTML = '';
-            let todasLasNoticias = [];
-            
-            if (datos.destacada) todasLasNoticias.push(datos.destacada);
-            if (datos.recientes && datos.recientes.length > 0) {
-                todasLasNoticias = todasLasNoticias.concat(datos.recientes);
+            if (!noticiaDestacada && listaRecientes.length > 0) {
+                noticiaDestacada = listaRecientes[0];
+                listaRecientes = listaRecientes.slice(1);
             }
 
-            if (todasLasNoticias.length === 0) {
-                contenedor.innerHTML = '<p class="text-muted text-center w-100">No hay noticias publicadas.</p>';
-                return;
-            }
+            if (noticiaDestacada) {
+                const { dia, mes, anio } = separarFecha(noticiaDestacada.created_at);
+                const cuerpoRecortado = limitarPalabras(noticiaDestacada.cuerpo, 25); 
 
-            todasLasNoticias.forEach(noticia => {
-                const rutaImagen = noticia.imagen 
-                    ? `${URL_BASE}/storage/imagenes/${noticia.imagen}` 
-                    : 'https://via.placeholder.com/180x100?text=Sin+Imagen';
-
-                // SOLUCIÓN AL ERROR DE FECHA: Formateamos usando la marca de tiempo nativa
-                let fechaPublicacion = 'Fecha no disponible';
-                if (noticia.created_at) {
-                    const fechaObj = new Date(noticia.created_at);
-                    fechaPublicacion = fechaObj.toLocaleDateString('es-ES', {
-                        day: '2-digit',
-                        month: 'short',
-                        year: 'numeric'
-                    });
-                }
-
-                const fotoItem = document.createElement('div');
-                fotoItem.classList.add('foto-item');
-                fotoItem.style.cursor = 'pointer';
-
-                fotoItem.innerHTML = `
-                    <img src="${rutaImagen}" alt="${noticia.titulo || 'Noticia'}" onerror="this.src='https://via.placeholder.com/180x100?text=Error+Imagen'">
+                destacadaContainer.innerHTML = `
+                    <div class="fila-destacada">
+                        <div class="columna-imagen-destacada">
+                            <img src="${URL_IMAGENES}${noticiaDestacada.imagen}" alt="${noticiaDestacada.titulo}">
+                        </div>
+                        <div class="columna-info-destacada">
+                            <div class="contenedor-cabecera-destacada">
+                                <div class="bloque-fecha">
+                                    <span class="dia">${dia}</span>
+                                    <span class="mes-anio">${mes}<br>${anio}</span>
+                                </div>
+                                <span class="etiqueta-destacada">NOTICIA DESTACADA</span>
+                            </div>
+                            <h3>${noticiaDestacada.titulo}</h3>
+                            <p>${cuerpoRecortado}</p>
+                            <a href="#" class="btn-leer-noticia-completa">Leer noticia completa →</a>
+                        </div>
+                    </div>
                 `;
-
-                fotoItem.addEventListener('click', () => {
-                    abrirModalDetalleNoticia(noticia, rutaImagen, fechaPublicacion);
-                });
-
-                contenedor.appendChild(fotoItem);
-            });
-        }
-    } catch (error) {
-        console.error("Error al cargar la galería:", error);
-    }
-}
-
-// ========================================================
-// 3. PANEL MODAL DE DETALLES (SWEETALERT2)
-// ========================================================
-function abrirModalDetalleNoticia(noticia, rutaImagen, fechaPublicacion) {
-    Swal.fire({
-        title: `<strong style="color: #0d6efd; font-family: sans-serif;">${noticia.titulo.toUpperCase()}</strong>`,
-        html: `
-            <div style="text-align: left; font-family: sans-serif;">
-                <p style="color: #6c757d; font-size: 0.9rem; margin-bottom: 15px;">
-                    <i class="bi bi-calendar-event"></i> Publicado el: <b>${fechaPublicacion}</b>
-                </p>
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="${rutaImagen}" style="max-width: 100%; max-height: 250px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-                </div>
-                <h5 style="border-bottom: 2px solid #ffc107; padding-bottom: 5px; font-size: 1.1rem; font-weight: bold;">CUERPO DE LA NOTICIA</h5>
-                <p style="white-space: pre-wrap; color: #333; line-height: 1.5; font-size: 0.95rem;">${noticia.cuerpo}</p>
-            </div>
-            
-            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
-                <a href="${rutaImagen}" download="${noticia.imagen || 'foto_noticia'}" class="btn btn-success btn-sm text-white px-3">
-                    <i class="bi bi-download"></i> Descargar Foto
-                </a>
-                <button id="btn-swal-editar" class="btn btn-warning btn-sm text-dark px-3">
-                    <i class="bi bi-pencil-square"></i> Editar
-                </button>
-                <button id="btn-swal-eliminar" class="btn btn-danger btn-sm text-white px-3">
-                    <i class="bi bi-trash-fill"></i> Eliminar
-                </button>
-            </div>
-        `,
-        showConfirmButton: true,
-        confirmButtonText: 'Cerrar Vista',
-        confirmButtonColor: '#6c757d',
-        width: '600px',
-        didOpen: () => {
-            document.getElementById('btn-swal-editar').addEventListener('click', () => {
-                Swal.close();
-                ejecutarEdicionFrontend(noticia);
-            });
-            document.getElementById('btn-swal-eliminar').addEventListener('click', () => {
-                Swal.close();
-                ejecutarEliminacionBackend(noticia.id);
-            });
-        }
-    });
-}
-
-// ========================================================
-// 4. ACCIONES DE EDICIÓN Y ELIMINACIÓN (CON BORRADO REAL)
-// ========================================================
-function ejecutarEdicionFrontend(noticia) {
-    idNoticiaEnEdicion = noticia.id;
-
-    const btnTexto = document.querySelector('.btn-guardar-text');
-    if (btnTexto) btnTexto.textContent = "ACTUALIZAR NOTICIA";
-
-    document.getElementById('input-titulo').value = noticia.titulo;
-    document.getElementById('input-cuerpo').value = noticia.cuerpo;
-    
-    document.getElementById('input-titulo').scrollIntoView({ behavior: 'smooth' });
-    
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'info',
-        title: 'Modo edición activo. La imagen ahora es opcional.',
-        showConfirmButton: false,
-        timer: 4000
-    });
-}
-
-function ejecutarEliminacionBackend(id) {
-    Swal.fire({
-        title: '¿Estás completamente seguro?',
-        text: "Esta acción borrará la noticia y su archivo de imagen permanentemente.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, borrar de inmediato',
-        cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            try {
-                const respuesta = await fetch(`${URL_BASE}/noticias/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Accept': 'application/json' }
-                });
-                const datos = await respuesta.json();
-
-                if (respuesta.ok) {
-                    Swal.fire('¡Eliminado!', 'La noticia ha sido removida con éxito.', 'success');
-                    cargarNoticiasEnGaleria(); 
-                } else {
-                    Swal.fire('Error', datos.message || 'No se pudo eliminar', 'error');
-                }
-            } catch (error) {
-                console.error("Error en la solicitud de borrado:", error);
+            } else {
+                destacadaContainer.innerHTML = `<p class="text-center">No hay ninguna noticia publicada todavía.</p>`;
             }
-        }
-    });
-}
 
-// ========================================================
-// 5. ENVIAR FORMULARIO (MÉTODO POST DINÁMICO)
-// ========================================================
-formulario.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(formulario);
-    const archivoImagen = document.getElementById('input-imagen').files[0];
-
-    if (archivoImagen) {
-        const imagenOptimizada = await comprimirImagen(archivoImagen);
-        formData.set('imagen', imagenOptimizada);
-    }
-
-    let urlDestino = `${URL_BASE}/noticias`;
-    if (idNoticiaEnEdicion !== null) {
-        urlDestino = `${URL_BASE}/noticias/${idNoticiaEnEdicion}`;
-    }
-
-    try {
-        const respuesta = await fetch(urlDestino, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: formData
+            noticiasGlobales = listaRecientes;
+            renderizarPaginaRecientes(paginaActual);
+            construirBotonesPaginacion();
+        })
+        .catch(error => {
+            console.error(error);
+            destacadaContainer.innerHTML = `<p class="text-center" style="color: red; padding: 20px;">Error al conectar con el servidor.</p>`;
         });
 
-        const datos = await respuesta.json();
+    // --- RENDERIZADO CON DISEÑO EXCLUSIVO USANDO FONT-AWESOME ---
+    function renderizarPaginaRecientes(pagina) {
+        recientesContainer.innerHTML = "";
+        const inicio = (pagina - 1) * NOTICIAS_POR_PAGINA;
+        const fin = inicio + NOTICIAS_POR_PAGINA;
+        const subLista = noticiasGlobales.slice(inicio, fin);
 
-        if (!respuesta.ok) {
-            Swal.fire('Error', datos.message || 'Verifica los campos', 'error');
+        if (subLista.length === 0) {
+            recientesContainer.innerHTML = `<p class="text-center w-100">No hay noticias.</p>`;
             return;
         }
 
-        Swal.fire('¡Operación Exitosa!', idNoticiaEnEdicion ? 'Noticia modificada correctamente.' : 'Nueva noticia añadida.', 'success');
-        
-        formulario.reset();
-        idNoticiaEnEdicion = null;
-        
-        const btnTexto = document.querySelector('.btn-guardar-text');
-        if (btnTexto) btnTexto.textContent = "GUARDAR NOTICIA";
+        subLista.forEach((noticia, index) => {
+            const { dia, mes, anio } = separarFecha(noticia.created_at);
+            const cuerpoTarjeta = limitarPalabras(noticia.cuerpo, 20);
+            const numeroNoticia = inicio + index + 1; 
 
-        cargarNoticiasEnGaleria();
+            recientesContainer.innerHTML += `
+                <article class="tarjeta-noticia-reciente" style="position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;">
+                    
+                    <div style="position: absolute; top: 0; left: 0; width: 80px; height: 80px; overflow: hidden; z-index: 10;">
+                        <div style="position: absolute; top: 15px; left: -25px; width: 110px; background: #ffcc00; color: #111; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-align: center; padding: 4px 0; transform: rotate(-45deg); box-shadow: 0 2px 5px rgba(0,0,0,0.2); letter-spacing: 0.5px;">
+                            <i class="fa-solid fa-hashtag" style="font-size: 0.65rem;"></i>${numeroNoticia}
+                        </div>
+                    </div>
 
-    } catch (error) {
-        console.error("Error en el envío de datos:", error);
+                    <div class="imagen-tarjeta" style="width: 100%; height: 200px; overflow: hidden;">
+                        <img src="${URL_IMAGENES}${noticia.imagen}" alt="${noticia.titulo}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    
+                    <div class="cuerpo-tarjeta" style="padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <span class="fecha-noticia" style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #666; font-weight: 600;">
+                                <i class="fa-regular fa-calendar-days" style="color: #0056b3;"></i> ${dia} ${mes} ${anio}
+                            </span>
+                            <h4 style="margin: 12px 0 8px 0; font-family: 'Montserrat', sans-serif; font-weight: 700; color: #002d62; font-size: 1.15rem; line-height: 1.4;">${noticia.titulo}</h4>
+                            <p style="font-size: 0.9rem; color: #555; line-height: 1.5; margin-bottom: 15px;">${cuerpoTarjeta}</p>
+                        </div>
+                        <a href="#" class="enlace-leer-mas" style="font-weight: 700; font-size: 0.85rem; color: #0056b3; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                            Leer más <i class="fa-solid fa-arrow-right-long" style="font-size: 0.8rem;"></i>
+                        </a>
+                    </div>
+                </article>
+            `;
+        });
+    }
+
+    function construirBotonesPaginacion() {
+        if (!paginacionContainer) return;
+        paginacionContainer.innerHTML = "";
+
+        const totalPaginas = Math.ceil(noticiasGlobales.length / NOTICIAS_POR_PAGINA);
+        if (totalPaginas <= 1) return;
+
+        const btnAnt = document.createElement("button");
+        btnAnt.className = "btn-pagina";
+        btnAnt.innerHTML = "«";
+        btnAnt.disabled = paginaActual === 1;
+        btnAnt.addEventListener("click", () => cambiarPagina(paginaActual - 1));
+        paginacionContainer.appendChild(btnAnt);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            const btn = document.createElement("button");
+            btn.className = `btn-pagina ${i === paginaActual ? 'activo' : ''}`;
+            btn.innerText = i;
+            btn.addEventListener("click", () => cambiarPagina(i));
+            paginacionContainer.appendChild(btn);
+        }
+
+        const btnSig = document.createElement("button");
+        btnSig.className = "btn-pagina";
+        btnSig.innerHTML = "»";
+        btnSig.disabled = paginaActual === totalPaginas;
+        btnSig.addEventListener("click", () => cambiarPagina(paginaActual + 1));
+        paginacionContainer.appendChild(btnSig);
+    }
+
+    function cambiarPagina(nuevaPagina) {
+        paginaActual = nuevaPagina;
+        renderizarPaginaRecientes(paginaActual);
+        construirBotonesPaginacion();
+        document.querySelector(".seccion-noticias-recientes").scrollIntoView({ behavior: "smooth" });
     }
 });
-
-document.addEventListener('DOMContentLoaded', cargarNoticiasEnGaleria);
