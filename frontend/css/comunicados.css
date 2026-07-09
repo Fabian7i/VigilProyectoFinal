@@ -1,503 +1,143 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
 
-/* --- CONFIGURACIONES GENERALES --- */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  background-color: #fff;
-  overflow-x: hidden;
-}
-
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #003366, #0078C9, #66CCFF);
-  padding: 15px 40px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-header .logo img {
-  height: 90px;
-  transition: transform 0.3s ease;
-}
-
-header .logo img:hover {
-  transform: scale(1.05);
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li a {
-  position: relative;
-  text-decoration: none;
-  color: white;
-  font-weight: 600;
+/* ==========================================================================
+   ESTILOS PREMIUM DE ENCABEZADO (IGUAL A ÚLTIMAS NOTICIAS)
+   ========================================================================== */
+.titulo-seccion-premium {
   font-family: 'Montserrat', sans-serif;
-  padding: 8px 12px;
-  transition: color 0.3s ease;
+  color: #003366;
+  font-weight: 800;
+  font-size: 2.3rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 3px;
-  background-color: white;
-  transition: width 0.3s ease;
+.linea-decorativa-amarilla-centrada {
+  width: 120px;
+  height: 4px;
+  background-color: #FFD23B;
+  margin: 15px auto;
   border-radius: 2px;
 }
 
-nav ul li a:hover::after {
-  width: 100%;
-}
-
-nav ul li a:hover {
-  color: #FFD23B;
-}
-
-header .btn,
-.hero .btn,
-.texto-carrusel .btn {
-  position: relative;
-  display: inline-block;
-  background-color: #FFD23B;
-  color: #003366;
-  padding: 12px 25px;
-  border-radius: 5px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 6px #c9a600;
-  border: none;
-  cursor: pointer;
-}
-
-header .btn:hover,
-.hero .btn:hover,
-.texto-carrusel .btn:hover {
-  background-color: #ffcc00;
-}
-
-header .btn:active,
-.hero .btn:active,
-.texto-carrusel .btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px #c9a600;
-}
-
-
-/* --- BANNER PRINCIPAL --- */
-.banner-comunicados {
-  position: relative;
-  background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 120, 201, 0.85)), url('../img/imagen_carrusel1.png');
-  background-size: cover;
-  background-position: center;
-  padding: 60px 20px;
-  text-align: center;
-  color: white;
-  border-bottom-left-radius: 50% 20px;
-  border-bottom-right-radius: 50% 20px;
-}
-
-.icono-mega {
-  font-size: 40px;
-  color: #FFD23B;
-  margin-bottom: 10px;
-}
-
-.banner-comunicados h1 {
+.subtitulo-seccion-premium {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+  color: #555555;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+.icono-megafono-comunicados {
+  color: #FFD23B;
   font-size: 38px;
-  letter-spacing: 1px;
-  margin: 0;
+  margin-bottom: 5px;
 }
 
-.banner-comunicados p {
-  font-size: 16px;
-  opacity: 0.9;
-  margin-top: 8px;
+/* ==========================================================================
+   ESTILOS DE LA SECCIÓN Y CONTENEDORES
+   ========================================================================== */
+.seccion-comunicados-panel {
+  background-color: #f8fafc;
+  padding: 60px 20px;
+  min-height: 70vh;
 }
 
-/* --- MIGA DE PAN (BREADCRUMB) --- */
-.contenedor-breadcrumb {
+.contenedor-comunicados {
   max-width: 1100px;
-  margin: 25px auto 0 auto;
-  padding: 0 20px;
-  font-size: 14px;
+  margin: 0 auto;
 }
 
-.contenedor-breadcrumb a {
-  color: #0078C9;
-  text-decoration: none;
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
 }
 
-.contenedor-breadcrumb .separator {
-  font-size: 11px;
-  color: #a0a6ab;
-  margin: 0 8px;
+.color-azul-ie {
+  color: #003366;
 }
 
-.contenedor-breadcrumb span {
-  color: #555;
-  font-weight: 500;
-}
-
-/* --- CONTENEDORES --- */
-.contenedor-principal-comunicado {
-  max-width: 1100px;
-  margin: 0 auto 50px auto;
-  padding: 0 20px;
-  flex: 1; /* Empuja el footer hacia abajo si hay poco contenido */
-}
-
-/* --- BARRA DE BÚSQUEDA --- */
+/* Buscador */
 .barra-busqueda-comunicados {
-  margin: 30px 0;
+  margin-bottom: 25px;
   display: flex;
   justify-content: flex-start;
 }
 
-.input-buscar-wrapper {
+.input-grupo-busqueda {
   position: relative;
   width: 100%;
   max-width: 400px;
 }
 
-.input-buscar-wrapper i {
+.input-grupo-busqueda i {
   position: absolute;
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  color: #94a3b8;
 }
 
-.input-buscar-wrapper input {
+.input-grupo-busqueda input {
   width: 100%;
   padding: 12px 15px 12px 45px;
-  border: 1px solid #cbd5e1;
-  border-radius: 30px;
-  outline: none;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
   font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  transition: all 0.3s;
+  outline: none;
+  transition: box-shadow 0.3s ease;
 }
 
-.input-buscar-wrapper input:focus {
+.input-grupo-busqueda input:focus {
+  box-shadow: 0 0 0 3px rgba(0, 120, 201, 0.15);
   border-color: #0078C9;
-  box-shadow: 0 0 0 3px rgba(0, 120, 201, 0.1);
 }
 
-/* --- TARJETAS --- */
-.tarjeta-comunicado-completo, .tarjeta-comunicado-destacado {
-  background: white;
+/* Tabla de Comunicados */
+.tabla-comunicados-contenedor {
+  background-color: #ffffff;
   border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #edf2f7;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #eef2f6;
 }
 
-.etiqueta-importante {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background-color: #fff1f2;
-  color: #df1c1c;
-  font-weight: 700;
-  font-size: 12px;
-  padding: 6px 16px;
-  border-radius: 6px;
-  border: 1px solid #ffe4e6;
-  margin-bottom: 20px;
+.fila-comunicados-header {
+  background-color: #0056b3;
+  color: #ffffff;
+  display: flex;
+  padding: 15px 25px;
+  font-weight: 600;
+  font-size: 14px;
   letter-spacing: 0.5px;
 }
 
-.titulo-comunicado {
-  font-family: 'Montserrat', sans-serif;
-  color: #092C4C;
-  font-weight: 700;
-  font-size: 32px;
-  margin-bottom: 15px;
-  line-height: 1.3;
-}
-
-.metadatos-comunicado, .fecha-comunicado {
+.item-comunicado-fila {
   display: flex;
-  gap: 25px;
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 20px;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
 }
 
-.metadatos-comunicado i {
-  color: #0078C9;
+.item-comunicado-fila:hover {
+  background-color: #f8fafc;
 }
 
-.linea-separadora {
-  border: 0;
-  height: 1px;
-  background-color: #e2e8f0;
-  margin: 25px 0;
-}
-
-.contenido-texto-comunicado p {
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: #334155;
-  margin-bottom: 18px;
-}
-
-.atentamente {
-  margin-top: 35px;
-  font-weight: 500;
-}
-
-.firma-institucional {
+.col-tabla-comunicado {
+  flex: 2;
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
 }
 
-.sello-colegio {
-  height: 60px;
-  width: auto;
-}
-
-.firma-institucional p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-/* --- BOTÓN DESCARGAR Y ADJUNTO --- */
-.caja-documento-adjunto {
-  background-color: #f1f5f9;
+.icono-archivo-tipo {
+  background-color: #e0f2fe;
+  color: #0078C9;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
-  padding: 20px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 40px;
-}
-
-.info-archivo {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.icono-pdf {
-  font-size: 35px;
-  color: #df1c1c;
-}
-
-.nombre-pdf {
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
-  font-size: 14.5px;
-}
-
-.tamano-pdf {
-  font-size: 12px;
-  color: #64748b;
-  margin: 2px 0 0 0;
-}
-
-.btn-descargar-pdf {
-  background-color: #003366;
-  color: white;
-  text-decoration: none;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 14px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.2s;
-}
-
-.btn-descargar-pdf:hover {
-  background-color: #001f3d;
-  color: white;
-}
-
-/* --- REDES SOCIALES / COMPARTIR --- */
-.acciones-comunicado-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 35px;
-  padding-top: 25px;
-  border-top: 1px solid #e2e8f0;
-}
-
-.compartir-redes {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: #64748b;
-}
-
-.compartir-redes a {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-
-.compartir-redes a:hover { transform: scale(1.1); }
-.red-fb { background-color: #1877f2; }
-.red-wsp { background-color: #25d366; }
-.red-link { background-color: #64748b; }
-
-.btn-volver-lista {
-  color: #0078C9;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  border: 1px solid #0078C9;
-  padding: 8px 18px;
-  border-radius: 6px;
-  transition: all 0.2s;
-}
-
-.btn-volver-lista:hover {
-  background-color: #0078C9;
-  color: white;
-}
-
-/* --- HISTORIAL LINEAL (comunicados.html) --- */
-.titulo-otros-interes {
-  font-family: 'Montserrat', sans-serif;
-  color: #092C4C;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-}
-
-.barra-decorativa {
-  color: #FFD23B;
-  font-size: 24px;
-  font-weight: 900;
-  margin-right: 10px;
-}
-
-.bloques-comunicados-lineales {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.item-comunicado-lineal {
-  background: white;
-  border-radius: 10px;
-  padding: 20px 25px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-  border: 1px solid #edf2f7;
-  transition: transform 0.2s;
-}
-
-.item-comunicado-lineal:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.icono-item {
-  font-size: 24px;
-  color: #0078C9;
-  margin-right: 20px;
-}
-
-.info-item {
-  flex: 1;
-}
-
-.info-item h4 {
-  margin: 0 0 4px 0;
-  font-size: 16px;
-  color: #1e293b;
-  font-weight: 600;
-}
-
-.info-item span {
-  font-size: 13px;
-  color: #64748b;
-}
-
-.btn-leer-item {
-  color: #0078C9;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-}
-
-/* --- INTERIOR EN DETALLE (Sugeridos) --- */
-.seccion-otros-comunicados {
-  background-color: #f1f5f9;
-  padding: 50px 20px;
-  border-top: 1px solid #e2e8f0;
-}
-
-.contenedor-otros {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.grid-otros-comunicados {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.tarjeta-miniatura {
-  background: white;
-  border-radius: 10px;
-  padding: 25px;
-  display: flex;
-  gap: 15px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-}
-
-.icono-tarjeta-min {
-  width: 45px;
-  height: 45px;
-  background-color: #f0f7ff;
-  color: #0078C9;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -505,177 +145,179 @@ header .btn:active,
   flex-shrink: 0;
 }
 
-.fecha-min {
-  font-size: 12px;
-  color: #64748b;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.contenido-miniatura h4 {
-  font-size: 14.5px;
-  color: #1e293b;
-  margin: 0 0 10px 0;
+.titulo-comunicado-link {
+  color: #003366;
   font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
   line-height: 1.4;
+  transition: color 0.2s ease;
 }
 
-.enlace-leer-mas {
+.titulo-comunicado-link:hover {
   color: #0078C9;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
+  text-decoration: underline;
 }
 
-
-/* --- PIE DE PÁGINA (FOOTER) REESTRUCTURADO --- */
-footer {
-  background: linear-gradient(90deg, #003366, #0078C9, #66CCFF);
-  color: white;
-  padding: 40px 40px 10px 40px;
-  width: 100%;
-  margin-top: auto; /* Empuja el footer siempre abajo si hay poco contenido */
+.col-tabla-fecha {
+  flex: 1;
+  color: #64748b;
+  font-size: 14px;
 }
 
-.footer-container {
-  max-width: 1300px;
-  margin: 0 auto;
+.col-tabla-acciones {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-.footer-column {
-  flex: 1 1 180px; /* Distribución dinámica horizontal */
-}
-
-/* Columna especial del Logo */
-.footer-logo-col {
-  flex: 1 1 220px;
-}
-
-.footer-logo img {
-  height: 70px;
-  margin-bottom: 5px;
-}
-
-.copyright-text-sub {
-  font-size: 10px; 
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin: 0 0 15px 0;
-}
-
-/* Enlace a Facebook con ícono integrado */
-.fb-link {
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
+.btn-accion-tabla {
+  background: none;
+  border: none;
+  color: #0078C9;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* Espacio ideal entre el ícono y el texto */
-  transition: color 0.3s ease;
-}
-
-.fb-link i {
-  font-size: 18px; /* Tamaño destacado para el logo de Facebook */
-}
-
-.fb-link:hover {
-  color: #FFD23B; /* Cambia a amarillo al pasar el mouse */
-}
-
-/* Títulos amarillos del Footer */
-.footer-title {
-  color: #FFD23B;
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-/* Enlaces del Footer */
-.footer-links a {
-  color: white;
+  gap: 6px;
   text-decoration: none;
-  font-size: 13px !important;
-  transition: color 0.3s;
+  transition: color 0.2s ease;
 }
 
-.footer-links a:hover {
-  color: #FFD23B;
+.btn-accion-tabla:hover {
+  color: #003366;
 }
 
-/* ⚡ AQUÍ ESTÁ LA SOLUCIÓN GLOBAL PARA HOMOGENEIZAR LOS TAMAÑOS ⚡ */
-.footer-column p, 
-.footer-column span, 
-.footer-column font,
-.footer-column strong {
-  font-size: 13px !important; /* Fuerza a 13px a TODO lo que sea texto en las columnas */
-  line-height: 1.5 !important;
-  color: white !important;
+.link-descarga-directa {
+  color: #0284c7;
 }
 
-/* Para mantener las etiquetas en negrita legibles pero del mismo tamaño */
-.footer-column strong {
-  font-weight: 600 !important;
+.divisor-acciones {
+  color: #cbd5e1;
+  user-select: none;
 }
 
-.phone-number {
-  font-size: 13px !important;
+/* Paginación Custom */
+.paginacion-comunicados-wrapper {
+  margin-top: 35px;
 }
 
-.email-title {
-  color: #FFD23B;
-  font-size: 13px !important;
-  margin: 15px 0 5px 0;
-  font-family: 'Montserrat', sans-serif;
-  text-transform: uppercase;
+.paginacion-lista-custom {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+  gap: 8px;
 }
 
-.email-text {
-  font-size: 13px !important;
-}
-
-/* Caja de Mapa Ajustada */
-.footer-map iframe {
-  width: 100%;
-  max-width: 280px; /* Incrementado para que se aprecie mejor el plano */
-  height: 140px;    /* Un poco más alto para dar aire al mapa */
+.pag-item-custom a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   border-radius: 6px;
-  background-color: #eee;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  color: #334155;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
 }
 
-/* Barra inferior de copyright (Línea sutil divisoria) */
-.footer-bottom-bar {
-  margin-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea blanca semitransparente como en tu diseño */
-  padding-top: 15px;
-  text-align: center;
+.pag-item-custom:hover a {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
-.footer-bottom-bar p {
-  font-size: 11px;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: 'Poppins', sans-serif;
+.pag-item-custom.active a {
+  background-color: #003366;
+  color: #ffffff;
+  border-color: #003366;
 }
 
-/* --- RESPONSIVE / ADAPTACIÓN MÓVIL --- */
-@media (max-width: 992px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 25px;
-  }
+.elipsis-pag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  color: #94a3b8;
 }
 
+/* ==========================================================================
+   DISEÑO VENTANA EMERGENTE (MODAL PERSONALIZADO)
+   ========================================================================== */
+.modal-comunicado-custom {
+  border-radius: 16px;
+  border: none;
+  position: relative;
+}
+
+.btn-close-modal-comunicado {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f1f5f9;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.btn-close-modal-comunicado:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.linea-separadora-modal-amarilla {
+  width: 100%;
+  height: 3px;
+  background-color: #FFD23B;
+}
+
+.titulo-interno-documento {
+  color: #003366;
+  letter-spacing: 1px;
+}
+
+.texto-oficial-documento p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #334155;
+}
+
+.btn-descargar-pdf-modal {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #003366;
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+}
+
+.btn-descargar-pdf-modal:hover {
+  background-color: #001f42;
+  color: #ffffff;
+}
+
+/* Adaptabilidad Mobile */
 @media (max-width: 768px) {
-  .tarjeta-comunicado-completo, .tarjeta-comunicado-destacado { padding: 20px; }
-  .titulo-comunicado { font-size: 24px; }
-  .caja-documento-adjunto { flex-direction: column; gap: 15px; text-align: center; }
-  .acciones-comunicado-footer { flex-direction: column; gap: 20px; text-align: center; }
+  .fila-comunicados-header { display: none; }
+  .item-comunicado-fila { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .col-tabla-acciones { justify-content: flex-start; width: 100%; margin-top: 5px; }
 }
