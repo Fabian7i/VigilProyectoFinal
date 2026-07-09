@@ -277,4 +277,72 @@ body {
   .columna-info-destacada {
     padding: 25px;
   }
+
+
+
+  /* ========================================================
+   PAGINACIÓN PREMIUM Y TOTALMENTE CENTRADA
+   ======================================================== */
+.contenedor-paginacion {
+    display: flex;
+    justify-content: center; /* Centrado horizontal absoluto */
+    align-items: center;
+    gap: 10px; /* Espaciado óptimo entre botones */
+    margin: 50px auto 20px auto; /* Margen superior generoso para separar del grid */
+    padding: 10px;
+    flex-wrap: wrap; /* Esencial para que en celulares no se corte y baje ordenado */
+    max-width: 100%;
+}
+
+.btn-pagina {
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px; /* Bordes suaves modernos */
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Sombra muy sutil */
+    transition: honesty all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Animación fluida */
+    user-select: none;
+}
+
+/* Efecto Hover al pasar el mouse */
+.btn-pagina:hover:not(:disabled) {
+    background-color: #0d6efd; /* Azul institucional */
+    color: #ffffff;
+    border-color: #0d6efd;
+    transform: translateY(-3px); /* Pequeño levante tridimensional */
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3); /* Resplandor azul */
+}
+
+/* Estado del botón de la página actual */
+.btn-pagina.activo {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border-color: #0d6efd;
+    font-weight: 900;
+    transform: scale(1.05); /* Ligeramente más grande */
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+}
+
+/* Estado para las flechas cuando están deshabilitadas (ej: estar en la pág 1 y no poder ir atrás) */
+.btn-pagina:disabled {
+    background-color: #f8f9fa;
+    color: #ced4da;
+    border-color: #e9ecef;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Ajuste fino para las flechas « y » */
+.btn-pagina:first-child,
+.btn-pagina:last-child {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+}
 }
