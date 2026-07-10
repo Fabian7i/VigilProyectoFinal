@@ -2,96 +2,125 @@ document.addEventListener("DOMContentLoaded", () => {
     const URL_API = "http://127.0.0.1:8000/noticias";
     const URL_IMAGENES = "http://127.0.0.1:8000/storage/imagenes/";
 
-    const destacadaContainer = document.getElementById("noticia-destacada-container");
-    const recientesContainer = document.getElementById("noticias-recientes-container");
+    const contenedorFotos = document.getElementById("contenedor-fotos-noticias");
+    const form = document.getElementById("form-noticias-dashboard");
 
-    function separarFecha(fechaString) {
-        if (!fechaString) return { dia: "00", mes: "AAA", anio: "0000" };
-        const fecha = new Date(fechaString);
-        const dia = String(fecha.getDate()).padStart(2, '0');
-        const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"];
-        const mes = meses[fecha.getMonth()];
-        const anio = fecha.getFullYear();
-        return { dia, mes, anio };
+    // ==========================================
+    // 1. TRAER EL LISTADO DE NOTICIAS E ITERAR LAS IMÁGENES
+    // ==========================================
+    if (contenedorFotos) {
+        fetch(URL_API)
+            .then(response => {
+                if (!response.ok) throw new Error("Error al obtener el listado de noticias");
+                return response.json();
+            })
+            .then(data => {
+                // Combinamos la destacada (si existe) y las recientes en un solo array para la galería
+                let todasLasNoticias = [];
+                
+                if (data.destacada) {
+                    todasLasNoticias.push(data.destacada);
+                }
+                if (data.recientes && data.recientes.length > 0) {
+                    todasLasNoticias = todasLasNoticias.concat(data.recientes);
+                }
+
+                // Si no hay ninguna noticia en la base de datos
+                if (todasLasNoticias.length === 0) {
+                    contenedorFotos.innerHTML = `<p class="text-white p-3">No hay imágenes que mostrar.</p>`;
+                    return;
+                }
+
+                // Limpiamos los placeholders estáticos del HTML
+                contenedorFotos.innerHTML = "";
+
+                // Iteramos el listado para renderizar cada foto-item
+                todasLasNoticias.forEach(noticia => {
+                    if (noticia.imagen) {
+                        const fotoItem = document.createElement("div");
+                        fotoItem.className = "foto-item";
+                        fotoItem.innerHTML = `
+                            <img src="${URL_IMAGENES}${noticia.imagen}" 
+                                 alt="${noticia.titulo || 'Imagen de noticia'}" 
+                                 title="${noticia.titulo || 'Sin título'}"
+                                 onerror="this.src='https://via.placeholder.com/180x100?text=Error+Foto'">
+                        `;
+                        contenedorFotos.appendChild(fotoItem);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error("Error cargando la galería del dashboard:", error);
+                contenedorFotos.innerHTML = `<p class="text-danger p-3">Error al conectar con el servidor para listar imágenes.</p>`;
+            });
     }
 
-    fetch(URL_API)
-        .then(response => {
-            if (!response.ok) throw new Error("Error en la respuesta del servidor");
-            return response.json();
-        })
-        .then(data => {
-            let noticiaDestacada = data.destacada;
-            let noticiasRecientes = data.recientes || [];
-
-            // 🚀 TRUCO CLAVE: Si no hay destacada manual, agarramos la última subida como destacada
-            if (!noticiaDestacada && noticiasRecientes.length > 0) {
-                noticiaDestacada = noticiasRecientes[0]; // La primera es la más nueva
-                noticiasRecientes = noticiasRecientes.slice(1); // Quitamos esa del grupo de recientes para que no se repita
-            }
-
-            // --- 1. RENDERIZAR NOTICIA DESTACADA ---
-            if (noticiaDestacada) {
-                const { dia, mes, anio } = separarFecha(noticiaDestacada.created_at);
-                
-                // Asegurar que la imagen traiga su nombre limpio
-                const nombreImagen = noticiaDestacada.imagen ? noticiaDestacada.imagen : '';
-
-                destacadaContainer.innerHTML = `
-                    <div class="fila-destacada">
-                        <div class="columna-imagen-destacada">
-                            <img src="${URL_IMAGENES}${nombreImagen}" alt="${noticiaDestacada.titulo}" onerror="this.src='https://via.placeholder.com/600x400?text=Error+al+cargar+imagen'">
-                        </div>
-                        
-                        <div class="columna-info-destacada">
-                            <div class="contenedor-cabecera-destacada">
-                                <div class="bloque-fecha">
-                                    <span class="dia">${dia}</span>
-                                    <span class="mes-anio">${mes}<br>${anio}</span>
-                                </div>
-                                <span class="etiqueta-destacada">NOTICIA DESTACADA</span>
-                            </div>
-
-                            <h3>${noticiaDestacada.titulo}</h3>
-                            <p>${noticiaDestacada.cuerpo}</p>
-                            
-                            <a href="#" class="btn-leer-noticia-completa">Ver detalles →</a>
-                        </div>
-                    </div>
-                `;
-            } else {
-                destacadaContainer.innerHTML = `<p class="text-center">No hay ninguna noticia publicada todavía.</p>`;
-            }
-
-            // --- 2. RENDERIZAR NOTICIAS RECIENTES ---
-            if (noticiasRecientes.length > 0) {
-                recientesContainer.innerHTML = ""; 
-
-                noticiasRecientes.forEach(noticia => {
-                    const { dia, mes, anio } = separarFecha(noticia.created_at);
-                    const nombreImagenReciente = noticia.imagen ? noticia.imagen : '';
-                    
-                    const cardHTML = `
-                        <article class="tarjeta-noticia-reciente">
-                            <div class="imagen-tarjeta">
-                                <img src="${URL_IMAGENES}${nombreImagenReciente}" alt="${noticia.titulo}" onerror="this.src='https://via.placeholder.com/300x200?text=Error+Imagen'">
-                            </div>
-                            <div class="cuerpo-tarjeta">
-                                <span class="fecha-noticia">${dia} ${mes} ${anio}</span>
-                                <h4>${noticia.titulo}</h4>
-                                <p>${noticia.cuerpo.length > 120 ? noticia.cuerpo.substring(0, 120) + "..." : noticia.cuerpo}</p>
-                                <a href="#" class="enlace-leer-mas">Leer más →</a>
-                            </div>
-                        </article>
-                    `;
-                    recientesContainer.innerHTML += cardHTML;
-                });
-            } else {
-                recientesContainer.innerHTML = `<p class="text-center w-100">No hay más noticias recientes registradas.</p>`;
-            }
-        })
-        .catch(error => {
-            console.error("Error cargando el módulo de noticias:", error);
-            destacadaContainer.innerHTML = `<p class="text-center" style="color: red;">Error al conectar con el servidor.</p>`;
+    // ==========================================
+    // 2. LÓGICA DEL BOTÓN "SIGUIENTE NOTICIA" (Scroll Horizontal)
+    // ==========================================
+    const btnSiguiente = document.querySelector(".btn-siguiente-noticia");
+    if (btnSiguiente && contenedorFotos) {
+        btnSiguiente.addEventListener("click", () => {
+            // Desplaza la galería hacia la derecha de forma suave
+            contenedorFotos.scrollBy({ left: 200, behavior: "smooth" });
         });
+    }
+
+    // ==========================================
+    // 3. PROCESAR Y GUARDAR NUEVA NOTICIA (POST)
+    // ==========================================
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            // Validación simple antes de mandar los datos
+            const titulo = document.getElementById("input-titulo").value.trim();
+            const cuerpo = document.getElementById("input-cuerpo").value.trim();
+            
+            if (!titulo || !cuerpo) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campos incompletos',
+                    text: 'Por favor, completa el título y el cuerpo de la noticia.'
+                });
+                return;
+            }
+
+            fetch(URL_API, {
+                method: "POST",
+                body: formData
+                // Importante: No se añade cabecera Content-Type para que el navegador maneje el boundary de la imagen automáticamente.
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Error en el servidor al intentar guardar");
+                return res.json();
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Guardado!',
+                    text: 'La noticia se ha publicado correctamente.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                form.reset();
+                
+                // Opcional: Recargar la página o volver a ejecutar la función de listado para ver la nueva foto al instante
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            })
+            .catch(err => {
+                console.error("Error al enviar el formulario:", err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'No se pudo registrar la noticia en el servidor.'
+                });
+            });
+        });
+    }
 });
