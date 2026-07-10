@@ -1,0 +1,345 @@
+/* ==========================================================================
+   ESTILOS PREMIUM: PÁGINA DE PLANA DIRECTIVA (CON ENCABEZADO FIEL A FIGMA)
+   ========================================================================== */
+
+/* Forzar tratamiento correcto del menú */
+header nav ul li a {
+  text-transform: none !important;
+}
+
+/* --- CONTENEDOR GENERAL --- */
+.contenedor-principal-pd {
+  max-width: 1200px;
+  margin: 40px auto 60px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* --- ENCABEZADO DE TÍTULO (LIMPÌO Y FIEL A LA IMAGEN) --- */
+.encabezado-titulo-fiel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.bloque-texto-titulo {
+  flex: 1;
+}
+
+.bloque-texto-titulo h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  color: #003366; /* Azul Institucional original */
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.bloque-texto-titulo p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+  max-width: 750px;
+}
+
+.bloque-icono-decorativo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- SUBTÍTULOS DE JERARQUÍA --- */
+.subtitulo-jerarquia-pd {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  color: #003366;
+  margin-top: 40px;
+  margin-bottom: 25px;
+  letter-spacing: -0.2px;
+}
+
+/* --- GRID DE DIRECCIÓN (TARJETAS HORIZONTALES) --- */
+.grid-alta-direccion-pd {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.tarjeta-horizontal-pd {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.015);
+}
+
+.imagen-directivo-box {
+  width: 170px;
+  flex-shrink: 0;
+  background-color: #f8fafc;
+}
+
+.imagen-directivo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detalles-directivo-box {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tag-cargo-pd {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #0056b3;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.detalles-directivo-box h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #1e293b;
+  margin: 0 0 10px 0;
+}
+
+.detalles-directivo-box p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0 0 15px 0;
+}
+
+.datos-contacto-pd {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* --- GRID EQUIPO SECUNDARIO (TARJETAS VERTICALES) --- */
+.grid-equipo-sub-pd {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.tarjeta-vertical-pd {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.015);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-vertical-pd:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.avatar-circular-pd {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px auto;
+  border: 3px solid #f1f5f9;
+}
+
+.avatar-circular-pd img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta-vertical-pd h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0056b3;
+  margin: 0 0 4px 0;
+}
+
+.tarjeta-vertical-pd h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.tarjeta-vertical-pd p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}
+
+/* --- BLOQUE DE COMPROMISO INFERIOR --- */
+.bloque-footer-compromiso-pd {
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.icono-compromiso-pd {
+  font-size: 26px;
+  background-color: #003366;
+  color: #ffffff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.texto-compromiso-pd h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #003366;
+  margin: 0 0 4px 0;
+}
+
+.texto-compromiso-pd p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0;
+}
+
+/* --- NUEVOS ESTILOS DEL FOOTER (ACTUALIZADOS) --- */
+
+/* Títulos amarillos del Footer */
+.footer-title {
+  color: #FFD23B;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Enlaces del Footer */
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px !important;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #FFD23B;
+}
+
+/* Solución global para homogeneizar los tamaños de texto en el Footer */
+.footer-column p, 
+.footer-column span, 
+.footer-column font,
+.footer-column strong {
+  font-size: 13px !important; /* Fuerza a 13px a TODO lo que sea texto en las columnas */
+  line-height: 1.5 !important;
+  color: white !important;
+}
+
+/* Para mantener las etiquetas en negrita legibles pero del mismo tamaño */
+.footer-column strong {
+  font-weight: 600 !important;
+}
+
+.phone-number {
+  font-size: 13px !important;
+}
+
+.email-title {
+  color: #FFD23B;
+  font-size: 13px !important;
+  margin: 15px 0 5px 0;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+}
+
+.email-text {
+  font-size: 13px !important;
+}
+
+/* Caja de Mapa Ajustada */
+.footer-map iframe {
+  width: 100%;
+  max-width: 280px; /* Incrementado para que se aprecie mejor el plano */
+  height: 140px;    /* Un poco más alto para dar aire al mapa */
+  border-radius: 6px;
+  background-color: #eee;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Barra inferior de copyright (Línea sutil divisoria) */
+.footer-bottom-bar {
+  margin-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea blanca semitransparente */
+  padding-top: 15px;
+  text-align: center;
+}
+
+.footer-bottom-bar p {
+  font-size: 11px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* --- AJUSTES DE RESPONSIVIDAD --- */
+@media (max-width: 768px) {
+  .encabezado-titulo-fiel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .bloque-icono-decorativo {
+    display: none; /* Ocultar icono en pantallas muy chicas */
+  }
+  .grid-alta-direccion-pd {
+    grid-template-columns: 1fr;
+  }
+  .tarjeta-horizontal-pd {
+    flex-direction: column;
+  }
+  .imagen-directivo-box {
+    width: 100%;
+    height: 220px;
+  }
+  .bloque-footer-compromiso-pd {
+    flex-direction: column;
+    text-align: center;
+  }
+}
