@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body>
 
   <div class="wrapper-dashboard">
@@ -25,7 +27,7 @@
         <li><a href="noticias_dashboard.html">Noticias</a></li>
         <li><a href="contacto_formulario_dashboard.html">Formulario de contacto</a></li>
         <li><a href="#" class="active">Comunicados</a></li>
-         <li><a href="comentarios_dashboard.html">Comentarios</a></li>
+        <li><a href="comentarios_dashboard.html">Comentarios</a></li>
         <li><a href="usuarios_dashboard.html">Usuarios</a></li>
         <li><a href="dashboard_configuracion.html">Configuracion</a></li>
       </ul>
@@ -36,62 +38,53 @@
       <!-- CABECERA -->
       <header class="header-dash">
         <h1 class="m-0">INSTITUCION EDUCATIVA ENRIQUE PAILLARDELLE - DASHBOARD ADMINISTRATIVO</h1>
-       <div class="user-profile-dash menu-usuario-wrapper">
+        <div class="user-profile-dash menu-usuario-wrapper">
 
-    <button
-        type="button"
-        class="btn-menu-usuario"
-        id="btnMenuUsuario"
-        aria-label="Abrir menú">
+          <button type="button" class="btn-menu-usuario" id="btnMenuUsuario" aria-label="Abrir menú">
 
-        <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150"
-            alt="Administrador"
-            class="avatar-dash">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150"
+              alt="Foto del administrador" class="avatar-dash avatar-dashboard-global">
 
-        <span class="menu-burger-icon">
-            <i class="bi bi-list"></i>
-        </span>
+            <span class="menu-burger-icon">
+              <i class="bi bi-list"></i>
+            </span>
 
-    </button>
+          </button>
 
-    <div class="menu-desplegable-usuario" id="menuUsuario">
+          <div class="menu-desplegable-usuario" id="menuUsuario">
 
-        <a href="perfil_dashboard.html" class="menu-usuario-item">
-            <i class="bi bi-person-circle"></i>
-            Perfil
-        </a>
+            <a href="perfil_dashboard.html" class="menu-usuario-item">
+              <i class="bi bi-person-circle"></i>
+              Perfil
+            </a>
 
-        <a href="dashboard_configuracion.html" class="menu-usuario-item">
-            <i class="bi bi-gear"></i>
-            Configuración
-        </a>
+            <a href="dashboard_configuracion.html" class="menu-usuario-item">
+              <i class="bi bi-gear"></i>
+              Configuración
+            </a>
 
-        <button
-            type="button"
-            class="menu-usuario-item salir"
-            id="btnSalir">
+            <button type="button" class="menu-usuario-item salir" id="btnSalir">
 
-            <i class="bi bi-box-arrow-right"></i>
-            Salir
+              <i class="bi bi-box-arrow-right"></i>
+              Salir
 
-        </button>
+            </button>
 
-    </div>
+          </div>
 
-</div>
+        </div>
       </header>
 
       <!-- SECCIÓN DEL MÓDULO DE COMUNICADOS -->
       <main class="dashboard-container-dash">
-        
+
         <!-- TÍTULO PRINCIPAL DEL MÓDULO -->
         <h2 class="modulo-titulo-principal mb-4">MÓDULO DE COMUNICADOS</h2>
 
         <!-- CONTENEDOR SUPERIOR: LISTA DE COMUNICADOS EXISTENTES -->
         <div class="modulo-comunicados-card mb-4">
           <div class="comunicados-lista-wrapper">
-            
+
             <!-- Item 1 -->
             <div class="comunicado-item-row">
               <div class="comunicado-texto-box">1. Convocatoria al Proceso de Matrícula 2026</div>
@@ -213,4 +206,5 @@
   <script src="script.js/dashboard/Menu_usuario.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
