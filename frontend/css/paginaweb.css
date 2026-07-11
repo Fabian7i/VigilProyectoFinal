@@ -1143,3 +1143,153 @@ nav ul li .dropdown-menu li a:hover {
 nav ul li .dropdown-menu li a:hover::before {
   opacity: 1 !important;
 }
+/* --- CONTENEDOR GENERAL DE LA LISTA --- */
+.listado-comentarios-recientes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 35px;
+}
+
+.listado-comentarios-recientes h3 {
+    font-size: 1.5rem;
+    color: #002855; /* Azul oscuro institucional */
+    font-weight: 700;
+    text-transform: uppercase;
+    border-left: 5px solid #FFCC00; /* Detalle amarillo brillante a la izquierda */
+    padding-left: 12px;
+    margin-bottom: 20px;
+}
+
+/* --- TARJETA DE COMENTARIO CON COLORES --- */
+.tarjeta-comentario-premium {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: #F4F7FA; /* Fondo gris/azul clarito muy limpio */
+    border-left: 4px solid #002855; /* Borde izquierdo azul fuerte */
+    border-top: 1px solid #E2E8F0;
+    border-right: 1px solid #E2E8F0;
+    border-bottom: 1px solid #E2E8F0;
+    border-radius: 0 12px 12px 0; /* Redondeado solo en las esquinas derechas */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 40, 85, 0.05); /* Sombra con toque azul */
+    transition: all 0.3s ease;
+}
+
+/* Efecto llamativo al pasar el mouse */
+.tarjeta-comentario-premium:hover {
+    background: #FFFFFF; /* Cambia a blanco */
+    border-left-color: #FFCC00; /* El borde cambia al amarillo del colegio */
+    box-shadow: 0 6px 15px rgba(0, 40, 85, 0.1);
+    transform: translateX(4px); /* Se mueve un poquito a la derecha */
+}
+
+/* --- AVATAR CON COLOR DE LOGO --- */
+.comentario-avatar-premium {
+    width: 48px;
+    height: 48px;
+    background-color: #002855; /* Fondo Azul */
+    color: #FFCC00; /* Icono Amarillo */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+/* --- CONTENEDOR DE TEXTOS --- */
+.comentario-bloque-derecho {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* --- ENCABEZADO (FUERZA LA FECHA AL EXTREMO DERECHO) --- */
+.comentario-encabezado-meta {
+    display: flex;
+    justify-content: space-between; /* Empuja el nombre a la izq y la fecha al extremo derecho */
+    align-items: center;
+    width: 100%; /* Toma todo el ancho disponible */
+}
+
+.autor-nombre-premium {
+    font-weight: 700;
+    color: #002855; /* Texto azul */
+    font-size: 1.05rem;
+}
+
+/* FECHA AL EXTREMO DERECHO */
+.comentario-fecha-derecha {
+    font-size: 0.85rem;
+    color: #64748B;
+    background: #E2E8F0; /* Pequeña cápsula gris para resaltar */
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap; /* Evita que la fecha se parta en dos líneas */
+}
+
+.comentario-fecha-derecha i {
+    color: #002855;
+    margin-right: 4px;
+}
+
+/* --- TEXTO DEL COMENTARIO --- */
+.comentario-cuerpo-texto p {
+    margin: 0;
+    color: #334155;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    word-break: break-word;
+}
+/* Contenedor de la respuesta del Administrador */
+.caja-respuesta-admin-publica {
+    display: flex;
+    gap: 15px;
+    background-color: #f4f7f9; /* Un tono ligeramente diferente para resaltar */
+    border-left: 4px solid #003366; /* Línea distintiva con el color de tu panel */
+    padding: 15px;
+    margin-top: 10px;
+    margin-left: 50px; /* Margen izquierdo para generar el efecto escalonado (hilo) */
+    border-radius: 0 8px 8px 0;
+}
+
+/* Avatar del Administrador */
+.avatar-admin {
+    width: 40px;
+    height: 40px;
+    background-color: #003366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Etiqueta distintiva de 'Oficial' */
+.etiqueta-oficial {
+    background-color: #003366;
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.nombre-admin {
+    font-weight: bold;
+    color: #333;
+}
+
+.texto-respuesta {
+    margin-top: 5px;
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}

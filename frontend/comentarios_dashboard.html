@@ -125,69 +125,9 @@
         </div>
 
         <!-- Lista de Comentarios en Tarjetas Horizontales -->
-        <div class="comentarios-lista-wrapper">
-
-          <!-- Registro 1 -->
-          <div class="comentario-item-row" id="comentario-1">
-            <div class="comentario-left-side">
-              <div class="avatar-generico-com">👤</div>
-              <div class="comentario-cuerpo">
-                <div class="comentario-usuario">Invitado</div>
-                <p class="comentario-texto-p">Excelente actividad. Felicitaciones al colegio por la impecable
-                  organización del evento patriótico...</p>
-                <div class="comentario-fecha-hora">10/07/2026 - 10:25 a. m.</div>
-              </div>
-            </div>
-            <div class="comentario-right-side">
-              <button class="btn-opciones-com" onclick="toggleMenuCom(event, 'menu-1')">⋮</button>
-              <div class="menu-contextual-com" id="menu-1">
-                <button class="btn-opcion-eliminar" onclick="solicitarConfirmacion('comentario-1')">🗑 Eliminar
-                  comentario</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Registro 2 -->
-          <div class="comentario-item-row" id="comentario-2">
-            <div class="comentario-left-side">
-              <div class="avatar-generico-com">👤</div>
-              <div class="comentario-cuerpo">
-                <div class="comentario-usuario">Invitado</div>
-                <p class="comentario-texto-p">Me encantó la galería de fotos. Qué bueno ver los logros y proyectos de
-                  los alumnos de secundaria.</p>
-                <div class="comentario-fecha-hora">09/07/2026 - 04:15 p. m.</div>
-              </div>
-            </div>
-            <div class="comentario-right-side">
-              <button class="btn-opciones-com" onclick="toggleMenuCom(event, 'menu-2')">⋮</button>
-              <div class="menu-contextual-com" id="menu-2">
-                <button class="btn-opcion-eliminar" onclick="solicitarConfirmacion('comentario-2')">🗑 Eliminar
-                  comentario</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Registro 3 -->
-          <div class="comentario-item-row" id="comentario-3">
-            <div class="comentario-left-side">
-              <div class="avatar-generico-com">👤</div>
-              <div class="comentario-cuerpo">
-                <div class="comentario-usuario">Invitado</div>
-                <p class="comentario-texto-p">Sería bueno que publiquen más eventos académicos y el cronograma de
-                  exámenes mensuales.</p>
-                <div class="comentario-fecha-hora">08/07/2026 - 11:40 a. m.</div>
-              </div>
-            </div>
-            <div class="comentario-right-side">
-              <button class="btn-opciones-com" onclick="toggleMenuCom(event, 'menu-3')">⋮</button>
-              <div class="menu-contextual-com" id="menu-3">
-                <button class="btn-opcion-eliminar" onclick="solicitarConfirmacion('comentario-3')">🗑 Eliminar
-                  comentario</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
+     <div class="comentarios-lista-wrapper" id="contenedorComentariosDashboard">
+  <!-- Los comentarios y sus formularios de respuesta se inyectarán de forma dinámica aquí -->
+</div>
 
         <!-- Paginación -->
         <div class="paginacion-com-footer">
@@ -272,7 +212,7 @@
       }
     });
   </script>
-  <script src="script.js/dashboard/Menu_usuario.js"></script>
+  <script src="script.js/comentariosDA.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

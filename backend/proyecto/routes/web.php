@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +28,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// Ruta explícita utilizando POST
+Route::post('/comentarios/{id}/responder', [CommentController::class, 'responderAdmin']);
+Route::get('/comentarios', [CommentController::class, 'indexApi']);
+Route::post('/comentarios/anonimo', [CommentController::class, 'storeAnonymousApi']);
 require __DIR__.'/auth.php';
