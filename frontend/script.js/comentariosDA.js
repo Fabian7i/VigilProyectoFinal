@@ -354,76 +354,80 @@ function renderizarComentarios() {
 // ======================================================
 
 function agregarEventosComentarios() {
-    document
-        .querySelectorAll(".btn-opciones-com")
-        .forEach(function (boton) {
-            boton.addEventListener(
-                "click",
-                function (evento) {
-                    evento.stopPropagation();
+    const botonesOpciones = document.querySelectorAll(
+        ".btn-opciones-com"
+    );
 
-                    toggleMenuCom(
-                        evento,
-                        boton.dataset.menuId
-                    );
-                }
-            );
-        });
+    botonesOpciones.forEach(function (boton) {
+        boton.addEventListener("click", function (evento) {
+            evento.preventDefault();
+            evento.stopPropagation();
 
-    document
-        .querySelectorAll(".btn-opcion-eliminar")
-        .forEach(function (boton) {
-            boton.addEventListener(
-                "click",
-                function () {
-                    solicitarConfirmacion(
-                        Number(boton.dataset.eliminarId)
-                    );
-                }
-            );
-        });
+            const menuId = boton.getAttribute("data-menu-id");
+            const menu = document.getElementById(menuId);
 
-    document
-        .querySelectorAll(".form-responder-admin")
-        .forEach(function (formulario) {
-            formulario.addEventListener(
-                "submit",
-                function (evento) {
-                    enviarRespuestaAdmin(
-                        evento,
-                        Number(
-                            formulario.dataset.comentarioId
-                        )
-                    );
-                }
-            );
+            if (!menu) {
+                console.error(
+                    "No se encontró el menú:",
+                    menuId
+                );
+                return;
+            }
+
+            const yaEstabaAbierto =
+                menu.classList.contains("activo");
+
+            cerrarTodosLosMenus();
+
+            if (!yaEstabaAbierto) {
+                menu.classList.add("activo");
+            }
         });
+    });
+
+    const botonesEliminar = document.querySelectorAll(
+        ".btn-opcion-eliminar"
+    );
+
+    botonesEliminar.forEach(function (boton) {
+        boton.addEventListener("click", function (evento) {
+            evento.preventDefault();
+            evento.stopPropagation();
+
+            const comentarioId = Number(
+                boton.getAttribute("data-eliminar-id")
+            );
+
+            solicitarConfirmacion(comentarioId);
+        });
+    });
+
+    const formulariosRespuesta = document.querySelectorAll(
+        ".form-responder-admin"
+    );
+
+    formulariosRespuesta.forEach(function (formulario) {
+        formulario.addEventListener(
+            "submit",
+            function (evento) {
+                const comentarioId = Number(
+                    formulario.getAttribute(
+                        "data-comentario-id"
+                    )
+                );
+
+                enviarRespuestaAdmin(
+                    evento,
+                    comentarioId
+                );
+            }
+        );
+    });
 }
 
 // ======================================================
 // ABRIR Y CERRAR MENÚ DE TRES PUNTOS
 // ======================================================
-
-function toggleMenuCom(evento, menuId) {
-    evento.preventDefault();
-    evento.stopPropagation();
-
-    const menuSeleccionado =
-        document.getElementById(menuId);
-
-    if (!menuSeleccionado) {
-        return;
-    }
-
-    const estabaVisible =
-        menuSeleccionado.classList.contains("activo");
-
-    cerrarTodosLosMenus();
-
-    if (!estabaVisible) {
-        menuSeleccionado.classList.add("activo");
-    }
-}
 
 function cerrarTodosLosMenus() {
     document
@@ -433,7 +437,13 @@ function cerrarTodosLosMenus() {
         });
 }
 
-document.addEventListener("click", cerrarTodosLosMenus);
+document.addEventListener("click", function (evento) {
+    if (
+        !evento.target.closest(".comentario-right-side")
+    ) {
+        cerrarTodosLosMenus();
+    }
+});
 
 // ======================================================
 // RESPONDER COMENTARIO
@@ -552,37 +562,41 @@ function solicitarConfirmacion(comentarioId) {
         "modalConfirmarEliminacion"
     );
 
-    if (modal) {
-        modal.classList.add("activo");
-        document.body.classList.add("modal-abierto");
+    if (!modal) {
+        console.error(
+            "No existe #modalConfirmarEliminacion"
+        );
+
+        const confirmar = window.confirm(
+            "¿Está seguro de eliminar este comentario?"
+        );
+
+        if (confirmar) {
+            eliminarComentario();
+        }
+
         return;
     }
 
-    /*
-     * Respaldo por si todavía no existe el modal
-     * personalizado en el HTML.
-     */
-    const confirmar = window.confirm(
-        "¿Estás seguro de eliminar este comentario?"
-    );
+    modal.classList.add("activo");
+    modal.setAttribute("aria-hidden", "false");
 
-    if (confirmar) {
-        eliminarComentario();
-    }
+    document.body.classList.add("modal-abierto");
 }
 
 function cancelarEliminacion() {
-    idComentarioAEliminar = null;
-
     const modal = document.getElementById(
         "modalConfirmarEliminacion"
     );
 
     if (modal) {
         modal.classList.remove("activo");
+        modal.setAttribute("aria-hidden", "true");
     }
 
     document.body.classList.remove("modal-abierto");
+
+    idComentarioAEliminar = null;
 }
 
 // ======================================================
