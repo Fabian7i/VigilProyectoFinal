@@ -4,45 +4,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Administrativo - Colegio Enrique Paillardelle</title>
-  <!-- Hojas de estilo del sistema -->
+
+  <title>
+    Módulo de Comentarios - Colegio Enrique Paillardelle
+  </title>
+
+  <!-- ESTILOS GENERALES -->
   <link rel="stylesheet" href="css/paginaweb.css">
+
   <link rel="stylesheet" href="css/dashboard.css">
+
+  <!-- ESTILOS DEL MÓDULO -->
   <link rel="stylesheet" href="css/comentarios_dashboard.css">
-  <!-- Nueva hoja de estilo exclusiva del módulo de comentarios -->
-  <link rel="stylesheet" href="css/comentarios.css">
+
+  <!-- ÍCONO DE LA PÁGINA -->
   <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
+
+  <!-- BOOTSTRAP -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- BOOTSTRAP ICONS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
 
   <div class="wrapper-dashboard">
-    <!-- BARRA LATERAL (SIDEBAR) -->
+
+    <!-- SIDEBAR -->
     <aside class="sidebar-dash">
+
       <div class="sidebar-brand-dash">
-        <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Enrique Paillardelle">
+        <img src="img/logo_enriquepaillardelle.png" alt="Logo del Colegio Enrique Paillardelle">
       </div>
+
       <ul class="sidebar-menu-dash">
-        <li><a href="dashboard.html">Panel Principal</a></li>
-        <li><a href="noticias_dashboard.html">Noticias</a></li>
-        <li><a href="contacto_formulario_dashboard.html">Formulario de contacto</a></li>
-        <li><a href="comunicados_dashboard.html">Comunicados</a></li>
-        <li><a href="#" class="active">Comentarios</a></li>
-        <li><a href="usuarios_dashboard.html">Usuarios</a></li>
-        <li><a href="dashboard_configuracion.html">Configuración</a></li>
+
+        <li>
+          <a href="dashboard.html">
+            Panel Principal
+          </a>
+        </li>
+
+        <li>
+          <a href="noticias_dashboard.html">
+            Noticias
+          </a>
+        </li>
+
+        <li>
+          <a href="contacto_formulario_dashboard.html">
+            Formulario de contacto
+          </a>
+        </li>
+
+        <li>
+          <a href="comunicados_dashboard.html">
+            Comunicados
+          </a>
+        </li>
+
+        <li>
+          <a href="comentarios_dashboard.html" class="active">
+            Comentarios
+          </a>
+        </li>
+
+        <li>
+          <a href="usuarios_dashboard.html">
+            Usuarios
+          </a>
+        </li>
+
+        <li>
+          <a href="dashboard_configuracion.html">
+            Configuración
+          </a>
+        </li>
+
       </ul>
+
     </aside>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div class="main-content-dash">
-      <!-- CABECERA -->
+
+      <!-- HEADER -->
       <header class="header-dash">
-        <h1 class="m-0">I.E. ENRIQUE PAILLARDELLE - PANEL DE ADMINISTRACIÓN</h1>
+
+        <h1 class="m-0">
+          I.E. ENRIQUE PAILLARDELLE - PANEL DE ADMINISTRACIÓN
+        </h1>
+
+        <!-- MENÚ DE USUARIO -->
         <div class="user-profile-dash menu-usuario-wrapper">
 
-          <button type="button" class="btn-menu-usuario" id="btnMenuUsuario" aria-label="Abrir menú">
+          <button type="button" class="btn-menu-usuario" id="btnMenuUsuario" aria-label="Abrir menú de usuario"
+            aria-expanded="false">
 
             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150"
               alt="Foto del administrador" class="avatar-dash avatar-dashboard-global">
@@ -53,167 +111,218 @@
 
           </button>
 
+          <!-- MENÚ DESPLEGABLE -->
           <div class="menu-desplegable-usuario" id="menuUsuario">
 
             <a href="perfil_dashboard.html" class="menu-usuario-item">
               <i class="bi bi-person-circle"></i>
-              Perfil
+              <span>Perfil</span>
             </a>
 
             <a href="dashboard_configuracion.html" class="menu-usuario-item">
               <i class="bi bi-gear"></i>
-              Configuración
+              <span>Configuración</span>
             </a>
 
             <button type="button" class="menu-usuario-item salir" id="btnSalir">
-
               <i class="bi bi-box-arrow-right"></i>
-              Salir
-
+              <span>Salir</span>
             </button>
 
           </div>
 
         </div>
+
       </header>
 
-      <!-- CONTENEDOR DEL MÓDULO -->
+      <!-- MÓDULO DE COMENTARIOS -->
       <main class="dashboard-container-dash">
 
-        <!-- Encabezado del Módulo -->
+        <!-- TÍTULO -->
         <div class="titulo-seccion-dash mb-4">
-          <h2 class="modulo-titulo-comentarios">MÓDULO DE COMENTARIOS</h2>
+
+          <h2 class="modulo-titulo-comentarios">
+            MÓDULO DE COMENTARIOS
+          </h2>
+
           <div class="linea-decorativa-amarilla-izquierda"></div>
+
         </div>
 
-        <!-- Tarjetas de Resumen -->
-        <div class="comentarios-metrics-grid">
-          <div class="comentarios-card total">
-            <div class="icon-box-com">📝</div>
-            <div class="card-info-com">
-              <h3>Total de comentarios</h3>
-              <p>125</p>
-            </div>
-          </div>
-          <div class="comentarios-card publicados">
-            <div class="icon-box-com">👁</div>
-            <div class="card-info-com">
-              <h3>Comentarios publicados</h3>
-              <p>120</p>
-            </div>
-          </div>
-          <div class="comentarios-card eliminados">
-            <div class="icon-box-com">🗑</div>
-            <div class="card-info-com">
-              <h3>Comentarios eliminados</h3>
-              <p>5</p>
-            </div>
-          </div>
-        </div>
+        <!-- MÉTRICAS -->
+        <section class="comentarios-metrics-grid">
 
-        <!-- Barra de Herramientas (Buscador y Ordenamiento) -->
-        <div class="comentarios-toolbar">
+          <!-- TOTAL -->
+          <article class="comentarios-card total">
+
+            <div class="icon-box-com">
+              <i class="bi bi-chat-left-text-fill"></i>
+            </div>
+
+            <div class="card-info-com">
+
+              <h3>
+                Total de comentarios
+              </h3>
+
+              <p id="totalComentarios">
+                0
+              </p>
+
+            </div>
+
+          </article>
+
+          <!-- PUBLICADOS -->
+          <article class="comentarios-card publicados">
+
+            <div class="icon-box-com">
+              <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <div class="card-info-com">
+
+              <h3>
+                Comentarios publicados
+              </h3>
+
+              <p id="comentariosPublicados">
+                0
+              </p>
+
+            </div>
+
+          </article>
+
+          <!-- ELIMINADOS -->
+          <article class="comentarios-card eliminados">
+
+            <div class="icon-box-com">
+              <i class="bi bi-trash3-fill"></i>
+            </div>
+
+            <div class="card-info-com">
+
+              <h3>
+                Comentarios eliminados
+              </h3>
+
+              <p id="comentariosEliminados">
+                0
+              </p>
+
+            </div>
+
+          </article>
+
+        </section>
+
+        <!-- HERRAMIENTAS -->
+        <section class="comentarios-toolbar">
+
           <div class="search-box-com-wrapper">
-            <input type="text" class="input-buscar-com" placeholder="Buscar comentario...">
+
+            <input type="search" class="input-buscar-com" id="inputBuscarComentario" placeholder="Buscar comentario..."
+              autocomplete="off">
+
           </div>
+
           <div class="sort-com-wrapper">
-            <select class="select-ordenar-com">
-              <option value="recientes">Más recientes</option>
-              <option value="antiguos">Más antiguos</option>
+
+            <select class="select-ordenar-com" id="selectOrdenComentarios">
+
+              <option value="recientes" selected>
+                Más recientes
+              </option>
+
+              <option value="antiguos">
+                Más antiguos
+              </option>
+
             </select>
-          </div>
-        </div>
 
-        <!-- Lista de Comentarios en Tarjetas Horizontales -->
-     <div class="comentarios-lista-wrapper" id="contenedorComentariosDashboard">
-  <!-- Los comentarios y sus formularios de respuesta se inyectarán de forma dinámica aquí -->
-</div>
+          </div>
 
-        <!-- Paginación -->
-        <div class="paginacion-com-footer">
-          <div class="paginacion-com-texto">
-            Mostrando del 1 al 10 de 125 comentarios
+        </section>
+
+        <!-- COMENTARIOS DINÁMICOS -->
+        <section class="comentarios-lista-wrapper" id="contenedorComentariosDashboard" aria-live="polite">
+
+          <div class="estado-vacio-comentarios">
+
+            <i class="bi bi-arrow-repeat icono-cargando-com"></i>
+
+            <strong>
+              Cargando comentarios
+            </strong>
+
+            <span>
+              Espera un momento mientras se obtiene la información.
+            </span>
+
           </div>
-          <div class="paginacion-com-botones">
-            <a href="#" class="page-com-btn">&lt;&lt;</a>
-            <a href="#" class="page-com-btn">&lt;</a>
-            <a href="#" class="page-com-btn active">1</a>
-            <a href="#" class="page-com-btn">2</a>
-            <a href="#" class="page-com-btn">3</a>
-            <a href="#" class="page-com-btn">4</a>
-            <a href="#" class="page-com-btn">5</a>
-            <span class="page-com-dots">...</span>
-            <a href="#" class="page-com-btn">13</a>
-            <a href="#" class="page-com-btn">&gt;</a>
-            <a href="#" class="page-com-btn">&gt;&gt;</a>
+
+        </section>
+
+        <!-- PAGINACIÓN -->
+        <nav class="paginacion-com-footer" aria-label="Paginación de comentarios">
+
+          <div class="paginacion-com-texto" id="textoPaginacionComentarios">
+            Mostrando 0 comentarios
           </div>
-        </div>
+
+          <div class="paginacion-com-botones" id="paginacionComentarios">
+            <!-- La paginación se puede generar desde comentariosDA.js -->
+          </div>
+
+        </nav>
 
       </main>
+
     </div>
+
   </div>
 
-  <!-- Cuadro de Confirmación Integrado (Interfaz Limpia sin Modales Bootstrap o Ventanas Externas) -->
-  <div class="com-confirmacion-overlay" id="confirmOverlayCom">
-    <div class="com-confirmacion-box">
-      <h3>Eliminar comentario</h3>
-      <p>¿Está seguro de que desea eliminar este comentario? Esta acción no se puede deshacer.</p>
+  <!-- MODAL DE CONFIRMACIÓN -->
+  <div class="com-confirmacion-overlay" id="confirmOverlayCom" aria-hidden="true">
+
+    <div class="com-confirmacion-box" role="dialog" aria-modal="true" aria-labelledby="tituloEliminarComentario">
+
+      <h3 id="tituloEliminarComentario">
+        Eliminar comentario
+      </h3>
+
+      <p>
+        ¿Está seguro de que desea eliminar este comentario?
+        Esta acción no se puede deshacer.
+      </p>
+
       <div class="com-confirmacion-acciones">
-        <button class="btn-com-action cancelar" onclick="cancelarEliminacion()">Cancelar</button>
-        <button class="btn-com-action eliminar" id="btnConfirmarBorrado">Eliminar</button>
+
+        <button type="button" class="btn-com-action cancelar" id="btnCancelarBorrado">
+          Cancelar
+        </button>
+
+        <button type="button" class="btn-com-action eliminar" id="btnConfirmarBorrado">
+          <i class="bi bi-trash3 me-1"></i>
+          Eliminar
+        </button>
+
       </div>
+
     </div>
+
   </div>
 
-  <!-- Scripts de funcionamiento -->
-  <script>
-    let idComentarioAEliminar = null;
-
-    // Desplegar menú de los tres puntos
-    function toggleMenuCom(event, idMenu) {
-      event.stopPropagation();
-      document.querySelectorAll('.menu-contextual-com').forEach(menu => {
-        if (menu.id !== idMenu) menu.classList.remove('show');
-      });
-      document.getElementById(idMenu).classList.toggle('show');
-    }
-
-    // Ocultar menús al hacer clic fuera
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.menu-contextual-com').forEach(menu => {
-        menu.classList.remove('show');
-      });
-    });
-
-    // Control del cuadro de confirmación interactivo
-    function solicitarConfirmacion(idComentario) {
-      idComentarioAEliminar = idComentario;
-      document.getElementById('confirmOverlayCom').classList.add('show');
-    }
-
-    function cancelarEliminacion() {
-      idComentarioAEliminar = null;
-      document.getElementById('confirmOverlayCom').classList.remove('show');
-    }
-
-    // Acción de eliminado inmediato en la interfaz
-    document.getElementById('btnConfirmarBorrado').addEventListener('click', function () {
-      if (idComentarioAEliminar) {
-        const elemento = document.getElementById(idComentarioAEliminar);
-        if (elemento) {
-          elemento.style.transition = "all 0.2s ease";
-          elemento.style.opacity = "0";
-          elemento.style.transform = "translateX(20px)";
-          setTimeout(() => {
-            elemento.remove();
-          }, 200);
-        }
-        cancelarEliminacion();
-      }
-    });
-  </script>
+  <!-- JAVASCRIPT DEL MÓDULO -->
   <script src="script.js/comentariosDA.js"></script>
+
+  <!-- MENÚ DE USUARIO COMPARTIDO -->
+  <script src="script.js/dashboard/Menu_usuario.js"></script>
+
+  <!-- BOOTSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
