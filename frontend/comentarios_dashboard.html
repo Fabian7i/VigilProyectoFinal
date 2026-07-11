@@ -222,14 +222,14 @@
 
           <div class="search-box-com-wrapper">
 
-            <input type="search" class="input-buscar-com" id="inputBuscarComentario" placeholder="Buscar comentario..."
+            <input type="search" class="input-buscar-com" id="buscarComentario" placeholder="Buscar comentario..."
               autocomplete="off">
 
           </div>
 
           <div class="sort-com-wrapper">
 
-            <select class="select-ordenar-com" id="selectOrdenComentarios">
+            <select class="select-ordenar-com" id="ordenComentarios">
 
               <option value="recientes" selected>
                 Más recientes
@@ -267,7 +267,7 @@
         <!-- PAGINACIÓN -->
         <nav class="paginacion-com-footer" aria-label="Paginación de comentarios">
 
-          <div class="paginacion-com-texto" id="textoPaginacionComentarios">
+          <div class="paginacion-com-texto" id="textoResultados">
             Mostrando 0 comentarios
           </div>
 
@@ -284,9 +284,17 @@
   </div>
 
   <!-- MODAL DE CONFIRMACIÓN -->
-  <div class="com-confirmacion-overlay" id="confirmOverlayCom" aria-hidden="true">
+  <div class="com-confirmacion-overlay" id="modalConfirmarEliminacion" aria-hidden="true">
 
     <div class="com-confirmacion-box" role="dialog" aria-modal="true" aria-labelledby="tituloEliminarComentario">
+
+      <button type="button" class="btn-cerrar-modal-com" id="btnCerrarModalBorrado" aria-label="Cerrar ventana">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <div class="icono-modal-eliminar-com">
+        <i class="bi bi-trash3"></i>
+      </div>
 
       <h3 id="tituloEliminarComentario">
         Eliminar comentario
@@ -305,12 +313,16 @@
 
         <button type="button" class="btn-com-action eliminar" id="btnConfirmarBorrado">
           <i class="bi bi-trash3 me-1"></i>
-          Eliminar
+          Sí, eliminar
         </button>
 
       </div>
 
     </div>
+
+  </div>
+
+  </div>
 
   </div>
 

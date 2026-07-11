@@ -1,195 +1,971 @@
-// Configuración de la API del servidor Laravel
-const API_URL = "http://127.0.0.1:8000"; 
+// ======================================================
+// COMENTARIOS DEL DASHBOARD ADMINISTRATIVO
+// ======================================================
 
-// Elemento del DOM donde se inyectará la lista
-const contenedorDashboard = document.getElementById('contenedorComentariosDashboard');
+const API_URL = "http://127.0.0.1:8000";
 
-// 1. Cargar comentarios existentes desde Laravel e insertarlos en el Dashboard
+let todosLosComentarios = [];
+let comentariosFiltrados = [];
+
+let paginaActual = 1;
+const comentariosPorPagina = 5;
+
+let idComentarioAEliminar = null;
+
+// ======================================================
+// ESCAPAR TEXTO PARA EVITAR HTML INYECTADO
+// ======================================================
+
+function escaparHTML(texto) {
+    const div = document.createElement("div");
+    div.textContent = texto ?? "";
+    return div.innerHTML;
+}
+
+// ======================================================
+// FORMATEAR FECHA
+// ======================================================
+
+function formatearFecha(fechaLaravel) {
+    if (!fechaLaravel) {
+        return "";
+    }
+
+    const fecha = new Date(fechaLaravel);
+
+    const fechaFormateada = fecha.toLocaleDateString("es-PE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+
+    const horaFormateada = fecha.toLocaleTimeString("es-PE", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    return `${fechaFormateada} - ${horaFormateada}`;
+}
+
+// ======================================================
+// CARGAR COMENTARIOS DESDE LARAVEL
+// ======================================================
+
 async function cargarComentariosDashboard() {
+    const contenedor = document.getElementById(
+        "contenedorComentariosDashboard"
+    );
+
+    if (!contenedor) {
+        console.error(
+            "No se encontró #contenedorComentariosDashboard"
+        );
+        return;
+    }
+
+    contenedor.innerHTML = `
+        <p class="mensaje-cargando-comentarios">
+            Cargando comentarios...
+        </p>
+    `;
+
     try {
-        const response = await fetch(`${API_URL}/comentarios`);
-        
-        if (response.ok) {
-            const comentarios = await response.json();
-            contenedorDashboard.innerHTML = ''; // Limpiamos el contenedor inicial
-
-            if (comentarios.length === 0) {
-                contenedorDashboard.innerHTML = `<p class="text-center text-muted p-4">No hay comentarios registrados en el sistema.</p>`;
-                return;
+        const response = await fetch(`${API_URL}/comentarios`, {
+            headers: {
+                Accept: "application/json"
             }
+        });
 
-            comentarios.forEach(comentario => {
-                // Creamos un bloque contenedor para agrupar el comentario original y su respuesta/formulario abajo
-                const wrapperGrupal = document.createElement('div');
-                wrapperGrupal.classList.add('grupo-comentario-wrapper', 'mb-4');
-                wrapperGrupal.id = `grupo-comentario-${comentario.id}`;
-
-                // Decidir si mostramos la respuesta que ya existe o el cuadro para escribir una nueva
-                let respuestaSeccionHTML = '';
-                
-                if (comentario.respuesta_admin) {
-                    respuestaSeccionHTML = `
-                        <div class="admin-reply-box">
-                            <div class="avatar-admin-reply">AD</div>
-                            <div class="comentario-cuerpo">
-                                <p class="text-admin-reply-p"><strong>Administrador:</strong> ${comentario.respuesta_admin}</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    respuestaSeccionHTML = `
-                        <form class="form-responder-admin" onsubmit="enviarRespuestaAdmin(event, ${comentario.id})">
-                            <input type="text" class="input-responder-admin" placeholder="Responder de forma institucional a este invitado..." required>
-                            <button type="submit" class="btn-responder-admin">Responder</button>
-                        </form>
-                    `;
-                }
-
-                // Estructura de la cuadrícula respetando tus clases originales
-                wrapperGrupal.innerHTML = `
-                    <div class="comentario-item-row" id="comentario-${comentario.id}">
-                        <div class="comentario-left-side">
-                            <div class="avatar-generico-com">👤</div>
-                            <div class="comentario-cuerpo">
-                                <div class="comentario-usuario">Invitado</div>
-                                <p class="comentario-texto-p">${comentario.content}</p>
-                                <div class="comentario-fecha-hora">
-                                    ${new Date(comentario.created_at).toLocaleDateString()} - ${new Date(comentario.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comentario-right-side">
-                            <button class="btn-opciones-com" onclick="toggleMenuCom(event, 'menu-${comentario.id}')">⋮</button>
-                            <div class="menu-contextual-com" id="menu-${comentario.id}">
-                                <button class="btn-opcion-eliminar" onclick="solicitarConfirmacion(${comentario.id})">🗑 Eliminar comentario</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Contenedor del hilo para la respuesta -->
-                    <div id="zona-respuesta-${comentario.id}">
-                        ${respuestaSeccionHTML}
-                    </div>
-                `;
-
-                contenedorDashboard.appendChild(wrapperGrupal);
-            });
+        if (!response.ok) {
+            throw new Error(
+                `No se pudieron cargar los comentarios. Código ${response.status}`
+            );
         }
+
+        const datos = await response.json();
+
+        /*
+         * Sirve tanto si Laravel devuelve directamente un arreglo:
+         * [comentario, comentario]
+         *
+         * como si devuelve:
+         * { comentarios: [...] }
+         */
+        todosLosComentarios = Array.isArray(datos)
+            ? datos
+            : datos.comentarios || [];
+
+        aplicarFiltros();
+        actualizarEstadisticas(datos);
     } catch (error) {
-        console.error("Error al conectar con la API de comentarios:", error);
+        console.error(
+            "Error al cargar comentarios:",
+            error
+        );
+
+        contenedor.innerHTML = `
+            <p class="mensaje-error-comentarios">
+                No fue posible cargar los comentarios.
+            </p>
+        `;
     }
 }
 
-// 2. Procesar y guardar el envío de la respuesta del Administrador (POST)
-async function enviarRespuestaAdmin(event, comentarioId) {
-    event.preventDefault();
-    
-    const formulario = event.target;
-    const inputRespuesta = formulario.querySelector('.input-responder-admin');
-    const textoRespuesta = inputRespuesta.value;
+// ======================================================
+// BUSCADOR Y ORDENAMIENTO
+// ======================================================
 
-    try {
-        const response = await fetch(`${API_URL}/comentarios/${comentarioId}/responder`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ respuesta_admin: textoRespuesta })
-        });
+function aplicarFiltros() {
+    const buscador = document.getElementById(
+        "buscarComentario"
+    );
 
-        if (response.ok) {
-            // Reemplazamos instantáneamente el formulario por la caja elástica de respuesta sin recargar la página
-            const zonaRespuesta = document.getElementById(`zona-respuesta-${comentarioId}`);
-            zonaRespuesta.innerHTML = `
-                <div class="admin-reply-box">
-                    <div class="avatar-admin-reply">AD</div>
-                    <div class="comentario-cuerpo">
-                        <p class="text-admin-reply-p"><strong>Administrador:</strong> ${textoRespuesta}</p>
-                    </div>
-                </div>
-            `;
+    const selectorOrden = document.getElementById(
+        "ordenComentarios"
+    );
+
+    const textoBuscado = buscador
+        ? buscador.value.trim().toLowerCase()
+        : "";
+
+    const ordenSeleccionado = selectorOrden
+        ? selectorOrden.value
+        : "recientes";
+
+    comentariosFiltrados = todosLosComentarios.filter(
+        function (comentario) {
+            const contenido = String(
+                comentario.content || ""
+            ).toLowerCase();
+
+            const respuesta = String(
+                comentario.respuesta_admin || ""
+            ).toLowerCase();
+
+            return (
+                contenido.includes(textoBuscado) ||
+                respuesta.includes(textoBuscado)
+            );
         }
-    } catch (error) {
-        console.error("Error al enviar la respuesta del administrador:", error);
-    }
+    );
+
+    comentariosFiltrados.sort(function (a, b) {
+        const fechaA = new Date(a.created_at).getTime();
+        const fechaB = new Date(b.created_at).getTime();
+
+        if (ordenSeleccionado === "antiguos") {
+            return fechaA - fechaB;
+        }
+
+        return fechaB - fechaA;
+    });
+
+    paginaActual = 1;
+
+    renderizarComentarios();
 }
 
-// 3. Modificar la acción del botón del Cuadro de Confirmación de tu HTML para conectar a la Base de Datos
-document.addEventListener('DOMContentLoaded', () => {
-    // Buscamos el botón de confirmación que ya tienes definido en tu HTML
-    const btnConfirmarBorrado = document.getElementById('btnConfirmarBorrado');
-    
-    if (btnConfirmarBorrado) {
-        // Clonamos el botón para remover eventos previos estáticos que solo borraban visualmente
-        const nuevoBtn = btnConfirmarBorrado.cloneNode(true);
-        btnConfirmarBorrado.parentNode.replaceChild(nuevoBtn, btnConfirmarBorrado);
+// ======================================================
+// MOSTRAR LOS COMENTARIOS
+// ======================================================
 
-        // Agregamos la lógica real de eliminación conectada a Laravel
-        nuevoBtn.addEventListener('click', async function () {
-            if (idComentarioAEliminar) {
-                try {
-                    const response = await fetch(`${API_URL}/comentarios/${idComentarioAEliminar}`, {
-                        method: 'DELETE'
-                    });
+function renderizarComentarios() {
+    const contenedor = document.getElementById(
+        "contenedorComentariosDashboard"
+    );
 
-                    if (response.ok) {
-                        // Seleccionamos todo el bloque grupal (comentario + respuesta) para removerlo de la cuadrícula
-                        const grupoElemento = document.getElementById(`grupo-comentario-${idComentarioAEliminar}`);
-                        if (grupoElemento) {
-                            grupoElemento.style.transition = "all 0.25s ease";
-                            grupoElemento.style.opacity = "0";
-                            grupoElemento.style.transform = "translateX(25px)";
-                            setTimeout(() => {
-                                grupoElemento.remove();
-                            }, 250);
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error al eliminar el comentario de la base de datos:", error);
-                }
-                cancelarEliminacion();
-            }
-        });
+    if (!contenedor) {
+        return;
     }
 
-    // Inicializar la carga al abrir el panel
-    cargarComentariosDashboard();
-});
+    contenedor.innerHTML = "";
 
-async function enviarRespuestaAdmin(event, comentarioId) {
-    event.preventDefault();
-    
-    const formulario = event.target;
-    const inputRespuesta = formulario.querySelector('.input-responder-admin');
-    const textoRespuesta = inputRespuesta.value;
+    const totalPaginas = Math.max(
+        1,
+        Math.ceil(
+            comentariosFiltrados.length /
+            comentariosPorPagina
+        )
+    );
 
-    try {
-        // Forzamos la URL exacta con /responder al final usando POST
-        const response = await fetch(`${API_URL}/comentarios/${comentarioId}/responder`, {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ respuesta_admin: textoRespuesta })
-        });
+    if (paginaActual > totalPaginas) {
+        paginaActual = totalPaginas;
+    }
 
-        if (response.ok) {
-            // Reemplazamos el formulario por el diseño elástico de la respuesta
-            const zonaRespuesta = document.getElementById(`zona-respuesta-${comentarioId}`);
-            zonaRespuesta.innerHTML = `
+    const inicio =
+        (paginaActual - 1) * comentariosPorPagina;
+
+    const fin = inicio + comentariosPorPagina;
+
+    const comentariosPagina =
+        comentariosFiltrados.slice(inicio, fin);
+
+    if (comentariosPagina.length === 0) {
+        contenedor.innerHTML = `
+            <div class="sin-comentarios-dashboard">
+                <i class="fa-regular fa-comment-dots"></i>
+                <p>No se encontraron comentarios.</p>
+            </div>
+        `;
+
+        actualizarTextoResultados(0, 0, 0);
+        renderizarPaginacion();
+        return;
+    }
+
+    comentariosPagina.forEach(function (comentario) {
+        const wrapperGrupal =
+            document.createElement("div");
+
+        wrapperGrupal.className =
+            "grupo-comentario-wrapper";
+
+        wrapperGrupal.id =
+            `grupo-comentario-${comentario.id}`;
+
+        const contenidoSeguro = escaparHTML(
+            comentario.content
+        );
+
+        const respuestaSegura = escaparHTML(
+            comentario.respuesta_admin
+        );
+
+        let respuestaSeccionHTML = "";
+
+        if (comentario.respuesta_admin) {
+            respuestaSeccionHTML = `
                 <div class="admin-reply-box">
-                    <div class="avatar-admin-reply">AD</div>
+                    <div class="avatar-admin-reply">
+                        AD
+                    </div>
+
                     <div class="comentario-cuerpo">
-                        <p class="text-admin-reply-p"><strong>Administrador:</strong> ${textoRespuesta}</p>
+                        <p class="text-admin-reply-p">
+                            <strong>Administrador:</strong>
+                            ${respuestaSegura}
+                        </p>
                     </div>
                 </div>
             `;
         } else {
-            console.error("Error en el servidor. Código recibido:", response.status);
-            alert("No se pudo guardar la respuesta. Verifica la ruta en Laravel.");
+            respuestaSeccionHTML = `
+                <form
+                    class="form-responder-admin"
+                    data-comentario-id="${comentario.id}"
+                >
+                    <input
+                        type="text"
+                        class="input-responder-admin"
+                        maxlength="500"
+                        placeholder="Responder de forma institucional a este invitado..."
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-responder-admin"
+                    >
+                        Responder
+                    </button>
+                </form>
+            `;
         }
-    } catch (error) {
-        console.error("Error al enviar la respuesta del administrador:", error);
+
+        wrapperGrupal.innerHTML = `
+            <div
+                class="comentario-item-row"
+                id="comentario-${comentario.id}"
+            >
+                <div class="comentario-left-side">
+
+                    <div class="avatar-generico-com">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="comentario-cuerpo">
+
+                        <div class="comentario-usuario">
+                            Invitado
+                        </div>
+
+                        <p class="comentario-texto-p">
+                            ${contenidoSeguro}
+                        </p>
+
+                        <div class="comentario-fecha-hora">
+                            ${formatearFecha(
+            comentario.created_at
+        )}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="comentario-right-side">
+
+                    <button
+                        type="button"
+                        class="btn-opciones-com"
+                        data-menu-id="menu-${comentario.id}"
+                        aria-label="Opciones del comentario"
+                    >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+
+                    <div
+                        class="menu-contextual-com"
+                        id="menu-${comentario.id}"
+                    >
+                        <button
+                            type="button"
+                            class="btn-opcion-eliminar"
+                            data-eliminar-id="${comentario.id}"
+                        >
+                            <i class="fa-regular fa-trash-can"></i>
+                            Eliminar comentario
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="zona-respuesta-${comentario.id}">
+                ${respuestaSeccionHTML}
+            </div>
+        `;
+
+        contenedor.appendChild(wrapperGrupal);
+    });
+
+    agregarEventosComentarios();
+
+    actualizarTextoResultados(
+        inicio + 1,
+        Math.min(fin, comentariosFiltrados.length),
+        comentariosFiltrados.length
+    );
+
+    renderizarPaginacion();
+}
+
+// ======================================================
+// EVENTOS DE ELEMENTOS CREADOS DINÁMICAMENTE
+// ======================================================
+
+function agregarEventosComentarios() {
+    document
+        .querySelectorAll(".btn-opciones-com")
+        .forEach(function (boton) {
+            boton.addEventListener(
+                "click",
+                function (evento) {
+                    evento.stopPropagation();
+
+                    toggleMenuCom(
+                        evento,
+                        boton.dataset.menuId
+                    );
+                }
+            );
+        });
+
+    document
+        .querySelectorAll(".btn-opcion-eliminar")
+        .forEach(function (boton) {
+            boton.addEventListener(
+                "click",
+                function () {
+                    solicitarConfirmacion(
+                        Number(boton.dataset.eliminarId)
+                    );
+                }
+            );
+        });
+
+    document
+        .querySelectorAll(".form-responder-admin")
+        .forEach(function (formulario) {
+            formulario.addEventListener(
+                "submit",
+                function (evento) {
+                    enviarRespuestaAdmin(
+                        evento,
+                        Number(
+                            formulario.dataset.comentarioId
+                        )
+                    );
+                }
+            );
+        });
+}
+
+// ======================================================
+// ABRIR Y CERRAR MENÚ DE TRES PUNTOS
+// ======================================================
+
+function toggleMenuCom(evento, menuId) {
+    evento.preventDefault();
+    evento.stopPropagation();
+
+    const menuSeleccionado =
+        document.getElementById(menuId);
+
+    if (!menuSeleccionado) {
+        return;
+    }
+
+    const estabaVisible =
+        menuSeleccionado.classList.contains("activo");
+
+    cerrarTodosLosMenus();
+
+    if (!estabaVisible) {
+        menuSeleccionado.classList.add("activo");
     }
 }
+
+function cerrarTodosLosMenus() {
+    document
+        .querySelectorAll(".menu-contextual-com")
+        .forEach(function (menu) {
+            menu.classList.remove("activo");
+        });
+}
+
+document.addEventListener("click", cerrarTodosLosMenus);
+
+// ======================================================
+// RESPONDER COMENTARIO
+// ======================================================
+
+async function enviarRespuestaAdmin(
+    evento,
+    comentarioId
+) {
+    evento.preventDefault();
+
+    const formulario = evento.currentTarget;
+
+    const inputRespuesta = formulario.querySelector(
+        ".input-responder-admin"
+    );
+
+    const botonResponder = formulario.querySelector(
+        ".btn-responder-admin"
+    );
+
+    const textoRespuesta =
+        inputRespuesta.value.trim();
+
+    if (!textoRespuesta) {
+        alert("Escribe una respuesta.");
+        return;
+    }
+
+    botonResponder.disabled = true;
+    botonResponder.textContent = "Enviando...";
+
+    try {
+        const response = await fetch(
+            `${API_URL}/comentarios/${comentarioId}/responder`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    respuesta_admin: textoRespuesta
+                })
+            }
+        );
+
+        const datos = await response.json().catch(
+            function () {
+                return {};
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                datos.message ||
+                "No se pudo guardar la respuesta."
+            );
+        }
+
+        const zonaRespuesta = document.getElementById(
+            `zona-respuesta-${comentarioId}`
+        );
+
+        if (zonaRespuesta) {
+            zonaRespuesta.innerHTML = `
+                <div class="admin-reply-box">
+                    <div class="avatar-admin-reply">
+                        AD
+                    </div>
+
+                    <div class="comentario-cuerpo">
+                        <p class="text-admin-reply-p">
+                            <strong>Administrador:</strong>
+                            ${escaparHTML(textoRespuesta)}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        const comentarioEncontrado =
+            todosLosComentarios.find(
+                function (comentario) {
+                    return comentario.id === comentarioId;
+                }
+            );
+
+        if (comentarioEncontrado) {
+            comentarioEncontrado.respuesta_admin =
+                textoRespuesta;
+        }
+    } catch (error) {
+        console.error(
+            "Error al enviar respuesta:",
+            error
+        );
+
+        alert(error.message);
+
+        botonResponder.disabled = false;
+        botonResponder.textContent = "Responder";
+    }
+}
+
+// ======================================================
+// SOLICITAR CONFIRMACIÓN DE ELIMINACIÓN
+// ======================================================
+
+function solicitarConfirmacion(comentarioId) {
+    idComentarioAEliminar = comentarioId;
+
+    cerrarTodosLosMenus();
+
+    const modal = document.getElementById(
+        "modalConfirmarEliminacion"
+    );
+
+    if (modal) {
+        modal.classList.add("activo");
+        document.body.classList.add("modal-abierto");
+        return;
+    }
+
+    /*
+     * Respaldo por si todavía no existe el modal
+     * personalizado en el HTML.
+     */
+    const confirmar = window.confirm(
+        "¿Estás seguro de eliminar este comentario?"
+    );
+
+    if (confirmar) {
+        eliminarComentario();
+    }
+}
+
+function cancelarEliminacion() {
+    idComentarioAEliminar = null;
+
+    const modal = document.getElementById(
+        "modalConfirmarEliminacion"
+    );
+
+    if (modal) {
+        modal.classList.remove("activo");
+    }
+
+    document.body.classList.remove("modal-abierto");
+}
+
+// ======================================================
+// ELIMINAR COMENTARIO
+// ======================================================
+
+async function eliminarComentario() {
+    if (!idComentarioAEliminar) {
+        return;
+    }
+
+    const id = idComentarioAEliminar;
+
+    const botonConfirmar = document.getElementById(
+        "btnConfirmarBorrado"
+    );
+
+    if (botonConfirmar) {
+        botonConfirmar.disabled = true;
+        botonConfirmar.textContent = "Eliminando...";
+    }
+
+    try {
+        const response = await fetch(
+            `${API_URL}/comentarios/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Accept: "application/json"
+                }
+            }
+        );
+
+        const datos = await response.json().catch(
+            function () {
+                return {};
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                datos.message ||
+                "No se pudo eliminar el comentario."
+            );
+        }
+
+        todosLosComentarios =
+            todosLosComentarios.filter(
+                function (comentario) {
+                    return comentario.id !== id;
+                }
+            );
+
+        comentariosFiltrados =
+            comentariosFiltrados.filter(
+                function (comentario) {
+                    return comentario.id !== id;
+                }
+            );
+
+        cancelarEliminacion();
+
+        renderizarComentarios();
+
+        /*
+         * Volvemos a consultar Laravel para actualizar
+         * correctamente las estadísticas.
+         */
+        await cargarComentariosDashboard();
+    } catch (error) {
+        console.error(
+            "Error al eliminar comentario:",
+            error
+        );
+
+        alert(error.message);
+    } finally {
+        if (botonConfirmar) {
+            botonConfirmar.disabled = false;
+            botonConfirmar.textContent =
+                "Sí, eliminar";
+        }
+    }
+}
+
+// ======================================================
+// ESTADÍSTICAS
+// ======================================================
+
+function actualizarEstadisticas(datosServidor = {}) {
+    /*
+     * Estos IDs deben estar colocados en los números
+     * de tus tarjetas estadísticas.
+     */
+    const elementoTotal = document.getElementById(
+        "totalComentarios"
+    );
+
+    const elementoPublicados = document.getElementById(
+        "comentariosPublicados"
+    );
+
+    const elementoEliminados = document.getElementById(
+        "comentariosEliminados"
+    );
+
+    /*
+     * Si Laravel devuelve estadísticas, las usamos.
+     * Ejemplo:
+     *
+     * {
+     *   comentarios: [...],
+     *   estadisticas: {
+     *      total: 8,
+     *      publicados: 6,
+     *      eliminados: 2
+     *   }
+     * }
+     */
+    const estadisticas =
+        datosServidor.estadisticas || {};
+
+    const publicados =
+        estadisticas.publicados ??
+        todosLosComentarios.filter(
+            function (comentario) {
+                return (
+                    comentario.estado !== "eliminado" &&
+                    !comentario.deleted_at
+                );
+            }
+        ).length;
+
+    const eliminados =
+        estadisticas.eliminados ??
+        todosLosComentarios.filter(
+            function (comentario) {
+                return (
+                    comentario.estado === "eliminado" ||
+                    Boolean(comentario.deleted_at)
+                );
+            }
+        ).length;
+
+    const total =
+        estadisticas.total ??
+        publicados + eliminados;
+
+    if (elementoTotal) {
+        elementoTotal.textContent = total;
+    }
+
+    if (elementoPublicados) {
+        elementoPublicados.textContent = publicados;
+    }
+
+    if (elementoEliminados) {
+        elementoEliminados.textContent = eliminados;
+    }
+}
+
+// ======================================================
+// TEXTO DE RESULTADOS
+// ======================================================
+
+function actualizarTextoResultados(
+    desde,
+    hasta,
+    total
+) {
+    const textoResultados =
+        document.getElementById("textoResultados");
+
+    if (!textoResultados) {
+        return;
+    }
+
+    if (total === 0) {
+        textoResultados.textContent =
+            "Mostrando 0 comentarios";
+
+        return;
+    }
+
+    textoResultados.textContent =
+        `Mostrando ${desde} - ${hasta} de ${total} comentarios`;
+}
+
+// ======================================================
+// PAGINACIÓN
+// ======================================================
+
+function renderizarPaginacion() {
+    const contenedorPaginacion =
+        document.getElementById(
+            "paginacionComentarios"
+        );
+
+    if (!contenedorPaginacion) {
+        return;
+    }
+
+    contenedorPaginacion.innerHTML = "";
+
+    const totalPaginas = Math.ceil(
+        comentariosFiltrados.length /
+        comentariosPorPagina
+    );
+
+    if (totalPaginas <= 1) {
+        contenedorPaginacion.style.display = "none";
+        return;
+    }
+
+    contenedorPaginacion.style.display = "flex";
+
+    const botonAnterior = crearBotonPaginacion(
+        "‹",
+        paginaActual === 1,
+        function () {
+            cambiarPagina(paginaActual - 1);
+        }
+    );
+
+    contenedorPaginacion.appendChild(
+        botonAnterior
+    );
+
+    for (
+        let numeroPagina = 1;
+        numeroPagina <= totalPaginas;
+        numeroPagina++
+    ) {
+        const botonPagina =
+            document.createElement("button");
+
+        botonPagina.type = "button";
+        botonPagina.className =
+            "btn-pagina-comentarios";
+
+        botonPagina.textContent = numeroPagina;
+
+        if (numeroPagina === paginaActual) {
+            botonPagina.classList.add("activo");
+        }
+
+        botonPagina.addEventListener(
+            "click",
+            function () {
+                cambiarPagina(numeroPagina);
+            }
+        );
+
+        contenedorPaginacion.appendChild(
+            botonPagina
+        );
+    }
+
+    const botonSiguiente = crearBotonPaginacion(
+        "›",
+        paginaActual === totalPaginas,
+        function () {
+            cambiarPagina(paginaActual + 1);
+        }
+    );
+
+    contenedorPaginacion.appendChild(
+        botonSiguiente
+    );
+}
+
+function crearBotonPaginacion(
+    texto,
+    deshabilitado,
+    accion
+) {
+    const boton = document.createElement("button");
+
+    boton.type = "button";
+    boton.className = "btn-pagina-comentarios";
+    boton.textContent = texto;
+    boton.disabled = deshabilitado;
+
+    boton.addEventListener("click", accion);
+
+    return boton;
+}
+
+function cambiarPagina(nuevaPagina) {
+    const totalPaginas = Math.ceil(
+        comentariosFiltrados.length /
+        comentariosPorPagina
+    );
+
+    if (
+        nuevaPagina < 1 ||
+        nuevaPagina > totalPaginas
+    ) {
+        return;
+    }
+
+    paginaActual = nuevaPagina;
+
+    renderizarComentarios();
+
+    const contenedor = document.getElementById(
+        "contenedorComentariosDashboard"
+    );
+
+    if (contenedor) {
+        contenedor.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+
+// ======================================================
+// INICIAR EL DASHBOARD
+// ======================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        const buscador = document.getElementById(
+            "buscarComentario"
+        );
+
+        const selectorOrden =
+            document.getElementById(
+                "ordenComentarios"
+            );
+
+        const botonConfirmar =
+            document.getElementById(
+                "btnConfirmarBorrado"
+            );
+
+        const botonCancelar =
+            document.getElementById(
+                "btnCancelarBorrado"
+            );
+
+        const botonCerrarModal =
+            document.getElementById(
+                "btnCerrarModalBorrado"
+            );
+
+        if (buscador) {
+            buscador.addEventListener(
+                "input",
+                aplicarFiltros
+            );
+        }
+
+        if (selectorOrden) {
+            selectorOrden.addEventListener(
+                "change",
+                aplicarFiltros
+            );
+        }
+
+        if (botonConfirmar) {
+            botonConfirmar.addEventListener(
+                "click",
+                eliminarComentario
+            );
+        }
+
+        if (botonCancelar) {
+            botonCancelar.addEventListener(
+                "click",
+                cancelarEliminacion
+            );
+        }
+
+        if (botonCerrarModal) {
+            botonCerrarModal.addEventListener(
+                "click",
+                cancelarEliminacion
+            );
+        }
+
+        cargarComentariosDashboard();
+    }
+);
