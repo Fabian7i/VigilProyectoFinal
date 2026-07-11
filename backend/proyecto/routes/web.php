@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/comentarios', [CommentController::class, 'indexApi']);
+Route::post('/comentarios/anonimo', [CommentController::class, 'storeAnonymousApi']);
 require __DIR__.'/auth.php';
