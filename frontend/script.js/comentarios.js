@@ -37,20 +37,28 @@ function renderizarComentarios() {
         btnVerMas.style.display = 'none'; // Escondemos el botón si está vacío
         return;
     }
-
-    // Iteramos y creamos el HTML para cada comentario
-    comentariosAMostrar.forEach(comentario => {
-        const divComentario = document.createElement('div');
-        divComentario.classList.add('comentario-item'); // Usa las clases de tu CSS
-        divComentario.innerHTML = `
-            <div class="comentario-cuerpo">
-                <strong>Invitado</strong> <small>${new Date(comentario.created_at).toLocaleDateString()}</small>
-              <p>${comentario.content}</p>
+comentariosAMostrar.forEach(comentario => {
+    const divComentario = document.createElement('div');
+    divComentario.classList.add('tarjeta-comentario-premium'); // Clase con nuevos colores
+    
+    divComentario.innerHTML = `
+        <div class="comentario-avatar-premium">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="comentario-bloque-derecho">
+            <div class="comentario-encabezado-meta">
+                <span class="autor-nombre-premium">Invitado Paillardelino</span>
+                <span class="comentario-fecha-derecha">
+                    <i class="fa-regular fa-clock"></i> ${new Date(comentario.created_at).toLocaleDateString()}
+                </span>
             </div>
-        `;
-        listaComentarios.appendChild(divComentario);
-    });
-
+            <div class="comentario-cuerpo-texto">
+                <p>${comentario.content}</p>
+            </div>
+        </div>
+    `;
+    listaComentarios.appendChild(divComentario);
+});
     // Controlar la visibilidad del botón "Ver más"
     // Si ya mostramos todos los comentarios que existen, escondemos el botón
     if (comentariosVisibles >= todosLosComentarios.length) {
