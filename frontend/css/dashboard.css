@@ -238,3 +238,169 @@
     padding: 25px 20px;
   }
 }
+/* =========================================================
+   MENÚ DESPLEGABLE DEL USUARIO
+   ========================================================= */
+
+.menu-usuario-wrapper {
+  position: relative;
+}
+
+.btn-menu-usuario {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn-menu-usuario:focus-visible {
+  outline: 2px solid #ffd23b;
+  outline-offset: 5px;
+  border-radius: 25px;
+}
+
+.btn-menu-usuario .avatar-dash {
+  display: block;
+}
+
+.menu-burger-icon {
+  color: #ffffff;
+  font-size: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-menu-usuario:hover .menu-burger-icon {
+  color: #ffd23b;
+  transform: scale(1.08);
+}
+
+/* Caja desplegable */
+
+.menu-desplegable-usuario {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: 210px;
+  background-color: #ffffff;
+  border: 1px solid #dbe4ee;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 51, 102, 0.2);
+  padding: 8px;
+  z-index: 2000;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu-desplegable-usuario.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Triángulo superior */
+
+.menu-desplegable-usuario::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 24px;
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+  border-top: 1px solid #dbe4ee;
+  border-left: 1px solid #dbe4ee;
+  transform: rotate(45deg);
+}
+
+/* Elementos del menú */
+
+.menu-usuario-item {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 43px;
+  border: none;
+  border-radius: 7px;
+  background-color: transparent;
+  color: #003366;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu-usuario-item i {
+  width: 20px;
+  color: #0078c9;
+  font-size: 18px;
+  text-align: center;
+}
+
+.menu-usuario-item:hover {
+  background-color: #edf7fd;
+  color: #0078c9;
+  transform: translateX(2px);
+}
+
+.menu-usuario-item.salir {
+  margin-top: 6px;
+  color: #c5221f;
+}
+
+.menu-usuario-item.salir i {
+  color: #c5221f;
+}
+
+.menu-usuario-item.salir:hover {
+  background-color: #fff0ef;
+  color: #c5221f;
+}
+
+.menu-usuario-item.salir::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+@media (max-width: 576px) {
+  .menu-desplegable-usuario {
+    width: 190px;
+    right: -6px;
+  }
+
+  .menu-usuario-item {
+    font-size: 12px;
+  }
+}
