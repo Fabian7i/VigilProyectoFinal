@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Ruta explícita utilizando POST
+Route::post('/comentarios/{id}/responder', [CommentController::class, 'responderAdmin']);
 Route::get('/comentarios', [CommentController::class, 'indexApi']);
 Route::post('/comentarios/anonimo', [CommentController::class, 'storeAnonymousApi']);
 require __DIR__.'/auth.php';

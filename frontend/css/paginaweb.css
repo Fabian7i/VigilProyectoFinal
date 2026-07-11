@@ -1246,3 +1246,50 @@ nav ul li .dropdown-menu li a:hover::before {
     line-height: 1.6;
     word-break: break-word;
 }
+/* Contenedor de la respuesta del Administrador */
+.caja-respuesta-admin-publica {
+    display: flex;
+    gap: 15px;
+    background-color: #f4f7f9; /* Un tono ligeramente diferente para resaltar */
+    border-left: 4px solid #003366; /* Línea distintiva con el color de tu panel */
+    padding: 15px;
+    margin-top: 10px;
+    margin-left: 50px; /* Margen izquierdo para generar el efecto escalonado (hilo) */
+    border-radius: 0 8px 8px 0;
+}
+
+/* Avatar del Administrador */
+.avatar-admin {
+    width: 40px;
+    height: 40px;
+    background-color: #003366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Etiqueta distintiva de 'Oficial' */
+.etiqueta-oficial {
+    background-color: #003366;
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.nombre-admin {
+    font-weight: bold;
+    color: #333;
+}
+
+.texto-respuesta {
+    margin-top: 5px;
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}

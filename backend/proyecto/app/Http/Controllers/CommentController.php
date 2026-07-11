@@ -33,4 +33,24 @@ public function storeAnonymousApi(Request $request)
 
    return response()->json($comment, 201); // 👈 ¡Cambia el 21 por 201!
 }
+public function responderAdmin(Request $request, $id)
+{
+    // Validamos el campo que viene desde el JavaScript
+    $request->validate([
+        'respuesta_admin' => 'required|string|max:1000'
+    ]);
+
+    // Buscamos el comentario por su ID
+   $comentario = Comment::findOrFail($id);
+
+    // Asignamos la respuesta y guardamos
+    $comentario->respuesta_admin = $request->respuesta_admin;
+    $comentario->save();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Respuesta añadida correctamente',
+        'data' => $comentario
+    ], 200);
+}
 }
