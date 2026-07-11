@@ -1,54 +1,72 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+  const btnMenuUsuario =
+    document.getElementById("btnMenuUsuario");
 
-    const btnMenu = document.getElementById("btnMenuUsuario");
-    const menu = document.getElementById("menuUsuario");
-    const btnSalir = document.getElementById("btnSalir");
+  const menuUsuario =
+    document.getElementById("menuUsuario");
 
-    // Si la página no tiene menú, termina aquí
-    if (!btnMenu || !menu) return;
+  const btnSalir =
+    document.getElementById("btnSalir");
 
-    // Abrir / cerrar menú
-    btnMenu.addEventListener("click", (e) => {
-        e.stopPropagation();
-        menu.classList.toggle("show");
+  const avataresDashboard =
+    document.querySelectorAll(".avatar-dashboard-global");
+
+  const fotoGuardada =
+    localStorage.getItem("fotoPerfilDashboard");
+
+  if (fotoGuardada) {
+    avataresDashboard.forEach(function (avatar) {
+      avatar.src = fotoGuardada;
     });
+  }
 
-    // Evita que se cierre al hacer clic dentro
-    menu.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
+  if (!btnMenuUsuario || !menuUsuario) {
+    return;
+  }
 
-    // Cerrar al hacer clic fuera
-    document.addEventListener("click", () => {
-        menu.classList.remove("show");
-    });
+  function cerrarMenuUsuario() {
+    menuUsuario.classList.remove("show");
 
-    // Cerrar con ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            menu.classList.remove("show");
-        }
-    });
+    btnMenuUsuario.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  }
 
-    // Botón salir
-    if (btnSalir) {
+  btnMenuUsuario.addEventListener("click", function (evento) {
+    evento.stopPropagation();
 
-        btnSalir.addEventListener("click", () => {
+    const abierto =
+      menuUsuario.classList.toggle("show");
 
-            const confirmar = confirm("¿Deseas cerrar sesión?");
+    btnMenuUsuario.setAttribute(
+      "aria-expanded",
+      abierto ? "true" : "false"
+    );
+  });
 
-            if (confirmar) {
+  menuUsuario.addEventListener("click", function (evento) {
+    evento.stopPropagation();
+  });
 
-                // Por ahora
-                window.location.href = "login.html";
+  document.addEventListener("click", function () {
+    cerrarMenuUsuario();
+  });
 
-                // Cuando uses Laravel será:
-                // window.location.href = "/logout";
-
-            }
-
-        });
-
+  document.addEventListener("keydown", function (evento) {
+    if (evento.key === "Escape") {
+      cerrarMenuUsuario();
     }
+  });
 
+  if (btnSalir) {
+    btnSalir.addEventListener("click", function () {
+      const confirmar =
+        confirm("¿Deseas cerrar sesión?");
+
+      if (confirmar) {
+        window.location.href = "login.html";
+      }
+    });
+  }
 });
