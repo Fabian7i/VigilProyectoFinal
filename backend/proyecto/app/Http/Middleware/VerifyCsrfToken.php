@@ -16,13 +16,13 @@ class VerifyCsrfToken extends Middleware
         'register',
         'http://127.0.0.1:8000/register',
         '*register*',
-'comentarios/anonimo',
+'comentarios/anonimo','comunicados',
 'comentarios/*',
         // Excepciones del Login
         'login',
         'http://127.0.0.1:8000/login',
         '*login*',
-
+'comunicados/*',
         // 🔥 EXCEPCIONES PARA EL MÓDULO DE NOTICIAS (WEB.PHP)
         'noticias',          // Libera el guardar (POST /noticias)
         'noticias/*',        // 🔥 CLAVE: Libera actualizar y borrar (POST o DELETE /noticias/2)

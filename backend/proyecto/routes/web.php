@@ -4,7 +4,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Comunicado;
 
+// Si estás usando la opción de API (sin enredos de CSRF token)
+Route::get('/comunicados', [Comunicado::class, 'index']);
+Route::post('/comunicados', [Comunicado::class, 'store']);
+Route::get('/comunicados/{id}', [Comunicado::class, 'show']);
+Route::put('/comunicados/{id}', [Comunicado::class, 'update']); // <-- Para editar
+Route::delete('/comunicados/{id}', [Comunicado::class, 'destroy']);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
