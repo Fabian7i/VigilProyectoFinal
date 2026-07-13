@@ -1,0 +1,14 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Evita que sliders u otros elementos se superpongan al menú */
+    
+    /* Agrega aquí tus estilos previos (background-color, display: flex, etc.) */
+}
+
+/* IMPORTANTE: Para que el inicio de tu página no quede tapado por el header fijo */
+body {
+    padding-top: 80px; /* Ajusta este valor según la altura real de tu header */
+}
