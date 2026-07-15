@@ -2,12 +2,12 @@
    ESTILOS PREMIUM: PÁGINA DE MISIÓN, VISIÓN Y VALORES (ESTILO HISTORIA + FIGMA)
    ========================================================================== */
 
-/* Respetar mayúsculas y minúsculas originales de la navegación */
+/* Respetar navegación */
 header nav ul li a {
   text-transform: none !important;
 }
 
-/* --- ENTRADA / BANNER PRINCIPAL (IDÉNTICO A HISTORIA) --- */
+/* --- BANNER PRINCIPAL (ESTILO COMPATIBLE CON HISTORIA) --- */
 .banner-seccion-mv {
   position: relative;
   width: 100%;
@@ -52,7 +52,8 @@ header nav ul li a {
 .linea-decorativa-amarilla-mv {
   width: 180px;
   height: 4px;
-  background-color: #FFD23B; /* Amarillo Institucional */
+  background-color: #FFD23B;
+  /* Amarillo Institucional */
   margin-bottom: 15px;
 }
 
@@ -63,7 +64,7 @@ header nav ul li a {
   opacity: 0.9;
 }
 
-/* --- CUERPO Y CONTENIDO --- */
+/* --- CUERPO GENERAL --- */
 .contenedor-principal-mv {
   max-width: 1200px;
   margin: 60px auto;
@@ -71,160 +72,213 @@ header nav ul li a {
   box-sizing: border-box;
 }
 
-/* Párrafo superior */
 .texto-introductorio-mv {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 1.8;
   color: #475569;
   text-align: center;
-  max-width: 900px;
+  max-width: 850px;
   margin: 0 auto 50px auto;
 }
 
-/* --- BLOQUE HORIZONTAL DE MISIÓN Y VISIÓN (ESTILO FIGMA) --- */
+/* --- BLOQUE HORIZONTAL DE MISIÓN Y VISIÓN (DISEÑO PREMIUM AZUL) --- */
 .seccion-bloques-mv {
   display: flex;
   gap: 30px;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
 }
 
 .tarjeta-mv-item {
   flex: 1;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
+  /* Fondo degradado azul oscuro institucional */
+  background: linear-gradient(135deg, #002d59 0%, #004c94 100%);
+  border-radius: 18px;
+  padding: 40px 30px;
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f1f5f9;
+  align-items: center;
+  /* Alinea verticalmente el círculo del icono con el texto */
+  gap: 30px;
+  position: relative;
+  overflow: hidden;
+  /* Borde inferior amarillo decorativo sutil */
+  border-bottom: 4px solid #FFD23B;
+  box-shadow: 0 10px 30px rgba(0, 51, 102, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Variaciones cromáticas suaves sutiles basadas en la imagen */
-.tarjeta-mv-item.mision { background-color: #f0f7ff; }
-.tarjeta-mv-item.vision { background-color: #f0fdf4; }
+.tarjeta-mv-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 51, 102, 0.25);
+}
 
+/* Círculo blanco con borde amarillo para el Icono */
 .icono-circulo-mv {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
+  background-color: #ffffff;
+  border: 3px solid #FFD23B;
+  /* Borde Amarillo */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
   flex-shrink: 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.icono-circulo-mv.color-azul { background-color: #003366; color: #ffffff; }
-.icono-circulo-mv.color-verde { background-color: #16a34a; color: #ffffff; }
+/* Estilo del icono interno */
+.icono-circulo-mv i {
+  font-size: 38px;
+  color: #003366;
+  /* Azul profundo para el icono */
+}
+
+/* Contenido de texto interno de la tarjeta */
+.info-mv-card {
+  flex: 1;
+}
 
 .info-mv-card h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  color: #003366;
-  margin: 0 0 10px 0;
+  font-size: 24px;
+  color: #ffffff;
+  /* Texto del título en blanco */
+  margin: 0 0 6px 0;
+  letter-spacing: 1px;
+}
+
+/* Línea decorativa amarilla debajo de MISIÓN / VISIÓN */
+.linea-decorativa-titulo {
+  width: 45px;
+  height: 3px;
+  background-color: #FFD23B;
+  margin-bottom: 15px;
+  border-radius: 2px;
 }
 
 .info-mv-card p {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #334e68;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  /* Blanco con leve transparencia para legibilidad */
   margin: 0;
   text-align: justify;
 }
 
-/* --- VALORES INSTITUCIONALES (DISEÑO GRID DE 6 COLUMNAS) --- */
+/* --- VALORES INSTITUCIONALES (ESTILO MODERNO) --- */
 .subtitulo-centrado-mv {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 26px;
+  font-size: 28px;
   color: #003366;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 45px;
   letter-spacing: 0.5px;
+  position: relative;
+}
+
+.subtitulo-centrado-mv::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #FFD23B;
+  margin: 12px auto 0 auto;
+  border-radius: 2px;
 }
 
 .cuadrícula-valores {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 20px;
-  margin-bottom: 70px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  margin-bottom: 80px;
 }
 
 .tarjeta-valor {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 25px 15px;
+  border-radius: 16px;
+  padding: 30px 20px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .tarjeta-valor:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+  transform: translateY(-8px);
+  border-color: #003366;
+  box-shadow: 0 12px 30px rgba(0, 51, 102, 0.1);
 }
 
 .icono-valor-wrapper {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  margin: 0 auto 15px auto;
+  margin: 0 auto 20px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  background-color: #f0f4f8;
+  /* Fondo neutro premium */
+  transition: background-color 0.3s ease;
 }
 
-/* Colores de fondo de círculos correspondientes a la imagen */
-.icono-valor-wrapper.v-rojo { background-color: #ffebee; }
-.icono-valor-wrapper.v-azul { background-color: #e3f2fd; }
-.icono-valor-wrapper.v-amarillo { background-color: #fffde7; }
-.icono-valor-wrapper.v-morado { background-color: #f3e5f5; }
-.icono-valor-wrapper.v-verde { background-color: #e8f5e9; }
-.icono-valor-wrapper.v-naranja { background-color: #fff3e0; }
+.icono-valor-wrapper i {
+  font-size: 22px;
+  color: #003366;
+  /* Todos los iconos mantienen un elegante azul */
+  transition: color 0.3s ease;
+}
+
+/* Efecto Hover en los iconos */
+.tarjeta-valor:hover .icono-valor-wrapper {
+  background-color: #003366;
+}
+
+.tarjeta-valor:hover .icono-valor-wrapper i {
+  color: #ffffff;
+}
 
 .tarjeta-valor h4 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   color: #003366;
   margin: 0 0 10px 0;
 }
 
 .tarjeta-valor p {
   font-family: 'Poppins', sans-serif;
-  font-size: 12.5px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.6;
   color: #64748b;
   margin: 0;
 }
 
-/* --- BLOQUE DE NUESTRO COMPROMISO (HORIZONTAL ASIMÉTRICO) --- */
+/* --- NUESTRO COMPROMISO (HORIZONTAL PREMIUM) --- */
 .bloque-compromiso-horizontal {
   display: flex;
-  background-color: #f8fafc;
-  border-radius: 14px;
+  background-color: #ffffff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  box-shadow: 0 10px 30px rgba(0, 51, 102, 0.05);
   align-items: center;
-  margin-top: 40px;
+  border: 1px solid #e2e8f0;
+  margin-top: 50px;
 }
 
 .columna-compromiso-texto {
   flex: 1.2;
-  padding: 45px;
+  padding: 55px;
 }
 
 .columna-compromiso-texto h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 26px;
   color: #003366;
   margin-top: 0;
   margin-bottom: 8px;
@@ -232,10 +286,10 @@ header nav ul li a {
 
 .columna-compromiso-texto p {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.8;
   color: #475569;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   text-align: justify;
 }
 
@@ -246,16 +300,17 @@ header nav ul li a {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 12px;
-  padding: 12px 24px;
-  border-radius: 6px;
+  font-size: 13px;
+  padding: 14px 28px;
+  border-radius: 8px;
   letter-spacing: 0.5px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-compromiso-accion:hover {
   background-color: #002244;
   color: #ffffff;
+  transform: translateX(4px);
 }
 
 .columna-compromiso-imagen {
@@ -272,20 +327,27 @@ header nav ul li a {
 
 /* --- DISPOSITIVOS MÓVILES (RESPONSIVE) --- */
 @media (max-width: 900px) {
-  .seccion-bloques-mv, .bloque-compromiso-horizontal {
+
+  .seccion-bloques-mv,
+  .bloque-compromiso-horizontal {
     flex-direction: column;
   }
+
   .columna-compromiso-imagen {
-    height: 250px;
+    height: 280px;
+    width: 100%;
   }
+
   .banner-seccion-mv {
     height: 240px;
     padding: 0 5%;
   }
+
   .contenido-banner-mv h2 {
     font-size: 32px;
   }
+
   .cuadrícula-valores {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
