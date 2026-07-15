@@ -7,139 +7,137 @@
     <title>Comunidad Paillardellina - Colegio Enrique Paillardelle</title>
     <link rel="stylesheet" href="css/paginaweb.css">
     <link rel="stylesheet" href="css/comunidad.css">
+    <!-- Iconos de Bootstrap necesarios para el diseño -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
 </head>
 
 <body>
 
-  <div id="header-container"></div>
+    <div id="header-container"></div>
 
-    <section class="banner-comunidad">
-        <div class="capa-oscura"></div>
-        <div class="contenido-banner">
-            <h2>COMUNIDAD PAILLARDELLINA</h2>
-            <div class="linea-decorativa"></div>
-            <p class="introduccion-banner">
-                La Comunidad Paillardellina está conformada por todas las personas que, con esfuerzo, compromiso y vocación de servicio, contribuyen al crecimiento de nuestra institución. Juntos promovemos una educación integral, basada en valores, el respeto, la excelencia académica y el trabajo colaborativo.
-            </p>
+    <!-- SECCIÓN BANNER DIVIDIDO -->
+    <section class="banner-comunidad-split">
+        <div class="contenedor-banner-split">
+            <div class="bloque-texto-banner">
+                <h2>COMUNIDAD<br><span class="resaltado-banner">PALLARDELLINA</span></h2>
+                <div class="linea-decorativa-amarilla"></div>
+                <p>
+                    La Comunidad Pallardellina está conformada por todas las personas que, con esfuerzo, compromiso y
+                    vocación de servicio, contribuyen al crecimiento de nuestra institución. Juntos promovemos una
+                    educación integral, basada en valores, el respeto, la excelencia académica y el trabajo
+                    colaborativo.
+                </p>
+            </div>
+            <div class="bloque-imagen-banner">
+                <img src="img/imagen_carrusel1.png" alt="Colegio Enrique Pallardelle">
+            </div>
         </div>
     </section>
 
-    <main class="contenedor-seccion">
-        <div class="titulo-centralizado">
-            <h3>¿Quiénes conforman nuestra comunidad?</h3>
-            <p>Pasa el mouse sobre cada tarjeta para conocer más de nosotros</p>
+    <!-- SECCIÓN NUESTRO EQUIPO HUMANO -->
+    <main class="seccion-equipo-humano">
+        <div class="titulo-centralizado-nuevo">
+            <h3>NUESTRO EQUIPO HUMANO</h3>
+            <div class="linea-titulo-corto"></div>
         </div>
 
-        <div class="grid-niveles-giratorios">
-            
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front bg-inicial">
-                        <div class="capa-tarjeta"></div>
-                        <div class="contenido-front">
-                            <div class="contenedor-icono-lineal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                    <circle cx="12" cy="8" r="2"></circle>
-                                </svg>
-                            </div>
-                            <h4>Educación Inicial</h4>
-                        </div>
+        <div class="grid-equipo-tarjetas">
+
+            <!-- Directora -->
+            <div class="tarjeta-personal-azul">
+                <div class="encabezado-tarjeta-personal">
+                    <div class="circulo-icono-personal naranja">
+                        <i class="bi bi-person-fill-gear"></i>
                     </div>
-                    <div class="flip-card-back border-back-inicial">
-                        <p>Nuestros estudiantes inician su formación desarrollando sus capacidades cognitivas, psicomotrices y socioemocionales mediante el juego y el descubrimiento guiado.</p>
-                    </div>
+                    <h4>DIRECTORA</h4>
                 </div>
-            </div>
-            
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front bg-primaria">
-                        <div class="capa-tarjeta"></div>
-                        <div class="contenido-front">
-                            <div class="contenedor-icono-lineal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                                    <polyline points="10 7 12 12 14 7"></polyline>
-                                    <line x1="12" y1="12" x2="12" y2="15"></line>
-                                </svg>
-                            </div>
-                            <h4>Educación Primaria</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back border-back-primaria">
-                        <p>Fortalecemos el aprendizaje teórico-práctico, los valores esenciales de convivencia y consolidamos las bases del pensamiento analítico en nuestros niños.</p>
-                    </div>
-                </div>
+                <p>Lidera la gestión institucional con compromiso y visión, promoviendo una educación de calidad basada
+                    en valores y mejora continua.</p>
+                <div class="marca-agua-logo">EP</div>
             </div>
 
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front bg-secundaria">
-                        <div class="capa-tarjeta"></div>
-                        <div class="contenido-front">
-                            <div class="contenedor-icono-lineal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                                </svg>
-                            </div>
-                            <h4>Educación Secundaria</h4>
-                        </div>
+            <!-- Docentes -->
+            <div class="tarjeta-personal-azul">
+                <div class="encabezado-tarjeta-personal">
+                    <div class="circulo-icono-personal azul">
+                        <i class="bi bi-mortarboard-fill"></i>
                     </div>
-                    <div class="flip-card-back border-back-secundaria">
-                        <p>Desarrollamos altas competencias de investigación académica y liderazgo tecnológico para afrontar con éxito desafíos del futuro profesional y de la sociedad.</p>
-                    </div>
+                    <h4>DOCENTES</h4>
                 </div>
+                <p>Profesionales comprometidos con la formación integral de nuestros estudiantes, guiando su aprendizaje
+                    con dedicación y excelencia.</p>
+                <div class="marca-agua-logo">EP</div>
+            </div>
+
+            <!-- Auxiliares -->
+            <div class="tarjeta-personal-azul">
+                <div class="encabezado-tarjeta-personal">
+                    <div class="circulo-icono-personal amarillo">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h4>AUXILIARES</h4>
+                </div>
+                <p>Brindan apoyo constante en los procesos pedagógicos y formativos, contribuyendo a un ambiente seguro
+                    y ordenado.</p>
+                <div class="marca-agua-logo">EP</div>
+            </div>
+
+            <!-- Personal Administrativo -->
+            <div class="tarjeta-personal-azul">
+                <div class="encabezado-tarjeta-personal">
+                    <div class="circulo-icono-personal blanco-azul">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </div>
+                    <h4>PERSONAL ADMINISTRATIVO</h4>
+                </div>
+                <p>Gestiona y organiza los recursos y procesos institucionales para asegurar el buen funcionamiento de
+                    nuestra comunidad educativa.</p>
+                <div class="marca-agua-logo">EP</div>
             </div>
         </div>
     </main>
 
-    <section class="seccion-equipo-fondo">
-        <div class="contenedor-interno">
-            <div class="titulo-centralizado">
-                <h3>Nuestro equipo humano</h3>
-                <p>Personal comprometido con el desarrollo integral</p>
-            </div>
+    <!-- SECCIÓN INFERIOR: ESTADÍSTICAS Y CITA -->
+    <section class="contenedor-metricas-cita">
+        <div class="bloque-metrica-flex">
 
-            <div class="grid-equipo">
-                <div class="tarjeta-rol">
-                    <div class="icono-rol-vector">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    </div>
-                    <h5>Directivos</h5>
-                </div>
-                
-                <div class="tarjeta-rol">
-                    <div class="icono-rol-vector">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                    </div>
-                    <h5>Docentes</h5>
-                </div>
-
-                <div class="tarjeta-rol">
-                    <div class="icono-rol-vector">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-                    </div>
-                    <h5>Auxiliares</h5>
-                </div>
-
-                <div class="tarjeta-rol">
-                    <div class="icono-rol-vector">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                    </div>
-                    <h5>Personal Administrativo</h5>
+            <!-- Sub-bloque izquierdo: Cita -->
+            <div class="bloque-cita-izquierdo">
+                <i class="bi bi-quote icono-comillas-abrir"></i>
+                <p>Cada integrante de nuestra institución aporta su talento, responsabilidad y corazón para formar
+                    estudiantes íntegros, competentes y comprometidos con la sociedad.</p>
+                <div class="firma-comunidad">
+                    <div class="linea-firma"></div>
+                    <span>Comunidad Pallardellina</span>
                 </div>
             </div>
 
-            <div class="bloque-cita-cierre">
-                <p>
-                    "La fortaleza de nuestra institución está en las personas que la conforman. Cada estudiante, docente, directivo y colaborador contribuye, con su esfuerzo y dedicación, a construir una Comunidad Paillardellina unida, comprometida y orgullosa de educar para el futuro."
-                </p>
+            <!-- Sub-bloque derecho: Estadísticas -->
+            <div class="grid-contadores-metricas">
+                <div class="item-contador">
+                    <i class="bi bi-people"></i>
+                    <h3>+60</h3>
+                    <p>Docentes</p>
+                </div>
+                <div class="item-contador">
+                    <i class="bi bi-mortarboard"></i>
+                    <h3>+1800</h3>
+                    <p>Estudiantes</p>
+                </div>
+                <div class="item-contador">
+                    <i class="bi bi-shield-check"></i>
+                    <h3>65</h3>
+                    <p>Años de trayectoria</p>
+                </div>
+                <div class="item-contador">
+                    <i class="bi bi-heart-fill-custom"></i>
+                    <i class="bi bi-heart-fill"></i>
+                    <h3>100%</h3>
+                    <p>Compromiso</p>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -160,10 +158,13 @@
                 <p><strong>Teléfono:</strong> (052) 504692</p>
             </div>
             <div class="footer-column footer-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.1374526645396!2d-70.2524419!3d-18.0199927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf61099ec51d%3A0x6bda19f5068cfcb9!2sAv.%20Municipal%2C%20Tacna!5e0!3m2!1ses!2spe!4v1716490000000!5m2!1ses!2spe" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.1374526645396!2d-70.2524419!3d-18.0199927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf61099ec51d%3A0x6bda19f5068cfcb9!2sAv.%20Municipal%2C%20Tacna!5e0!3m2!1ses!2spe!4v1716490000000!5m2!1ses!2spe"
+                    width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </footer>
-<script src="script.js/header.js"></script>
+    <script src="script.js/header.js"></script>
 </body>
+
 </html>
