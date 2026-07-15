@@ -34,6 +34,7 @@ header nav ul li a {
 
 .bloque-texto-banner {
   flex: 1;
+  text-align: left;
 }
 
 .bloque-texto-banner h2 {
@@ -43,6 +44,8 @@ header nav ul li a {
   line-height: 1.1;
   color: #003366;
   margin: 0 0 15px 0;
+  text-align: left;
+  /* Fuerza la alineación izquierda del texto */
 }
 
 .bloque-texto-banner h2 .resaltado-banner {
@@ -53,7 +56,8 @@ header nav ul li a {
   width: 50px;
   height: 4px;
   background-color: var(--amarillo-destaque);
-  margin-bottom: 25px;
+  margin: 0 0 25px 0;
+  /* El tercer cero asegura que no se centre, manteniéndose a la izquierda */
   border-radius: 2px;
 }
 
@@ -63,6 +67,7 @@ header nav ul li a {
   line-height: 1.65;
   color: var(--texto-gris-cool);
   margin: 0;
+  text-align: justify;
 }
 
 .bloque-imagen-banner {
@@ -312,27 +317,19 @@ header nav ul li a {
 @media (max-width: 992px) {
   .contenedor-banner-split {
     flex-direction: column;
-    text-align: center;
+  }
+
+  .bloque-texto-banner {
+    text-align: left;
+    /* Mantiene la alineación a la izquierda en tablets/móviles */
   }
 
   .linea-decorativa-amarilla {
-    margin: 0 auto 25px auto;
+    margin: 0 0 25px 0;
+    /* Evita que se centre en móviles */
   }
 
-  .grid-equipo-tarjetas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .bloque-metrica-flex {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .grid-contadores-metricas {
-    border-left: none;
-    padding-left: 0;
-    width: 100%;
-  }
+  /* ... resto de tus estilos de media query ... */
 }
 
 @media (max-width: 600px) {
