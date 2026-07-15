@@ -72,17 +72,33 @@ function actualizarContadores(mensajes) {
 }
 
 function abrirDetalle(msg) {
-    document.getElementById('det-nombre').innerText = msg.nombre || 'N/A';
-    document.getElementById('det-correo').innerText = msg.correo || 'N/A';
-    document.getElementById('det-asunto').innerText = msg.asunto || 'N/A';
-    document.getElementById('det-fecha').innerText = new Date(msg.created_at).toLocaleDateString() || 'N/A';
-    document.getElementById('det-mensaje').innerText = msg.mensaje || '';
-
-    const btnGmail = document.getElementById('btn-responder-gmail');
-    const asuntoEncoded = encodeURIComponent("Respuesta a su consulta: " + (msg.asunto || ""));
-    btnGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${msg.correo}&su=${asuntoEncoded}`;
-    
-    document.getElementById('drawer-detalle-mensaje').classList.add('active');
+    Swal.fire({
+        title: 'DETALLE DEL MENSAJE',
+        html: `
+            <div style="text-align: left;">
+                <p><strong>Nombre:</strong> ${msg.nombre}</p>
+                <p><strong>Correo:</strong> ${msg.correo}</p>
+                <p><strong>Fecha:</strong> ${new Date(msg.created_at).toLocaleDateString()}</p>
+                <p><strong>Asunto:</strong> ${msg.asunto}</p>
+                <hr>
+                <p><strong>Mensaje:</strong></p>
+                <div style="background: #f8f9fa; padding: 10px; border-radius: 5px;">${msg.mensaje}</div>
+            </div>
+        `,
+        icon: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'Cerrar',
+        confirmButtonText: '<i class="fa-brands fa-google"></i> Responder en Gmail',
+        confirmButtonColor: '#00204a',
+        width: '600px'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Abrir Gmail con los datos listos
+            const asuntoEncoded = encodeURIComponent("Respuesta: " + msg.asunto);
+            const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${msg.correo}&su=${asuntoEncoded}`;
+            window.open(url, '_blank');
+        }
+    });
 }
 
 function setupEventListeners() {
@@ -104,26 +120,10 @@ function setupEventListeners() {
         });
     }
 
-    // Botón cerrar drawer
-    const btnCerrar = document.getElementById('btn-cerrar-drawer-x');
-    if (btnCerrar) {
-        btnCerrar.addEventListener('click', () => {
-            document.getElementById('drawer-detalle-mensaje').classList.remove('active');
-        });
-    }
-
     // Buscador
     const inputBuscar = document.getElementById('input-buscar');
     if (inputBuscar) {
         inputBuscar.addEventListener('input', () => {
-            cargarMensajes(); // Recargar con filtro (implementar filtro en backend)
-        });
-    }
-
-    // Filtro de estado
-    const selectFiltro = document.getElementById('select-filtro-estado');
-    if (selectFiltro) {
-        selectFiltro.addEventListener('change', () => {
             cargarMensajes(); // Recargar con filtro (implementar filtro en backend)
         });
     }

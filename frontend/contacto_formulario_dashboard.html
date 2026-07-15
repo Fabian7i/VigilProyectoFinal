@@ -107,13 +107,6 @@
               <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" id="input-buscar" placeholder="Buscar por nombre, correo o asunto...">
             </div>
-            <div class="filtro-modulo">
-              <select id="select-filtro-estado" class="form-select">
-                <option value="Todos">Todos los estados</option>
-                <option value="Pendiente">Pendiente</option>
-                <option value="Respondido">Respondido</option>
-              </select>
-            </div>
           </div>
 
           <!-- Lista de Mensajes -->
@@ -121,43 +114,6 @@
             <!-- Los elementos se inyectarán de forma dinámica mediante JavaScript -->
           </div>
         </div>
-
-    <!-- PANEL LATERAL (DRAWER) SIMPLIFICADO PARA GMAIL -->
-<div class="panel-lateral-detalle" id="drawer-detalle-mensaje">
-    <div class="header-panel-lateral">
-        <h5>DETALLE DEL MENSAJE</h5>
-        <button class="btn-cerrar-drawer" id="btn-cerrar-drawer-x">&times;</button>
-    </div>
-    <div class="cuerpo-panel-lateral">
-        <div class="info-item-drawer">
-            <span class="label-drawer"><i class="fa-solid fa-user"></i> Nombre:</span>
-            <p id="det-nombre" class="valor-drawer"></p>
-        </div>
-        <div class="info-item-drawer">
-            <span class="label-drawer"><i class="fa-solid fa-envelope"></i> Correo:</span>
-            <p id="det-correo" class="valor-drawer"></p>
-        </div>
-        <div class="info-item-drawer">
-            <span class="label-drawer"><i class="fa-solid fa-calendar"></i> Fecha:</span>
-            <p id="det-fecha" class="valor-drawer"></p>
-        </div>
-        <div class="info-item-drawer">
-            <span class="label-drawer"><i class="fa-solid fa-file-invoice"></i> Asunto:</span>
-            <p id="det-asunto" class="valor-drawer-asunto"></p>
-        </div>
-        <div class="info-item-drawer bg-light p-3 rounded mb-4">
-            <span class="label-drawer"><i class="fa-solid fa-comment-dots"></i> Mensaje:</span>
-            <p id="det-mensaje" class="valor-drawer-texto m-0"></p>
-        </div>
-
-        <!-- Botón único para responder vía Gmail -->
-        <div class="d-flex justify-content-end">
-            <a href="#" id="btn-responder-gmail" class="btn btn-primary w-100 py-2 fw-bold" target="_blank">
-                <i class="fa-brands fa-google"></i> Responder en Gmail
-            </a>
-        </div>
-    </div>
-</div>
 
       </main>
     </div>

@@ -699,10 +699,6 @@ function actualizarEstadisticas(datosServidor = {}) {
         "comentariosPublicados"
     );
 
-    const elementoEliminados = document.getElementById(
-        "comentariosEliminados"
-    );
-
     /*
      * Si Laravel devuelve estadísticas, las usamos.
      * Ejemplo:
@@ -711,8 +707,7 @@ function actualizarEstadisticas(datosServidor = {}) {
      *   comentarios: [...],
      *   estadisticas: {
      *      total: 8,
-     *      publicados: 6,
-     *      eliminados: 2
+     *      publicados: 6
      *   }
      * }
      */
@@ -730,20 +725,9 @@ function actualizarEstadisticas(datosServidor = {}) {
             }
         ).length;
 
-    const eliminados =
-        estadisticas.eliminados ??
-        todosLosComentarios.filter(
-            function (comentario) {
-                return (
-                    comentario.estado === "eliminado" ||
-                    Boolean(comentario.deleted_at)
-                );
-            }
-        ).length;
-
     const total =
         estadisticas.total ??
-        publicados + eliminados;
+        publicados;
 
     if (elementoTotal) {
         elementoTotal.textContent = total;
@@ -751,10 +735,6 @@ function actualizarEstadisticas(datosServidor = {}) {
 
     if (elementoPublicados) {
         elementoPublicados.textContent = publicados;
-    }
-
-    if (elementoEliminados) {
-        elementoEliminados.textContent = eliminados;
     }
 }
 
