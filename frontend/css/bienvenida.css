@@ -1,13 +1,13 @@
-
 header nav ul li a {
   text-transform: none !important;
 }
 
-/* --- BANNER DE TITULO CON EFECTO SCROLL---*/
+/* --- BANNER DE TITULO CON EFECTO SCROLL --- */
 .banner-seccion-bienvenida {
   position: relative;
   width: 100%;
   height: 320px;
+  background-color: #002244; /* Color de respaldo si no carga la imagen */
   background-image: url('../img/imagen_carrusel2.png');
   background-attachment: fixed;
   background-position: center;
@@ -58,7 +58,7 @@ header nav ul li a {
   opacity: 0.9;
 }
 
-/* --- animacion de entrada(FADE IN UP) --- */
+/* --- ANIMACION DE ENTRADA (FADE IN UP) --- */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -70,7 +70,7 @@ header nav ul li a {
   }
 }
 
-/* --- cuerpo general --- */
+/* --- CUERPO GENERAL --- */
 .bloque-contenido-bienvenida {
   max-width: 1200px;
   margin: 60px auto;
@@ -83,7 +83,6 @@ header nav ul li a {
   gap: 50px;
   align-items: center;
   margin-bottom: 60px;
-  /* Animación directa para el bloque de bienvenida superior */
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -113,39 +112,18 @@ header nav ul li a {
   flex: 0.7;
 }
 
-/* Tarjeta moderna lateral */
-.tarjeta-insignia-bienvenida {
-  background-color: #003366;
-  color: #ffffff;
-  padding: 40px 30px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 51, 102, 0.15);
-  text-align: center;
-  border-bottom: 5px solid #FFD23B;
+/* --- ESTILO PARA LA NUEVA FOTO --- */
+.foto-destaque-bienvenida {
+  width: 100%;
+  height: auto;
+  max-height: 380px; 
+  object-fit: cover; 
+  border-radius: 12px; 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+  display: block;
 }
 
-.tarjeta-insignia-bienvenida .icono-tarjeta {
-  font-size: 45px;
-  margin-bottom: 15px;
-}
-
-.tarjeta-insignia-bienvenida h4 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: #FFD23B;
-}
-
-.tarjeta-insignia-bienvenida p {
-  font-size: 14px;
-  line-height: 1.6;
-  font-style: italic;
-  opacity: 0.95;
-  margin: 0;
-}
-
-/* --- tarjetas didacticas que giraran  --- */
+/* --- TARJETAS DIDÁCTICAS --- */
 .contenedor-tarjetas-didacticas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -158,37 +136,31 @@ header nav ul li a {
   border-radius: 12px;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  /* Inician transparentes hasta que arranca su tiempo (delay) */
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Tarjeta 1: Verde Suave */
 .tarjeta-didactica:nth-child(1) {
   background-color: #e8f5e9;
   border: 1px solid #c8e6c9;
   border-bottom: 5px solid #81c784;
-  animation-delay: 0.3s; /* Entra justo después de la carga inicial */
+  animation-delay: 0.3s;
 }
 
-/* Tarjeta 2: Celeste Suave */
 .tarjeta-didactica:nth-child(2) {
   background-color: #e3f2fd;
   border: 1px solid #bbdefb;
   border-bottom: 5px solid #64b5f6;
-  animation-delay: 0.5s; /* Entra un instante después */
+  animation-delay: 0.5s;
 }
 
-/* Tarjeta 3: Crema / Amarillo Suave */
 .tarjeta-didactica:nth-child(3) {
   background-color: #fffde7;
   border: 1px solid #fff9c4;
   border-bottom: 5px solid #ffd54f;
-  animation-delay: 0.7s; /* Cierra la secuencia de entrada */
+  animation-delay: 0.7s;
 }
 
-/* Efecto Dinámico al pasar el Mouse */
 .tarjeta-didactica:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
