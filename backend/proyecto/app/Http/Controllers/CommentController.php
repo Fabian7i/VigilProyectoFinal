@@ -15,7 +15,16 @@ class CommentController extends Controller
 
     return response()->json($comments);
 }
+public function destroy($id)
+{
+    $comentario = Comment::findOrFail($id);
+    $comentario->delete();
 
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Comentario eliminado correctamente'
+    ], 200);
+}
 /**
  * Guarda el comentario anónimo enviado desde el HTML Puro
  */

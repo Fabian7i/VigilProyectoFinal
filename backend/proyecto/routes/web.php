@@ -23,6 +23,8 @@ Route::delete('/comunicados/{id}', [Comunicado::class, 'destroy']);
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Añade esta línea para permitir borrar comentarios
+Route::delete('/comentarios/{id}', [CommentController::class, 'destroy']);
 Route::get('/usuarios', [RegisteredUserController::class, 'index']);
 Route::get('/usuarios/{id}', [RegisteredUserController::class, 'show']);
 Route::put('/usuarios/{id}', [RegisteredUserController::class, 'update']);
