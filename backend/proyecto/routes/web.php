@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Comunicado;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 // Si estás usando la opción de API (sin enredos de CSRF token)
 Route::get('/comunicados', [Comunicado::class, 'index']);
@@ -22,6 +23,14 @@ Route::delete('/comunicados/{id}', [Comunicado::class, 'destroy']);
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/usuarios', [RegisteredUserController::class, 'index']);
+Route::get('/usuarios/{id}', [RegisteredUserController::class, 'show']);
+Route::put('/usuarios/{id}', [RegisteredUserController::class, 'update']);
+Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy']);
+Route::patch('/usuarios/{id}/estado', [RegisteredUserController::class, 'toggleStatus']);
+
+
 Route::get('/noticias', [NoticiaController::class, 'obtenerNoticasAPI']);
 Route::post('/noticias', [NoticiaController::class, 'guardarNoticiaAPI']);
 Route::post('/noticias/{id}', [NoticiaController::class, 'actualizarNoticiaAPI']);

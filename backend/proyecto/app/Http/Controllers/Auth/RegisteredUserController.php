@@ -22,7 +22,21 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
+    public function index()
+{
+    $usuarios = User::select('id', 'name', 'email', 'activo')->get();
 
+    return response()->json($usuarios);
+}
+public function toggleStatus($id)
+{
+    $user = User::findOrFail($id);
+    // Cambia el estado: si es 1 pasa a 0, y viceversa
+    $user->activo = !$user->activo;
+    $user->save();
+
+    return response()->json(['message' => 'Estado actualizado', 'activo' => $user->activo]);
+}
     /**
      * Handle an incoming registration request.
      *
@@ -52,5 +66,38 @@ public function store(Request $request)
         'status' => 'success',
         'message' => 'Usuario registrado con éxito.'
     ], 201);
+}
+
+public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+    ]);
+
+    $user->name = $request->name;
+    $user->email = $request->email;
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return response()->json([
+        'message' => 'Usuario actualizado correctamente.'
+    ]);
+}
+
+public function destroy($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    return response()->json([
+        'message' => 'Usuario eliminado correctamente.'
+    ]);
 }
 }
