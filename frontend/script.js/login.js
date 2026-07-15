@@ -21,7 +21,10 @@ document.getElementById('form-login').addEventListener('submit', async function(
                 showConfirmButton: false,
                 timer: 2000
             }).then(() => {
-                window.location.href = 'dashboard.html';
+                // En tu lógica de login exitoso
+document.cookie = "token=usuario_autenticado; path=/; max-age=86400"; // Dura 24 horas
+window.location.href = "dashboard.html"; // Redirige al dashboard
+            
             });
         } else {
             // ERROR DE VALIDACIÓN O CREDENCIALES

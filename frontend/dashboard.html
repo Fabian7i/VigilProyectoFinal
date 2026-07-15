@@ -260,26 +260,6 @@
     });
 
   </script>
-  <script>
-    document.getElementById('btnSalirGlobal').addEventListener('click', function() {
-        Swal.fire({
-            title: '¿Cerrar sesión?',
-            text: "¿Estás seguro que deseas salir del sistema?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, salir'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Borra la cookie de sesión
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                // Redirige al login
-                window.location.href = "login.html";
-            }
-        });
-    });
-</script>
   <script src="script.js/codigo.js"></script>
   <script src="script.js/dashboard/Menu_usuario.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuUsuario =
     document.getElementById("menuUsuario");
 
-  const btnSalir =
-    document.getElementById("btnSalir");
+  const btnSalirGlobal =
+    document.getElementById("btnSalirGlobal");
 
   const avataresDashboard =
     document.querySelectorAll(".avatar-dashboard-global");
@@ -59,14 +59,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  if (btnSalir) {
-    btnSalir.addEventListener("click", function () {
-      const confirmar =
-        confirm("¿Deseas cerrar sesión?");
-
-      if (confirmar) {
-        window.location.href = "login.html";
-      }
+  if (btnSalirGlobal) {
+    btnSalirGlobal.addEventListener("click", function () {
+      Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: "¿Estás seguro que deseas salir del sistema?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, salir'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.href = "login.html";
+        }
+      });
     });
   }
 });
