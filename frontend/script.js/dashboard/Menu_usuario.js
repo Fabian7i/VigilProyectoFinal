@@ -77,4 +77,56 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+
+  // HAMBURGER MENU PARA SIDEBAR EN MÓVILES
+  const sidebarDash = document.querySelector('.sidebar-dash');
+  const sidebarMenuDash = document.querySelector('.sidebar-menu-dash');
+  
+  if (sidebarDash && sidebarMenuDash) {
+    // Crear botón hamburguesa
+    const hamburgerBtn = document.createElement('button');
+    hamburgerBtn.className = 'hamburger-menu-btn';
+    hamburgerBtn.innerHTML = '☰';
+    hamburgerBtn.style.cssText = `
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 1001;
+      display: none;
+    `;
+    
+    sidebarDash.appendChild(hamburgerBtn);
+    
+    // Mostrar botón hamburguesa solo en móviles
+    function checkMobile() {
+      if (window.innerWidth <= 768) {
+        hamburgerBtn.style.display = 'block';
+      } else {
+        hamburgerBtn.style.display = 'none';
+        sidebarMenuDash.classList.remove('show');
+      }
+    }
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    // Toggle menú
+    hamburgerBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sidebarMenuDash.classList.toggle('show');
+    });
+    
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      if (!sidebarDash.contains(e.target) && sidebarMenuDash.classList.contains('show')) {
+        sidebarMenuDash.classList.remove('show');
+      }
+    });
+  }
 });

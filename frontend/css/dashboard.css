@@ -238,6 +238,55 @@
     padding: 25px 20px;
   }
 }
+
+/* --- HAMBURGER MENU PARA MÓVILES (<768px) --- */
+@media (max-width: 768px) {
+  .sidebar-dash {
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .sidebar-menu-dash {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #003366;
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    gap: 0;
+  }
+  
+  .sidebar-menu-dash.show {
+    display: flex;
+  }
+  
+  .sidebar-menu-dash li a {
+    padding: 12px 25px;
+    border-left: 4px solid transparent;
+    border-bottom: none;
+  }
+  
+  .sidebar-menu-dash li a:hover,
+  .sidebar-menu-dash li a.active {
+    border-left-color: #FFD23B;
+    border-bottom-color: transparent;
+  }
+  
+  .header-dash h1 {
+    font-size: 14px;
+  }
+  
+  .metrics-grid-dash {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-container-dash {
+    padding: 20px 15px;
+  }
+}
 /* =========================================================
    MENÚ DESPLEGABLE DEL USUARIO
    ========================================================= */

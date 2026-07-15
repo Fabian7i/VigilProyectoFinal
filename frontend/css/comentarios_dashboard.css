@@ -39,6 +39,12 @@
   margin-bottom: 16px;
 }
 
+@media (max-width: 768px) {
+  .comentarios-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .comentarios-card {
   min-height: 110px;
   padding: 22px;

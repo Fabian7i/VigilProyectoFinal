@@ -44,7 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// Rutas para el módulo de contacto
+Route::post('/contacto', [ContactMessageController::class, 'store']); // Guardar en BD
+Route::get('/mensajes', [ContactMessageController::class, 'index']); // Ver en Dashboard
 // Ruta explícita utilizando POST
 Route::post('/comentarios/{id}/responder', [CommentController::class, 'responderAdmin']);
 Route::get('/comentarios', [CommentController::class, 'indexApi']);

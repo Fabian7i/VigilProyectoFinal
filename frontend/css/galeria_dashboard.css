@@ -119,6 +119,12 @@
     padding: 0 !important;
 }
 
+@media (max-width: 768px) {
+    .metricas-galeria-dashboard {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 .metrica-galeria {
     min-height: 116px !important;
     margin: 0 !important;
