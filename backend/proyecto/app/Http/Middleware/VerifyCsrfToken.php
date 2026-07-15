@@ -22,7 +22,7 @@ class VerifyCsrfToken extends Middleware
         'login',
         'http://127.0.0.1:8000/login',
         '*login*', 'usuarios/*',
-'comunicados/*',
+'comunicados/*','mensajes',
         // 🔥 EXCEPCIONES PARA EL MÓDULO DE NOTICIAS (WEB.PHP)
         'noticias',          // Libera el guardar (POST /noticias)
         'noticias/*',        // 🔥 CLAVE: Libera actualizar y borrar (POST o DELETE /noticias/2)

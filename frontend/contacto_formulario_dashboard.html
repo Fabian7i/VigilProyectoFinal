@@ -122,62 +122,49 @@
           </div>
         </div>
 
-        <!-- PANEL LATERAL (DRAWER) PARA DETALLES DEL RECUADRO -->
-        <div class="panel-lateral-detalle" id="drawer-detalle-mensaje">
-          <div class="header-panel-lateral">
-            <h5>DETALLE DEL MENSAJE</h5>
-            <button class="btn-cerrar-drawer" id="btn-cerrar-drawer-x">&times;</button>
-          </div>
-          <div class="cuerpo-panel-lateral">
-            <div class="info-item-drawer">
-              <span class="label-drawer"><i class="fa-solid fa-user"></i> Nombre:</span>
-              <p id="det-nombre" class="valor-drawer"></p>
-            </div>
-            <div class="info-item-drawer">
-              <span class="label-drawer"><i class="fa-solid fa-envelope"></i> Correo:</span>
-              <p id="det-correo" class="valor-drawer"></p>
-            </div>
-            <div class="info-item-drawer">
-              <span class="label-drawer"><i class="fa-solid fa-calendar"></i> Fecha:</span>
-              <p id="det-fecha" class="valor-drawer"></p>
-            </div>
-            <div class="info-item-drawer">
-              <span class="label-drawer"><i class="fa-solid fa-file-invoice"></i> Asunto:</span>
-              <p id="det-asunto" class="valor-drawer-asunto"></p>
-            </div>
-            <div class="info-item-drawer bg-light p-3 rounded mb-3">
-              <span class="label-drawer"><i class="fa-solid fa-comment-dots"></i> Mensaje:</span>
-              <p id="det-mensaje" class="valor-drawer-texto m-0"></p>
-            </div>
-
-            <div class="info-item-drawer mb-3">
-              <label for="det-select-estado" class="label-drawer">Estado:</label>
-              <select id="det-select-estado" class="form-select mt-1">
-                <option value="Pendiente">🟡 Pendiente</option>
-                <option value="Respondido">🟢 Respondido</option>
-              </select>
-            </div>
-
-            <div class="info-item-drawer mb-4">
-              <span class="label-drawer">Respuesta</span>
-              <textarea id="det-respuesta" class="form-control mt-1" rows="4"
-                placeholder="Escriba aquí la respuesta que será enviada o registrada para esta consulta..."></textarea>
-            </div>
-
-            <div class="d-flex gap-2 justify-content-end">
-              <button class="btn btn-secondary py-2 px-3" id="btn-cancelar-drawer">Cancelar</button>
-              <button class="btn btn-warning py-2 px-3 fw-bold" id="btn-guardar-respuesta"
-                style="background-color: #FFD23B; border: none;">Guardar respuesta</button>
-            </div>
-          </div>
+    <!-- PANEL LATERAL (DRAWER) SIMPLIFICADO PARA GMAIL -->
+<div class="panel-lateral-detalle" id="drawer-detalle-mensaje">
+    <div class="header-panel-lateral">
+        <h5>DETALLE DEL MENSAJE</h5>
+        <button class="btn-cerrar-drawer" id="btn-cerrar-drawer-x">&times;</button>
+    </div>
+    <div class="cuerpo-panel-lateral">
+        <div class="info-item-drawer">
+            <span class="label-drawer"><i class="fa-solid fa-user"></i> Nombre:</span>
+            <p id="det-nombre" class="valor-drawer"></p>
         </div>
+        <div class="info-item-drawer">
+            <span class="label-drawer"><i class="fa-solid fa-envelope"></i> Correo:</span>
+            <p id="det-correo" class="valor-drawer"></p>
+        </div>
+        <div class="info-item-drawer">
+            <span class="label-drawer"><i class="fa-solid fa-calendar"></i> Fecha:</span>
+            <p id="det-fecha" class="valor-drawer"></p>
+        </div>
+        <div class="info-item-drawer">
+            <span class="label-drawer"><i class="fa-solid fa-file-invoice"></i> Asunto:</span>
+            <p id="det-asunto" class="valor-drawer-asunto"></p>
+        </div>
+        <div class="info-item-drawer bg-light p-3 rounded mb-4">
+            <span class="label-drawer"><i class="fa-solid fa-comment-dots"></i> Mensaje:</span>
+            <p id="det-mensaje" class="valor-drawer-texto m-0"></p>
+        </div>
+
+        <!-- Botón único para responder vía Gmail -->
+        <div class="d-flex justify-content-end">
+            <a href="#" id="btn-responder-gmail" class="btn btn-primary w-100 py-2 fw-bold" target="_blank">
+                <i class="fa-brands fa-google"></i> Responder en Gmail
+            </a>
+        </div>
+    </div>
+</div>
 
       </main>
     </div>
   </div>
 
   <script src="script.js/contacto.js"></script>
-  <script src="script.js/dashboard/Menu_usuario.js"></script>
+  <script src="script.js/contactoDA.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

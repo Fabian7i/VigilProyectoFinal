@@ -16,9 +16,13 @@ public function store(Request $request) {
 
 // app/Http/Controllers/ContactMessageController.php
 public function index()
-{
-    // Obtiene todos los mensajes de la tabla contact_messages
-    $mensajes = \App\Models\ContactMessage::latest()->get();
-    return response()->json($mensajes);
-}
+    {
+        try {
+            $mensajes = ContactMessage::all();
+            return response()->json($mensajes);
+        } catch (\Exception $e) {
+            // Esto te devolverá el error exacto si algo falla
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
