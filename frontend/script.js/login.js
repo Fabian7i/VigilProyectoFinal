@@ -1,37 +1,52 @@
 document.getElementById('form-login').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault();
 
-    // Capturamos los datos del formulario (email y password)
     const formData = new FormData(this);
 
     try {
-        // Apuntamos a la ruta de Breeze para loguear
         const respuesta = await fetch('http://127.0.0.1:8000/login', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json' // Le exige a Laravel responder con JSON en lugar de redirigir
+                'Accept': 'application/json'
             },
             body: formData
         });
 
-        // Si las credenciales son correctas (Laravel Breeze suele responder con un estado 200 o 204)
         if (respuesta.ok) {
-            alert('¡Inicio de sesión correcto! Bienvenido de nuevo.');
-            window.location.href = 'dashboard.html'; // Te manda a tu panel local
+            // ÉXITO
+            Swal.fire({
+                icon: 'success',
+                title: '¡Bienvenido!',
+                text: 'Inicio de sesión correcto. Redirigiendo...',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                window.location.href = 'dashboard.html';
+            });
         } else {
-            // Si las credenciales no coinciden o falló la validación
+            // ERROR DE VALIDACIÓN O CREDENCIALES
             const datos = await respuesta.json();
-            console.error('Errores del servidor:', datos);
-            
+            let mensajeError = datos.message || 'Correo o contraseña incorrectos.';
+
             if (datos.errors) {
-                alert('Error de acceso:\n' + Object.values(datos.errors).flat().join('\n'));
-            } else {
-                alert(datos.message || 'Correo o contraseña incorrectos.');
+                mensajeError = Object.values(datos.errors).flat().join('<br>');
             }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: mensajeError, // Usamos html para que los saltos de línea se vean bien
+                confirmButtonText: 'Entendido'
+            });
         }
 
     } catch (error) {
         console.error('Error de conexión:', error);
-        alert('No se pudo conectar con el servidor para iniciar sesión.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error de conexión',
+            text: 'No se pudo conectar con el servidor. Intenta más tarde.',
+            confirmButtonText: 'Aceptar'
+        });
     }
 });

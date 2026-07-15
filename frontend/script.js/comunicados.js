@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_URL = 'http://localhost:8080/comunicados'; 
+const API_URL = 'http://127.0.0.1:8000/comunicados';
   const contenedor = document.getElementById('contenedor-comunicados-api');
   const inputBuscar = document.getElementById('buscarComunicado');
   const contenedorPaginacion = document.getElementById('contenedor-paginacion');
@@ -7,31 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
   let comunicadosData = [];
   let datosFiltrados = [];
   let paginaActual = 1;
-  const registrosPorPagina = 6; 
+  const registrosPorPagina = 6; // Cantidad de filas por vista
 
- 
+  // Instancia única del Modal de Bootstrap para controlarlo por código
   let bootstrapModal = null;
 
-  // 1. Obtener comunicados desde Laravel
-  async function cargarComunicados() {
+async function cargarComunicados() {
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error('Error en el servidor');
-      
-      comunicadosData = await response.json();
-      datosFiltrados = [...comunicadosData];
-      
-      crearModalEnDocumento(); // Prepara el contenedor del modal
-      irAPagina(1);
+        const response = await fetch(API_URL);
+        
+        // Verificamos si la respuesta es válida antes de procesar
+        if (!response.ok) throw new Error('Error en el servidor');
+        
+        // Se lee el JSON una única vez y se guarda en la variable
+        const data = await response.json(); 
+        comunicadosData = data;
+        datosFiltrados = [...comunicadosData];
+        
+        crearModalEnDocumento();
+        irAPagina(1);
     } catch (error) {
-      console.error(error);
-      contenedor.innerHTML = `
-        <div class="alert alert-danger text-center m-3" role="alert">
-          No se pudieron cargar los comunicados oficiales. Verifique la conexión.
-        </div>`;
+        console.error("Error al cargar:", error);
+        contenedor.innerHTML = `<div class="alert alert-danger text-center m-3">No se pudieron cargar los comunicados oficiales. Verifique la conexión.</div>`;
     }
-  }
-
+}
   // 2. Controlar el cambio de página
   function irAPagina(pagina) {
     const totalPaginas = Math.ceil(datosFiltrados.length / registrosPorPagina);
