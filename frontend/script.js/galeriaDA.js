@@ -1,3 +1,5 @@
+
+const API_URL = 'http://127.0.0.1:8000';
 document.addEventListener('DOMContentLoaded', () => {
     const btnAbrir = document.getElementById('btnAbrirModalAgregar');
 
@@ -41,29 +43,64 @@ async function enviarAlServidor(data) {
     try {
         Swal.fire({ title: 'Guardando...', didOpen: () => Swal.showLoading() });
 
+        // URL absoluta al puerto 8000
         const response = await fetch('http://127.0.0.1:8000/galeria', {
             method: 'POST',
-            body: formData,
-            headers: { 
-                // Asegúrate de que este selector encuentra el valor real
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
+            body: formData
+            // Temporalmente quitamos el CSRF para ver si el servidor responde
         });
-
-        // Primero verificamos el estado
-        if (response.status === 419) {
-            throw new Error("Token CSRF expirado o inválido.");
-        }
 
         const resultado = await response.json();
 
         if (response.ok) {
-            Swal.fire('¡Éxito!', 'Fotografía guardada correctamente', 'success');
+            Swal.fire('¡Éxito!', 'Fotografía guardada', 'success');
+            cargarGaleria(); // Recargar tras guardar
         } else {
-            Swal.fire('Error', resultado.message || 'Error en el servidor', 'error');
+            Swal.fire('Error', resultado.message || 'Error en servidor', 'error');
         }
     } catch (error) {
         console.error(error);
-        Swal.fire('Error', error.message || 'Fallo de conexión con el servidor', 'error');
+        Swal.fire('Error', 'Fallo de conexión', 'error');
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    cargarGaleria();
+});
+
+async function cargarGaleria() {
+    const contenedor = document.getElementById('gridGaleriaDashboard');
+    const estadoVacio = document.getElementById('estadoVacioGaleria');
+
+    try {
+        const response = await fetch(`${API_URL}/obtener-galeria`);
+        const fotos = await response.json();
+
+        console.log("Datos recibidos del servidor:", fotos); // <-- MIRA ESTO EN LA CONSOLA
+
+        if (!fotos || fotos.length === 0) {
+            console.log("No hay fotos para mostrar.");
+            if (estadoVacio) estadoVacio.style.display = 'block';
+            return;
+        }
+
+        if (estadoVacio) estadoVacio.style.display = 'none';
+        
+       // Busca esta línea dentro de tu función cargarGaleria
+contenedor.innerHTML = fotos.map(foto => `
+    <div class="tarjeta-foto-estilo">
+        <div class="imagen-wrapper">
+            <!-- CAMBIA ESTO -->
+            <img src="${API_URL}/storage/galeria/${foto.imagen}" alt="${foto.titulo}">
+        </div>
+        <div class="info-foto">
+            <h4>${foto.titulo}</h4>
+        </div>
+    </div>
+`).join('');
+    } catch (error) {
+        console.error("Error al cargar la galería:", error);
+    }
+}
+
+// Llamar al cargar la página
+document.addEventListener('DOMContentLoaded', cargarGaleria);

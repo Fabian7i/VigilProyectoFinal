@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\File;
 
 class GaleriaController extends Controller
 {
-    public function obtenerGaleriaAPI() {
-        return response()->json(Galeria::latest()->get());
-    }
-
+   // En GaleriaController.php
+public function obtenerGaleriaAPI() {
+    // latest() ordena por fecha, get() trae todo
+    return response()->json(\App\Models\Galeria::latest()->get());
+}
 public function guardarFotoAPI(Request $request) 
 {
     // Validar datos básicos
