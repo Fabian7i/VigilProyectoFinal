@@ -6,7 +6,7 @@ use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Comunicado;
 use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Http\Controllers\ContactMessageController;
 // Si estás usando la opción de API (sin enredos de CSRF token)
 Route::get('/comunicados', [Comunicado::class, 'index']);
 Route::post('/comunicados', [Comunicado::class, 'store']);
@@ -46,7 +46,9 @@ Route::middleware('auth')->group(function () {
 
 // Rutas para el módulo de contacto
 Route::post('/contacto', [ContactMessageController::class, 'store']); // Guardar en BD
-Route::get('/mensajes', [ContactMessageController::class, 'index']); // Ver en Dashboard
+
+// Cambia esto:
+Route::get('/mensajes', [ContactMessageController::class, 'index']);
 // Ruta explícita utilizando POST
 Route::post('/comentarios/{id}/responder', [CommentController::class, 'responderAdmin']);
 Route::get('/comentarios', [CommentController::class, 'indexApi']);

@@ -35,29 +35,30 @@
     <div class="tarjeta-contenedor-formulario">
 
       <div class="columna-formulario">
-        <form action="#" method="POST">
-          <div class="grupo-campo">
-            <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
-          </div>
+       <!-- Busca tu etiqueta <form> actual y agrégale el id="form-contacto" -->
+<form id="form-contacto" action="#" method="POST">
+  <div class="grupo-campo">
+    <label for="nombre">Nombre completo</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
+  </div>
 
-          <div class="grupo-campo">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" required>
-          </div>
+  <div class="grupo-campo">
+    <label for="correo">Correo electrónico</label>
+    <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" required>
+  </div>
 
-          <div class="grupo-campo">
-            <label for="asunto">Asunto</label>
-            <input type="text" id="asunto" name="asunto" placeholder="Motivo de consulta" required>
-          </div>
+  <div class="grupo-campo">
+    <label for="asunto">Asunto</label>
+    <input type="text" id="asunto" name="asunto" placeholder="Motivo de consulta" required>
+  </div>
 
-          <div class="grupo-campo">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Ingresa tu mensaje aquí" required></textarea>
-          </div>
+  <div class="grupo-campo">
+    <label for="mensaje">Mensaje</label>
+    <textarea id="mensaje" name="mensaje" rows="5" placeholder="Ingresa tu mensaje aquí" required></textarea>
+  </div>
 
-          <button type="submit" class="btn-enviar-mensaje">Enviar mensaje</button>
-        </form>
+  <button type="submit" class="btn-enviar-mensaje">Enviar mensaje</button>
+</form>
       </div>
 
       <div class="columna-info-mapa">
@@ -127,8 +128,14 @@
       <p>Política de privacidad de datos | Todos los derechos reservados</p>
     </div>
   </footer>
-
+<!-- SweetAlert2 para alertas estéticas -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Tus scripts personalizados -->
   <script src="script.js/header.js"></script>
+  <script src="script.js/contacto.js"></script>
+</body>
+
 </body>
 
 </html>
