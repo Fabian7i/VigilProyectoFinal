@@ -4,50 +4,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro de Cuenta - Colegio Enrique Paillardelle</title>
-  <link rel="stylesheet" href="css/registro.css">
+  <title>Registro de Usuario - Colegio Enrique Paillardelle</title>
+  <!-- Mantenemos la relación de estilos de login para reutilizar el diseño de tarjetas -->
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/paginaweb.css">
+  <link rel="icon" type="image/png" href="img/logo_enriquepaillardelle.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-  
-  <main class="contenedor-registro-seccion">
-    <div class="registro-wrapper">
+  <!-- Contenedor donde se cargará el encabezado dinámicamente -->
+  <div id="header-container"></div>
 
-      <h1 class="titulo-registro-seccion">REGISTRO DE CUENTA</h1>
+  <main class="contenedor-login-seccion">
+    <div class="login-wrapper">
 
-      <div class="tarjeta-registro">
-        <form id="form-registro" action="#">
+      <h1 class="titulo-colegio">Colegio Enrique Paillardelle</h1>
 
+      <div class="tarjeta-login">
+        <h2>REGÍSTRATE</h2>
+        <p class="subtitulo">Crea tu cuenta para acceder a la plataforma</p>
+
+        <form id="form-registro">
+
+          <!-- Campo Nombre Completo -->
           <div class="grupo-campo">
-            <label for="username">Nombre de usuario</label>
-            <input type="text" id="username" name="name" placeholder="Ingresa tu usuario" required>
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="name" placeholder="Ingresa tu nombre y apellidos" required>
           </div>
 
+          <!-- Campo Correo Electrónico -->
           <div class="grupo-campo">
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" placeholder="Ingresa tu correo electrónico" required>
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="email" placeholder="Ingresa tu correo electrónico" required>
           </div>
 
+          <!-- Campo Contraseña -->
           <div class="grupo-campo">
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <label for="pass">Contraseña</label>
+            <input type="password" id="pass" name="password" placeholder="Crea una contraseña segura" required>
           </div>
 
+          <!-- Campo Confirmar Contraseña (Requerido para validaciones seguras) -->
           <div class="grupo-campo">
-            <label for="confirm-password">Confirmar contraseña</label>
-            <input type="password" id="confirm-password" name="password_confirmation"
-              placeholder="Vuelve a ingresar tu contraseña" required>
+            <label for="pass-confirm">Confirmar contraseña</label>
+            <input type="password" id="pass-confirm" name="password_confirmation" placeholder="Repite tu contraseña"
+              required>
           </div>
 
-          <button type="submit" class="btn-registrarse">Registrarse</button>
-
-          <div class="enlaces-inferiores">
-            <a href="index.html" class="link-regresar">Ir a página principal</a>
-            <p class="texto-login">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
-          </div>
-
+          <button type="submit" class="btn-ingresar">Registrarse</button>
         </form>
+
+        <a href="login.html" class="registro-link">¿Ya tienes una cuenta? <span>Inicia sesión</span></a>
       </div>
 
     </div>
@@ -58,52 +67,52 @@
 
       <div class="footer-column footer-logo-col">
         <div class="footer-logo">
-          <img src="img/logo_enriquepaillardelle.png" alt="Logo Footer">
+          <a href="index.html">
+            <img src="img/logo_enriquepaillardelle.png" alt="Logo Colegio Footer">
+          </a>
         </div>
         <p class="copyright-text-sub">COLEGIO ENRIQUE PAILLARDELLE</p>
-        <a href="#" class="fb-link">Síguenos en</a>
+        <a href="https://www.facebook.com/IE.Enrique.Paillardelle.Oficial/?locale=es_LA" target="_blank"
+          class="fb-link">
+          <i class="fa-brands fa-facebook"></i> Síguenos en
+        </a>
       </div>
 
-      <div class="footer-column">
-        <h3 class="footer-title">Nosotros</h3>
-        <div class="footer-links">
-          <p><a href="#">Historia</a></p>
-          <p><a href="#">Misión</a></p>
-          <p><a href="#">Visión</a></p>
-        </div>
+      <div class="footer-column footer-links">
+        <h3 class="footer-title">NOSOTROS</h3>
+        <p><a href="index.html#historia">Historia</a></p>
+        <p><a href="index.html#mision">Misión</a></p>
+        <p><a href="index.html#vision">Visión</a></p>
       </div>
 
-      <div class="footer-column">
-        <h3 class="footer-title">Contacto</h3>
-        <p class="phone-number">(052) 504692</p>
+      <div class="footer-column footer-contact-info">
+        <h3 class="footer-title">CONTÁCTANOS</h3>
+        <p><strong>Teléfono:</strong> (052) 504692</p>
+        <p><strong>Dirección:</strong> Avenida Municipal S/N, Tacna, Coronel Gregorio Albarracín Lanchipa.</p>
+        <p><strong>Correo Electrónico:</strong><br><span class="email-text">enriquepaillardelle42238@gmail.com</span>
+        </p>
       </div>
 
-      <div class="footer-column">
-        <h3 class="footer-title">Dirección</h3>
-        <div class="footer-address">
-          <p>AVENIDA MUNICIPAL S/N, Tacna, Coronel Gregorio Albarracín Lanchipa.</p>
-          <p class="email-title">CORREO ELECTRÓNICO</p>
-          <p class="email-text">enriquepaillardelle42238@gmail.com</p>
-        </div>
-      </div>
-
-      <div class="footer-column">
-        <h3 class="footer-title">Nuestra Ubicación</h3>
-        <div class="footer-column footer-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.1374526645396!2d-70.2524419!3d-18.0199927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf61099ec51d%3A0x6bda19f5068cfcb9!2sAv.%20Municipal%2C%20Tacna!5e0!3m2!1ses!2spe!4v1716490000000!5m2!1ses!2spe"
-            width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+      <div class="footer-column footer-map">
+        <h3 class="footer-title">NUESTRA UBICACIÓN</h3>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15172.30514102235!2d-70.2503196!3d-18.0469279!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915ac8ad058202cf%3A0x4e14101f98952041!2sI.E.%20Enrique%20Paillardelle%2042238!5e0!3m2!1ses-419!2spe!4v1718000000000!5m2!1ses-419!2spe"
+          style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
 
     </div>
 
     <div class="footer-bottom-bar">
-      <p>Política de privacidad de datos | todos los derechos reservados</p>
+      <p>Política de privacidad de datos | Todos los derechos reservados</p>
     </div>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Cargamos primero el script que renderiza el Header para asegurar su visibilidad -->
+  <script src="script.js/header.js"></script>
   <script src="script.js/registro.js"></script>
+  <!-- SweetAlert2 CSS y JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
