@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_URL = 'http://localhost:8080/comunicados'; 
+const API_URL = 'http://127.0.0.1:8000/comunicados';
   const contenedor = document.getElementById('contenedor-comunicados-api');
   const inputBuscar = document.getElementById('buscarComunicado');
   const contenedorPaginacion = document.getElementById('contenedor-paginacion');
@@ -7,15 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
   let comunicadosData = [];
   let datosFiltrados = [];
   let paginaActual = 1;
-  const registrosPorPagina = 6; 
+  const registrosPorPagina = 6; // Cantidad de filas por vista
 
- 
+  // Instancia única del Modal de Bootstrap para controlarlo por código
   let bootstrapModal = null;
 
   // 1. Obtener comunicados desde Laravel
   async function cargarComunicados() {
     try {
-      const response = await fetch(API_URL);
+   const response = await fetch(API_URL);
+    if (!response.ok) throw new Error('Error en el servidor');
+    
+    // AQUÍ ESTÁ EL ÚNICO LUGAR DONDE SE DEBE LEER EL JSON
+    comunicadosData = await response.json();
+  
       if (!response.ok) throw new Error('Error en el servidor');
       
       comunicadosData = await response.json();

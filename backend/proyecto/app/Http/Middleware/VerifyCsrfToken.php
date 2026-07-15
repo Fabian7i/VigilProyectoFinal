@@ -16,7 +16,7 @@ class VerifyCsrfToken extends Middleware
         'register',
         'http://127.0.0.1:8000/register',
         '*register*',
-'comentarios/anonimo','comunicados',
+'comentarios/anonimo','comunicados','/comunicados',
 'comentarios/*',
         // Excepciones del Login
         'login',
