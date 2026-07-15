@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
 
-        const response = await fetch('/usuarios');
+       const response = await fetch('http://127.0.0.1:8000/usuarios');
 
         if (!response.ok) {
             throw new Error('Error al obtener los usuarios');
@@ -60,7 +60,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
+// Funciones de navegación (GET)
+function verUsuario(id) {
+    window.location.href = `/usuarios/${id}`;
+}
 
+// Asegúrate de que esta ruta exista en tu Web.php o Controller
+function editarUsuario(id) {
+    window.location.href = `/usuarios/${id}/edit`; 
+}
+
+// Función de eliminación (DELETE)
+async function eliminarUsuario(id) {
+    if (!confirm('¿Deseas eliminar este usuario?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/usuarios/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert('Usuario eliminado correctamente');
+            location.reload(); // Recarga para actualizar la lista
+        } else {
+            const data = await response.json();
+            alert(data.message || 'Error al eliminar el usuario.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Ocurrió un error inesperado.');
+    }
+}
 // Funciones
 function verUsuario(id) {
     window.location.href = `/usuarios/${id}`;
