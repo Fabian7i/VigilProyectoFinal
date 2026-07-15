@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     cargarMensajes();
+    setupEventListeners();
 });
 
 function cargarMensajes() {
@@ -9,6 +10,7 @@ function cargarMensajes() {
             return response.json();
         })
         .then(mensajes => {
+            console.log("Mensajes recibidos:", mensajes);
             const contenedor = document.getElementById('lista-mensajes-dinamica');
             contenedor.innerHTML = ''; 
 
@@ -16,29 +18,45 @@ function cargarMensajes() {
             actualizarContadores(mensajes);
 
             // 2. Renderizar lista
+            if (mensajes.length === 0) {
+                contenedor.innerHTML = '<div class="text-center text-muted p-4">No hay mensajes disponibles.</div>';
+                return;
+            }
+
             mensajes.forEach(msg => {
                 const item = document.createElement('div');
-                item.className = 'mensaje-item';
+                item.className = 'tarjeta-mensaje-horizontal';
                 
-                // Escapar comillas para el JSON en onclick
+                const badgeClass = msg.estado === 'Pendiente' ? 'badge-pendiente' : 'badge-respondido';
+                const badgeIcono = msg.estado === 'Pendiente' ? '🟡' : '🟢';
+                
                 const msgJson = JSON.stringify(msg).replace(/"/g, '&quot;');
                 
                 item.innerHTML = `
-                    <div class="info-mensaje">
-                        <strong>${msg.nombre}</strong><br>
-                        <small>${msg.correo}</small>
-                        <p>${msg.asunto}</p>
+                    <div class="msg-avatar">
+                        <i class="fa-solid fa-user"></i>
                     </div>
-                    <button class="btn btn-sm btn-primary" onclick="abrirDetalle(${msgJson})">
-                        Ver mensaje
-                    </button>
+                    <div class="msg-datos-usuario">
+                        <p class="msg-nombre">${msg.nombre}</p>
+                        <p class="msg-correo">${msg.correo}</p>
+                        <p class="msg-fecha">${new Date(msg.created_at).toLocaleDateString()}</p>
+                    </div>
+                    <div class="msg-cuerpo-resumen">
+                        <p class="msg-asunto-tag">Asunto: ${msg.asunto}</p>
+                        <p class="msg-extracto">${msg.mensaje}</p>
+                    </div>
+                    <div class="msg-acciones-derecha">
+                        <span class="${badgeClass}">${badgeIcono} ${msg.estado}</span>
+                        <button class="btn-accion-icono btn-leer-mensaje" data-mensaje='${JSON.stringify(msg)}' title="Ver Detalle">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 `;
                 contenedor.appendChild(item);
             });
         })
         .catch(error => {
             console.error('Error al cargar los mensajes:', error);
-            // Mostrar 0 en contadores si falla la carga
             actualizarContadores([]); 
         });
 }
@@ -57,7 +75,7 @@ function abrirDetalle(msg) {
     document.getElementById('det-nombre').innerText = msg.nombre || 'N/A';
     document.getElementById('det-correo').innerText = msg.correo || 'N/A';
     document.getElementById('det-asunto').innerText = msg.asunto || 'N/A';
-    document.getElementById('det-fecha').innerText = msg.created_at || 'N/A';
+    document.getElementById('det-fecha').innerText = new Date(msg.created_at).toLocaleDateString() || 'N/A';
     document.getElementById('det-mensaje').innerText = msg.mensaje || '';
 
     const btnGmail = document.getElementById('btn-responder-gmail');
@@ -66,87 +84,19 @@ function abrirDetalle(msg) {
     
     document.getElementById('drawer-detalle-mensaje').classList.add('active');
 }
-// Función para abrir el detalle y configurar el botón de respuesta
-function abrirDetalle(msg) {
-    // 1. Llenar datos
-    document.getElementById('det-nombre').innerText = msg.nombre;
-    document.getElementById('det-correo').innerText = msg.correo;
-    document.getElementById('det-fecha').innerText = new Date(msg.created_at).toLocaleDateString();
-    document.getElementById('det-asunto').innerText = msg.asunto;
-    document.getElementById('det-mensaje').innerText = msg.mensaje;
 
-    // 2. Configurar el botón de Responder en Gmail de forma profesional
-    const btnResponder = document.getElementById('btn-responder-gmail');
-    
-    // Codificamos el asunto para que la URL sea válida
-    const asuntoEncoded = encodeURIComponent(`Respuesta a su consulta: ${msg.asunto}`);
-    
-    // URL de redacción de Gmail
-    btnResponder.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${msg.correo}&su=${asuntoEncoded}&body=Hola ${msg.nombre}, en respuesta a su consulta...`;
-    
-    // 3. Abrir el panel
-    document.getElementById('drawer-detalle-mensaje').classList.add('active');
-}
-
-// Asegurar que el botón cerrar funcione
-document.getElementById('btn-cerrar-drawer-x').addEventListener('click', () => {
-    document.getElementById('drawer-detalle-mensaje').classList.remove('active');
-});document.addEventListener('DOMContentLoaded', () => {
-    const contenedor = document.getElementById('lista-mensajes-dinamica');
-
-    // Delegación de eventos: El clic se escucha en el contenedor padre
-    contenedor.addEventListener('click', (e) => {
-        // Buscamos si el clic fue en un botón con clase 'btn-leer-mensaje'
-        const boton = e.target.closest('.btn-leer-mensaje');
-        if (boton) {
-            const mensajeData = JSON.parse(boton.dataset.mensaje);
-            abrirDetalle(mensajeData);
-        }
-    });
-
-    // Función para cerrar el panel
-    document.getElementById('btn-cerrar-drawer-x').addEventListener('click', () => {
-        document.getElementById('drawer-detalle-mensaje').classList.remove('active');
-    });
-});
-
-// Función de renderizado (asegúrate de usar esta estructura)
-function renderizarLista(mensajes) {
-    const contenedor = document.getElementById('lista-mensajes-dinamica');
-    contenedor.innerHTML = ''; 
-
-    mensajes.forEach(msg => {
-        const item = document.createElement('div');
-        // Aquí usamos data-mensaje para pasar el objeto JSON de forma segura
-        item.innerHTML = `
-            <div class="card p-3 mb-2 shadow-sm border-0">
-                <h6 class="mb-0 text-primary">${msg.nombre}</h6>
-                <small class="text-muted">${msg.correo}</small>
-                <button class="btn btn-outline-primary btn-sm mt-2 btn-leer-mensaje" 
-                        data-mensaje='${JSON.stringify(msg)}'>
-                    <i class="fa-solid fa-eye"></i> Leer mensaje completo
-                </button>
-            </div>
-        `;
-        contenedor.appendChild(item);
-    });
-}
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Script cargado correctamente");
-    
-    // 1. Delegación de eventos (Funciona aunque el contenido sea dinámico)
+function setupEventListeners() {
+    // Delegación de eventos para botones de leer mensaje
     const contenedor = document.getElementById('lista-mensajes-dinamica');
     
     if (contenedor) {
         contenedor.addEventListener('click', (e) => {
-            // Buscamos si el clic fue en un botón o en el icono dentro del botón
             const boton = e.target.closest('.btn-leer-mensaje');
-            
             if (boton) {
                 const dataString = boton.getAttribute('data-mensaje');
                 try {
                     const msg = JSON.parse(dataString);
-                    abrirDetalle(msg); // Llamamos a la función
+                    abrirDetalle(msg);
                 } catch (error) {
                     console.error("Error al procesar el mensaje:", error);
                 }
@@ -154,41 +104,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Cerrar drawer
+    // Botón cerrar drawer
     const btnCerrar = document.getElementById('btn-cerrar-drawer-x');
     if (btnCerrar) {
         btnCerrar.addEventListener('click', () => {
             document.getElementById('drawer-detalle-mensaje').classList.remove('active');
         });
     }
-});
 
+    // Buscador
+    const inputBuscar = document.getElementById('input-buscar');
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', () => {
+            cargarMensajes(); // Recargar con filtro (implementar filtro en backend)
+        });
+    }
 
-function abrirDetalle(msg) {
-    Swal.fire({
-        title: 'DETALLE DEL MENSAJE',
-        html: `
-            <div style="text-align: left;">
-                <p><strong>Nombre:</strong> ${msg.nombre}</p>
-                <p><strong>Correo:</strong> ${msg.correo}</p>
-                <p><strong>Asunto:</strong> ${msg.asunto}</p>
-                <hr>
-                <p><strong>Mensaje:</strong></p>
-                <div style="background: #f8f9fa; padding: 10px; border-radius: 5px;">${msg.mensaje}</div>
-            </div>
-        `,
-        icon: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'Cerrar',
-        confirmButtonText: '<i class="fa-brands fa-google"></i> Responder en Gmail',
-        confirmButtonColor: '#00204a',
-        width: '600px'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Abrir Gmail con los datos listos
-            const asuntoEncoded = encodeURIComponent("Respuesta: " + msg.asunto);
-            const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${msg.correo}&su=${asuntoEncoded}`;
-            window.open(url, '_blank');
-        }
-    });
+    // Filtro de estado
+    const selectFiltro = document.getElementById('select-filtro-estado');
+    if (selectFiltro) {
+        selectFiltro.addEventListener('change', () => {
+            cargarMensajes(); // Recargar con filtro (implementar filtro en backend)
+        });
+    }
 }
