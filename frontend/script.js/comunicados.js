@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let comunicadosData = [];
   let datosFiltrados = [];
   let paginaActual = 1;
-  const registrosPorPagina = 6; // Cantidad de filas por vista
+  const registrosPorPagina = 6; 
 
-  // Instancia única del Modal de Bootstrap para controlarlo por código
+ 
   let bootstrapModal = null;
 
   // 1. Obtener comunicados desde Laravel
