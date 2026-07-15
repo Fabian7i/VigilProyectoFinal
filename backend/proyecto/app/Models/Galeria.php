@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Galeria extends Model
 {
-    use HasFactory;protected $fillable = ['titulo', 'imagen', 'estado'];
+    use HasFactory;
+
+
+    protected $fillable = ['titulo', 'imagen', 'estado'];
+
+    protected $attributes = [
+        'estado' => 'Publicada',
+    ];
 }

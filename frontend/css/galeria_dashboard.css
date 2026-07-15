@@ -854,4 +854,28 @@
     .btn-confirmacion-galeria {
         width: 100%;
     }
+}.modal-galeria-overlay {
+    display: none;
+}
+.modal-galeria-overlay.activo {
+    display: flex;
+}.modal-galeria-overlay {
+    display: none; /* Esto lo mantiene oculto al inicio */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+/* Esta clase es la que usaremos para mostrarlo */
+.modal-galeria-overlay.activo {
+    display: flex !important; /* El !important asegura que funcione */
+    justify-content: center;
+    align-items: center;
+}/* Esto asegura que el modal se muestre cuando tenga la clase 'activo' */
+.modal-galeria-overlay.activo {
+    display: flex !important;
 }

@@ -20,7 +20,8 @@ class VerifyCsrfToken extends Middleware
 'comentarios/*',
         // Excepciones del Login
         'login',
-        'http://127.0.0.1:8000/login',
+        'http://127.0.0.1:8000/login','galeria',
+        'galeria/*',
         '*login*', 'usuarios/*',
 'comunicados/*','mensajes',
         // 🔥 EXCEPCIONES PARA EL MÓDULO DE NOTICIAS (WEB.PHP)

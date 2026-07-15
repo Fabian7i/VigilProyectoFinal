@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gestión de Galería - Colegio Enrique Paillardelle</title>
     <script src="AuthGuard.js"></script>
     <link rel="stylesheet" href="css/paginaweb.css">
@@ -142,74 +143,73 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
+<form id="formGaleriaDashboard">
+    <!-- El ID fotoId es correcto, añade name="id" -->
+    <input type="hidden" id="fotoId" name="id">
 
-            <form id="formGaleriaDashboard">
-                <input type="hidden" id="fotoId">
+    <div class="campo-galeria">
+        <label for="tituloFoto">Título</label>
+        <input type="text" id="tituloFoto" name="titulo" maxlength="100" required>
+    </div>
 
-                <div class="campo-galeria">
-                    <label for="tituloFoto">Título</label>
-                    <input type="text" id="tituloFoto" maxlength="100" required>
-                </div>
+    <div class="fila-campos-galeria">
+        <div class="campo-galeria">
+            <label for="categoriaFoto">Categoría</label>
+            <select id="categoriaFoto" name="categoria" required>
+                <option value="">Seleccionar</option>
+                <option value="actividades">Actividades</option>
+                <option value="aniversario">Aniversario</option>
+                <option value="deportes">Deportes</option>
+                <option value="ferias">Ferias</option>
+                <option value="ceremonias">Ceremonias</option>
+            </select>
+        </div>
 
-                <div class="fila-campos-galeria">
-                    <div class="campo-galeria">
-                        <label for="categoriaFoto">Categoría</label>
-                        <select id="categoriaFoto" required>
-                            <option value="">Seleccionar</option>
-                            <option value="actividades">Actividades</option>
-                            <option value="aniversario">Aniversario</option>
-                            <option value="deportes">Deportes</option>
-                            <option value="ferias">Ferias</option>
-                            <option value="ceremonias">Ceremonias</option>
-                        </select>
-                    </div>
+        <div class="campo-galeria">
+            <label for="fechaFoto">Fecha</label>
+            <input type="date" id="fechaFoto" name="fecha" required>
+        </div>
+    </div>
 
-                    <div class="campo-galeria">
-                        <label for="fechaFoto">Fecha</label>
-                        <input type="date" id="fechaFoto" required>
-                    </div>
-                </div>
+    <div class="campo-galeria">
+        <label for="descripcionFoto">Descripción</label>
+        <textarea id="descripcionFoto" name="descripcion" rows="3" maxlength="250"></textarea>
+    </div>
 
-                <div class="campo-galeria">
-                    <label for="descripcionFoto">Descripción</label>
-                    <textarea id="descripcionFoto" rows="3" maxlength="250"></textarea>
-                </div>
+    <div class="campo-galeria">
+        <label>Imagen de la fotografía</label>
+        <label for="imagenFoto" class="selector-imagen-galeria" id="selectorImagenGaleria">
+            <!-- Asegúrate de poner name="imagen" -->
+            <input type="file" id="imagenFoto" name="imagen" accept="image/jpeg,image/png,image/webp" hidden>
+            <!-- ... resto del contenido ... -->
+        </label>
+    </div>
 
-                <div class="campo-galeria">
-                    <label>Imagen de la fotografía</label>
+    <div class="campo-galeria">
+        <label for="estadoFoto">Estado</label>
+        <select id="estadoFoto" name="estado" required>
+            <option value="publicada">Publicada</option>
+            <option value="oculta">Oculta</option>
+        </select>
+    </div>
+   <!-- ... campos anteriores ... -->
+    <div class="campo-galeria">
+        <label for="estadoFoto">Estado</label>
+        <select id="estadoFoto" name="estado" required>
+            <option value="publicada">Publicada</option>
+            <option value="oculta">Oculta</option>
+        </select>
+    </div>
 
-                    <label for="imagenFoto" class="selector-imagen-galeria" id="selectorImagenGaleria">
-                        <input type="file" id="imagenFoto" accept="image/jpeg,image/png,image/webp" hidden>
-
-                        <div class="estado-subida-imagen" id="estadoSubidaImagen">
-                            <i class="fa-regular fa-image"></i>
-                            <strong>Subir nueva imagen</strong>
-                            <span>JPG, PNG o WEBP</span>
-                        </div>
-
-                        <img id="vistaPreviaFoto" class="vista-previa-foto-oculta" alt="Vista previa de la fotografía">
-                    </label>
-
-                    <small>Haz clic en el recuadro para seleccionar una imagen desde tu computadora.</small>
-                </div>
-
-                <div class="campo-galeria">
-                    <label for="estadoFoto">Estado</label>
-                    <select id="estadoFoto" required>
-                        <option value="publicada">Publicada</option>
-                        <option value="oculta">Oculta</option>
-                    </select>
-                </div>
-
-                <div class="acciones-modal-galeria">
-                    <button type="button" class="btn-modal-galeria cancelar"
-                        id="btnCancelarModalGaleria">Cancelar</button>
-                    <button type="submit" class="btn-modal-galeria guardar">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Guardar fotografía
-                    </button>
-                </div>
-            </form>
+    <!-- ESTO ES LO QUE FALTABA -->
+    <div class="acciones-modal-galeria">
+        <button type="button" class="btn-modal-galeria cancelar" id="btnCancelarModalGaleria">Cancelar</button>
+        <button type="submit" class="btn-modal-galeria guardar">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar fotografía
+        </button>
+    </div>
+</form> <!-- AHORA SÍ SE CIERRA EL FORMULARIO AQUÍ -->
+</form>
         </div>
     </div>
 
