@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Comunicado;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ContactMessageController;
-// Si estás usando la opción de API (sin enredos de CSRF token)
+use App\Http\Controllers\GaleriaController;
 Route::get('/comunicados', [Comunicado::class, 'index']);
 Route::post('/comunicados', [Comunicado::class, 'store']);
 Route::get('/comunicados/{id}', [Comunicado::class, 'show']);
@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/galeria', [GaleriaController::class, 'obtenerGaleriaAPI']);
+Route::post('/galeria', [GaleriaController::class, 'guardarFotoAPI']);
 // Rutas para el módulo de contacto
 Route::post('/contacto', [ContactMessageController::class, 'store']); // Guardar en BD
 
