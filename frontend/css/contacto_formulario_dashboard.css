@@ -363,4 +363,7 @@
   .panel-lateral-detalle {
     width: 100%;
   }
+}.panel-lateral-detalle.active {
+    right: 0 !important;
+    border: 5px solid red; /* Esto nos confirmará si el panel aparece */
 }

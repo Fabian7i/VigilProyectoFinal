@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 // Rutas para el módulo de contacto
 Route::post('/contacto', [ContactMessageController::class, 'store']); // Guardar en BD
 
-// Cambia esto:
+Route::post('/mensajes', [ContactMessageController::class, 'store']);
 Route::get('/mensajes', [ContactMessageController::class, 'index']);
 // Ruta explícita utilizando POST
 Route::post('/comentarios/{id}/responder', [CommentController::class, 'responderAdmin']);

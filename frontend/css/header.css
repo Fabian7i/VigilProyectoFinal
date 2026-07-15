@@ -4,11 +4,174 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000; /* Evita que sliders u otros elementos se superpongan al menú */
-    
-    /* Agrega aquí tus estilos previos (background-color, display: flex, etc.) */
+    background: linear-gradient(90deg, #003366, #0078C9, #66CCFF);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
 }
 
 /* IMPORTANTE: Para que el inicio de tu página no quede tapado por el header fijo */
 body {
     padding-top: 110px; /* Ajustado para que el texto respire y no quede tapado */
+}
+
+/* Logo */
+.logo img {
+    height: 60px;
+}
+
+/* Navegación */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #FFD23B;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #003366;
+    min-width: 200px;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+}
+
+.dropdown-menu li a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Botón de inicio de sesión */
+.btn {
+    background-color: #FFD23B;
+    color: #003366;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #e6c235;
+}
+
+/* Hamburger menu (oculto en escritorio) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: #003366;
+        transition: right 0.3s ease;
+        padding: 80px 20px 20px;
+        z-index: 1000;
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .dropdown-menu {
+        position: static;
+        display: none;
+        background-color: rgba(255,255,255,0.05);
+        box-shadow: none;
+        padding-left: 20px;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .btn {
+        display: none;
+    }
+
+    body {
+        padding-top: 80px;
+    }
 }
